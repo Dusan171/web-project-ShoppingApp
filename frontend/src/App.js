@@ -7,7 +7,7 @@ import ProductDetails from './components/ProductDetails';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="container">
         <h1>Moja Prodavnica</h1>
         <Routes>
           {/* Ruta za početnu stranicu - prikaz svih proizvoda */}

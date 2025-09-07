@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; 
+import './ProductDetails.css';
 
 const ProductDetails = () => {
   const [product, setProduct] = useState(null); 
@@ -17,9 +18,9 @@ const ProductDetails = () => {
   }
 
   return (
-    <div>
+    <div className="product-details">
       {/* Link za povratak na početnu stranicu */}
-      <Link to="/">Nazad na sve proizvode</Link>
+      <Link to="/" className="back-link">Nazad na sve proizvode</Link>
       <h2>{product.naziv}</h2>
       <p><strong>Opis:</strong> {product.opis}</p>
       <p><strong>Cena:</strong> {product.cena} €</p>
