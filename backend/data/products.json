@@ -5,7 +5,7 @@
         "opis": "Mocan laptop sa 4K ekranom, 16GB RAM-a i 512GB SSD.",
         "kategorija": "Racunari",
         "cena": 1500,
-        "tpProdaje": "fiksna",
+        "tipProdaje": "fiksna",
         "datumObjavljivanja": "2025-09-01T10:00:00Z",
         "isDeleted": false
     },
