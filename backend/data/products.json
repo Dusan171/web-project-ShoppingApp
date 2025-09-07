@@ -1,0 +1,34 @@
+[
+    {
+        "id": "1",
+        "naziv": "Laptop Dell XPS 15",
+        "opis": "Mocan laptop sa 4K ekranom, 16GB RAM-a i 512GB SSD.",
+        "kategorija": "Racunari",
+        "cena": 1500,
+        "tpProdaje": "fiksna",
+        "datumObjavljivanja": "2025-09-01T10:00:00Z",
+        "isDeleted": false
+    },
+
+    {
+        "id": "2",
+        "naziv": "Sony PlayStation 5",
+        "opis": "Najnovija konzola za igranje sa ultra-brzim SSD-om i podrškom za 8K.",
+        "kategorija": "Konzole",
+        "cena": 500,
+        "tipProdaje": "aukcija",
+        "datumObjavljivanja": "2025-09-05T15:30:00Z",
+        "isDeleted": false
+    },
+
+    {
+        "id": "3",
+        "naziv": "iPhone 15 Pro",
+        "opis": "Novi iPhone sa ProMotion ekranom i najboljim sistemom kamera.",
+        "kategorija": "Telefoni",
+        "cena": 1200,
+        "tipProdaje": "fiksna",
+        "datumObjavljivanja": "2025-09-06T12:00:00Z",
+        "isDeleted": true
+    }
+]
