@@ -1,47 +1,38 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const cors = require('cors');
-const app = express();
+import express from "express";
+import productRoutes from "./routes/productRoutes.js";
+import fs from "fs";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import cors from "cors";
 
+const app = express();
 const PORT = 5000;
 
+app.use(cors({
+  origin: "http://localhost:3000", 
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
+}));
 
-app.use(cors());
+
 app.use(express.json());
 
-const productsFilePath = path.join(__dirname, 'data', 'products.json');
+app.use("/api/products", productRoutes);
 
-const readProducts = () => {
-  const data = fs.readFileSync(productsFilePath, 'utf8');
-  return JSON.parse(data);
-};
+app.use("/api/categories", categoryRoutes);
 
-app.get('/api/products', (req, res) => {
-  try {
-    const products = readProducts();
-    const activeProducts = products.filter(product => !product.isDeleted);
-    res.json(activeProducts); 
-  } catch (error) {
-    res.status(500).send('Greška prilikom čitanja podataka o proizvodima.');
-  }
-});
-
-app.get('/api/products/:id', (req, res) => {
-  try {
-    const products = readProducts();
-    const product = products.find(p => p.id === req.params.id && !p.isDeleted);
-
-    if (product) {
-      res.json(product); 
-    } else {
-      res.status(404).send('Proizvod nije pronađen.');
-    }
-  } catch (error) {
-    res.status(500).send('Greška prilikom čitanja podataka o proizvodima.');
-  }
-});
+const CATEGORIES_FILE = "./data/categories.json";
+if (!fs.existsSync(CATEGORIES_FILE)) {
+  fs.mkdirSync("./data", { recursive: true });
+  const categories = [
+    { name: "Electronics" },
+    { name: "Clothing" },
+    { name: "Books" }
+  ];
+  fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(categories, null, 2), "utf8");
+}
 
 app.listen(PORT, () => {
-  console.log(`Backend server je pokrenut na http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
+
+

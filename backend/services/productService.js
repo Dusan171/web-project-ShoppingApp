@@ -11,7 +11,20 @@ function mapProductWithCategory(product, categories) {
 }
 
 export default {
-  
+  getAll: () => {
+    const products = productRepository.getAllProducts().filter((p) => !p.isDeleted);
+    const categories = productRepository.getCategories();
+    return products.map((p) => mapProductWithCategory(p, categories));
+  },
+
+  getOne: (id) => {
+    const products = productRepository.getAllProducts();
+    const product = products.find((p) => p.id === id && !p.isDeleted);
+    if (!product) return null;
+
+    const categories = productRepository.getCategories();
+    return mapProductWithCategory(product, categories);
+  },
 
   create: ({ name, description, categoryId, price, salesType }) => {
     if (!name || !description || !categoryId || !price || !salesType) {
@@ -42,5 +55,33 @@ export default {
     return mapProductWithCategory(newProduct, categories);
   },
 
-  
+  update: (id, updateData) => {
+    const products = productRepository.getAllProducts();
+    const index = products.findIndex((p) => p.id === id && !p.isDeleted);
+    if (index === -1) throw new Error("Product not found");
+
+    if (updateData.categoryId) {
+      const categories = productRepository.getCategories();
+      if (!categories.find((c) => c.id === updateData.categoryId)) {
+        throw new Error("Invalid categoryId");
+      }
+    }
+
+    products[index] = { ...products[index], ...updateData };
+    productRepository.saveProducts(products);
+
+    const categories = productRepository.getCategories();
+    return mapProductWithCategory(products[index], categories);
+  },
+
+  deleteLogical: (id) => {
+    const products = productRepository.getAllProducts();
+    const index = products.findIndex((p) => p.id === id && !p.isDeleted);
+    if (index === -1) throw new Error("Product not found");
+
+    products[index].isDeleted = true;
+    productRepository.saveProducts(products);
+
+    return { message: "Product deleted logically" };
+  }
 };

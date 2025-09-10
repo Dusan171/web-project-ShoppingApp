@@ -1,34 +1,40 @@
 [
-    {
-        "id": "1",
-        "naziv": "Laptop Dell XPS 15",
-        "opis": "Mocan laptop sa 4K ekranom, 16GB RAM-a i 512GB SSD.",
-        "kategorija": "Racunari",
-        "cena": 1500,
-        "tipProdaje": "fiksna",
-        "datumObjavljivanja": "2025-09-01T10:00:00Z",
-        "isDeleted": false
-    },
-
-    {
-        "id": "2",
-        "naziv": "Sony PlayStation 5",
-        "opis": "Najnovija konzola za igranje sa ultra-brzim SSD-om i podrškom za 8K.",
-        "kategorija": "Konzole",
-        "cena": 500,
-        "tipProdaje": "aukcija",
-        "datumObjavljivanja": "2025-09-05T15:30:00Z",
-        "isDeleted": false
-    },
-
-    {
-        "id": "3",
-        "naziv": "iPhone 15 Pro",
-        "opis": "Novi iPhone sa ProMotion ekranom i najboljim sistemom kamera.",
-        "kategorija": "Telefoni",
-        "cena": 1200,
-        "tipProdaje": "fiksna",
-        "datumObjavljivanja": "2025-09-06T12:00:00Z",
-        "isDeleted": true
+  {
+    "id": "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
+    "name": "pp123",
+    "description": "pp",
+    "categoryId": "1",
+    "price": "100",
+    "salesType": "fixedPrice",
+    "dateOfCreation": "2025-09-09T22:39:46.515Z",
+    "isDeleted": false,
+    "category": {
+      "id": "1",
+      "name": "Electronics"
     }
+  },
+  {
+    "id": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
+    "name": "jj22",
+    "description": "jj",
+    "categoryId": "3",
+    "price": "992",
+    "salesType": "auction",
+    "dateOfCreation": "2025-09-09T22:40:15.114Z",
+    "isDeleted": false,
+    "category": {
+      "id": "3",
+      "name": "Books"
+    }
+  },
+  {
+    "id": "dbe41bbc-398e-4334-ad78-ca1fd0754ef5",
+    "name": "hh",
+    "description": "hh",
+    "categoryId": "2",
+    "price": "8989",
+    "salesType": "auction",
+    "dateOfCreation": "2025-09-09T22:45:17.596Z",
+    "isDeleted": true
+  }
 ]
