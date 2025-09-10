@@ -1,22 +1,18 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import ProductList from './components/ProductList';
-import ProductDetails from './components/ProductDetails';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ProductList from "./pages/ProductList";
+import ProductForm from "./pages/ProductForm";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
     <Router>
-      <div className="container">
-        <h1>Moja Prodavnica</h1>
-        <Routes>
-          {/* Ruta za početnu stranicu - prikaz svih proizvoda */}
-          <Route path="/" element={<ProductList />} />
-
-          {/* Ruta za prikaz detalja jednog proizvoda */}
-          <Route path="/products/:id" element={<ProductDetails />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="/create" element={<ProductForm />} />
+        <Route path="/edit/:id" element={<ProductForm />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+      </Routes>
     </Router>
   );
 }

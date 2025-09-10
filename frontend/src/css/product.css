@@ -1,0 +1,263 @@
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+/* Card header */
+.card-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Card body */
+.card-body {
+  padding: 20px;
+}
+
+/* Buttons */
+.btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-right: 8px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Table/List */
+ul.product-list {
+  list-style: none;
+  padding: 0;
+}
+
+ul.product-list li {
+  background: #f9f9f9;
+  margin-bottom: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+ul.product-list li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #333;
+}
+
+ul.product-list li a:hover {
+  color: #667eea;
+}
+
+button.delete-btn {
+  background: red;
+  color: white;
+  border-radius: 6px;
+  border: none;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+
+/* Form container inside dialogs */
+.form-container {
+  padding: 16px 20px;
+}
+
+/* Labels */
+.v-label {
+  font-weight: 600;
+  color: #444 !important;
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
+/* Input fields */
+.v-input,
+.v-text-field,
+.v-select,
+.v-textarea {
+  border-radius: 10px !important;
+  background: #fafafa !important;
+  padding: 4px 10px !important;
+  transition: 0.2s ease-in-out;
+}
+
+.v-input input,
+.v-textarea textarea {
+  font-size: 0.95rem;
+}
+
+/* Input focus */
+.v-input.v-input--focused {
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.4);
+  background: #fff !important;
+}
+
+/* Validation errors */
+.v-messages__message {
+  font-size: 0.8rem;
+  color: #e53935 !important;
+  font-weight: 500;
+}
+
+/* Switch & checkbox labels */
+.v-input--selection-controls__ripple {
+  color: #667eea !important;
+}
+
+/* Form buttons */
+.dialog-actions .v-btn {
+  border-radius: 8px;
+  font-weight: 600;
+  text-transform: none;
+  min-width: 100px;
+}
+
+.dialog-actions .v-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+.dialog-actions .v-btn.text {
+  color: #666 !important;
+}
+
+
+/* ========================= */
+/* Product Form Styling      */
+/* ========================= */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+form input,
+form textarea,
+form select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  background: #fafafa;
+  transition: all 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+  background: #fff;
+}
+
+form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+form button.btn {
+  align-self: flex-start;
+  margin-top: 10px;
+}
+
+/* ========================= */
+/* Product Details Styling   */
+/* ========================= */
+
+.product-details {
+  padding: 20px;
+}
+
+.product-details h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #333;
+}
+
+.product-details p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.product-details p strong {
+  color: #333;
+}
+
+.product-details a {
+  display: inline-block;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.product-details a:hover {
+  opacity: 0.9;
+}
+
+
+
+.product-details h2 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #333;
+}
+
+.product-details p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.product-details p strong {
+  color: #333;
+}
+
+.product-details .btn {
+  margin-top: 16px;
+}
