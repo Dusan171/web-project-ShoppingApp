@@ -1,7 +1,7 @@
 [
   {
     "id": "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
-    "name": "patikr tike",
+    "name": "Elegant Silk Blouse",
     "description": "pp123123",
     "categoryId": "1",
     "price": "100",
@@ -11,44 +11,146 @@
     "category": {
       "id": "1",
       "name": "Electronics"
-    }
+    },
+    "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg"
   },
   {
     "id": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
-    "name": "jj22",
-    "description": "jj",
-    "categoryId": "3",
-    "price": "992",
+    "name": "Satin Luxe Top",
+    "description": "Satin Luxe Top",
+    "categoryId": "2",
+    "price": "993",
     "salesType": "auction",
     "dateOfCreation": "2025-09-09T22:40:15.114Z",
     "isDeleted": false,
     "category": {
       "id": "3",
       "name": "Books"
-    }
+    },
+    "image": "https://burst.shopifycdn.com/photos/fashion-model-in-pink.jpg?width=1000&format=pjpg&exif=0&iptc=0"
   },
   {
     "id": "dbe41bbc-398e-4334-ad78-ca1fd0754ef5",
-    "name": "hh",
-    "description": "hh",
+    "name": "Summer Linen Dress",
+    "description": "Summer Linen Dress",
     "categoryId": "2",
     "price": "8989",
     "salesType": "auction",
     "dateOfCreation": "2025-09-09T22:45:17.596Z",
-    "isDeleted": true
+    "isDeleted": false,
+    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/bb3a6f2f-65fd-4eea-bdf0-d4b41594450e/naomi+selects10.jpg"
   },
   {
     "id": "61859649-b686-42e0-b71b-aab922160bb4",
-    "name": "prob123",
-    "description": "desc",
+    "name": "Classic Tailored Blazer",
+    "description": "Classic Tailored Blazer",
     "categoryId": "1",
     "price": "123",
     "salesType": "fixedPrice",
     "dateOfCreation": "2025-09-10T21:36:46.177Z",
-    "isDeleted": true,
+    "isDeleted": false,
     "category": {
       "id": "1",
       "name": "Electronics"
-    }
+    },
+    "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840"
+  },
+  {
+    "id": "cf8bb29e-52f3-4ec3-9bd2-f5f4c5d3f7fb",
+    "name": "Elegant Stiletto Heels",
+    "description": "Elegant Stiletto Heels",
+    "categoryId": "2",
+    "price": "5.67",
+    "salesType": "fixedPrice",
+    "dateOfCreation": "2025-09-13T04:16:03.484Z",
+    "isDeleted": false,
+    "category": {
+      "id": "2",
+      "name": "Clothing"
+    },
+    "image": "https://img.joomcdn.net/8a41b1fe53b59753e453ae02c99356b90f8d09f7_1024_1024.jpeg"
+  },
+  {
+    "id": "280cf040-dcb5-4a8c-9073-a483587eda48",
+    "name": "High-Waist Skinny Jeans",
+    "description": "High-Waist Skinny Jeans",
+    "categoryId": "4",
+    "price": "2151",
+    "salesType": "auction",
+    "dateOfCreation": "2025-09-13T04:51:33.887Z",
+    "isDeleted": false,
+    "category": {
+      "id": "4",
+      "name": "Shoes"
+    },
+    "image": "https://plus.unsplash.com/premium_photo-1708274140680-11c9e42dcac9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFsZSUyMGZhc2hpb24lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D"
+  },
+  {
+    "id": "7e9ea283-6af1-4853-a91c-78f5037e3f0c",
+    "name": "Minimalist Red T-Shirt",
+    "description": "Minimalist Red T-Shirt",
+    "categoryId": "2",
+    "price": "2342",
+    "salesType": "fixedPrice",
+    "dateOfCreation": "2025-09-13T05:06:28.263Z",
+    "isDeleted": false,
+    "category": {
+      "id": "2",
+      "name": "Clothing"
+    },
+    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/cd3b25b0-24c9-4e3c-9de7-f1f034c35504/EE7A6231.jpg"
+  },
+  {
+    "id": "c93cea78-af8b-47e1-9aff-27c7c051d6a3",
+    "name": "Classic Cashmere Sweater",
+    "description": "Classic Cashmere Sweater",
+    "categoryId": "1",
+    "price": "325235",
+    "salesType": "auction",
+    "dateOfCreation": "2025-09-13T07:38:07.787Z",
+    "isDeleted": false,
+    "image": "https://media.istockphoto.com/id/1018293976/photo/attractive-fashionable-woman-posing-in-white-trendy-sweater-beige-pants-and-autumn-heels-on.jpg?s=612x612&w=0&k=20&c=_CLawpZw6l9z0uV4Uon-7lqaS013E853ub883pkIK3c="
+  },
+  {
+    "id": "cd58b2d6-706e-4d1e-a6ce-1e10de94bc82",
+    "name": "Velvet Evening Gown",
+    "description": "Velvet Evening Gown",
+    "categoryId": "4",
+    "price": "123",
+    "salesType": "fixedPrice",
+    "dateOfCreation": "2025-09-13T07:53:18.425Z",
+    "isDeleted": false,
+    "category": {
+      "id": "4",
+      "name": "Shoes"
+    },
+    "image": "https://cdn.prod.website-files.com/611cda85065cd630ff59f7ff/642e18c5e42d31284b54992e_GyMVKyIVYAGrxoiaL_qz1uB-L7HaUVweRuPfL1AOs4MPn_GWyWRLg7-axFhgJVaSxIoa0hCTu4LhfQeQutKrnRcDSwpgtiW3X2Ywc-wpLCwsDvB56_oNWiarfvjzuzVOFnCZf2hRUayGuYiD1KTaAw.png"
+  },
+  {
+    "name": "Classic Trench Coat",
+    "description": "A timeless, elegant wardrobe essential that perfectly combines style and functionality. Crafted from high-quality, water-resistant fabric, this trench coat features a double-breasted front and a waist belt that accentuates your silhouette. Ideal for any occasion — from business meetings to evening outings — it pairs effortlessly with almost any outfit. The interior is lined with a soft material for added comfort, while classic details like epaulettes, buttoned cuffs, and a sleek collar give it a sophisticated, refined look.",
+    "categoryId": "2",
+    "price": "3",
+    "salesType": "fixedPrice",
+    "image": "https://img.freepik.com/free-photo/portrait-young-man-yellow-scene_23-2148184810.jpg?semt=ais_incoming&w=740&q=80",
+    "id": "1757942159980"
+  },
+  {
+    "name": "Cozy Knit Hat",
+    "description": "Cozy Knit Hat",
+    "categoryId": "2",
+    "price": "231",
+    "salesType": "auction",
+    "image": "https://storage.googleapis.com/lulu-fanatics/product/58189/1280/lululemon-crazy-cozy-beanie-heathered-core-ultra-light-grey-032493-324632.jpg",
+    "id": "1757942950698"
+  },
+  {
+    "name": "Pleated Skirt",
+    "description": "Pleated Skirt",
+    "categoryId": "2",
+    "price": "64",
+    "salesType": "fixedPrice",
+    "image": "https://eu.maje.com/dw/image/v2/AAON_PRD/on/demandware.static/-/Sites-maje-master-catalog/default/dw523720bd/images/hi-res/Maje_MFPJU01357-2517_F_1.jpg?sw=1520&sh=2000",
+    "id": "1757945967269"
   }
 ]

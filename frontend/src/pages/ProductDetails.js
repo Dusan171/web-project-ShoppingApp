@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getProduct } from "../services/productService";
-import { useParams, Link } from "react-router-dom";
 import "../css/product.css";
 
 export default function ProductDetails() {
@@ -8,28 +8,44 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
+    async function loadProduct() {
+      try {
+        const data = await getProduct(id);
+        setProduct(data);
+      } catch (error) {
+        console.error("Error loading product:", error);
+      }
+    }
     loadProduct();
-  }, []);
+  }, [id]);
 
-  async function loadProduct() {
-    const data = await getProduct(id);
-    setProduct(data);
+  if (!product) {
+    return <div className="loading">Loading product details...</div>;
   }
 
-  if (!product) return <p>Loading...</p>;
-
   return (
-    <div className="container">
-      <div className="card product-details">
-        <div className="card-header">Product Details</div>
-        <div className="card-body">
-          <h2>{product.name}</h2>
-          <p>{product.description}</p>
-          <p><strong>Category:</strong> {product.category?.name}</p>
-          <p><strong>Price:</strong> ${product.price}</p>
-          <p><strong>Sales Type:</strong> {product.salesType}</p>
-          <Link className="btn" to="/">⬅ Back</Link>
-        </div>
+    <div className="product-details">
+      {/* Leva polovina (slika full height/width) */}
+      <div className="product-details-image">
+        {product.image && (
+          <img
+            src={product.image.startsWith("http") ? product.image : `/${product.image}`}
+            alt={product.name}
+          />
+        )}
+      </div>
+
+      {/* Desna polovina (info centriran) */}
+      <div className="product-details-info">
+<h2 style={{ fontFamily: "Playfair Display, serif", fontSize: "2.5rem", color: "#222" }}>
+  {product.name}
+</h2>
+
+        {product.category && <p className="category">{product.category.name}</p>}
+        <p className="price">${product.price}</p>
+        <p className="description">{product.description}</p>
+
+        <button className="btn shop-btn">SHOP NOW</button>
       </div>
     </div>
   );
