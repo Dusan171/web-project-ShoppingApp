@@ -1,0 +1,53 @@
+/* Home.css */
+
+/* Animacija naslova iz donje ivice */
+@keyframes slideUpFromBottom {
+  0% {
+    transform: translate(-50%, 100vh); /* kreće ispod ekrana */
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0); /* dolazi na svoju poziciju */
+    opacity: 1;
+  }
+}
+
+.launch-text {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 75px;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: white;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 2px;
+  font-weight: 300;
+  text-align: center;
+  opacity: 0;
+  animation: slideUpFromBottom 2.5s ease-out forwards;
+}
+
+/* Animacija za tekst gore levo */
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%); /* kreće van ekrana s leve strane */
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0); /* dolazi na svoje mesto */
+    opacity: 1;
+  }
+}
+
+.top-left-text {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-size: 18px;
+  text-align: left;
+  line-height: 1.5;
+  opacity: 0;
+  animation: slideInFromLeft 2s ease-out forwards;
+}

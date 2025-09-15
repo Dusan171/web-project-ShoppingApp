@@ -15,9 +15,11 @@ export default {
     }
   },
 
-  create: (req, res) => {
+  create: (req, res) => {   // 👈 ispravljeno
     try {
+      console.log("📥 Received product:", req.body);
       const newProduct = productService.create(req.body);
+      console.log("💾 Saved product:", newProduct);
       res.status(201).json(newProduct);
     } catch (err) {
       res.status(400).json({ error: err.message });

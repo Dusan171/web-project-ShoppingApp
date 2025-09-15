@@ -10,9 +10,11 @@ export default function ProductForm() {
     description: "",
     categoryId: "",
     price: "",
-    salesType: "fixedPrice"
+    salesType: "fixedPrice",
+    image: "" // 👈 novo polje
   });
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(""); 
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -35,12 +37,20 @@ export default function ProductForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    if (!form.description.trim()) {
+      setError("Description is required!");
+      return;
+    } else {
+      setError("");
+    }
+
     if (id) {
       await updateProduct(id, form);
     } else {
       await createProduct(form);
     }
-    navigate("/");
+    navigate("/products");
   }
 
   return (
@@ -64,6 +74,7 @@ export default function ProductForm() {
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
               />
+              {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
             <div>
               <label>Category</label>
@@ -98,7 +109,21 @@ export default function ProductForm() {
                 <option value="auction">Auction</option>
               </select>
             </div>
-            <button type="submit" className="btn">{id ? "Update" : "Create"}</button>
+
+            {/* 👇 Novo polje za sliku */}
+            <div>
+              <label>Image URL</label>
+              <input
+                type="text"
+                placeholder="https://example.com/image.jpg"
+                value={form.image}
+                onChange={(e) => setForm({ ...form, image: e.target.value })}
+              />
+            </div>
+
+            <button type="submit" className="btn">
+              {id ? "Update" : "Create"}
+            </button>
           </form>
         </div>
       </div>
