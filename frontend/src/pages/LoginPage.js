@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/auth.css'; // Uvozimo nove stilove
+import '../css/auth.css'; // Uvozimo stilove
 
 export default function LoginPage() {
   const [korisnickoIme, setKorisnickoIme] = useState('');
   const [lozinka, setLozinka] = useState('');
-  const [error, setError] = useState(''); // Stanje za poruku o grešci
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(''); // Resetuj grešku pre novog pokušaja
+    setError('');
 
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
@@ -23,52 +23,92 @@ export default function LoginPage() {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        // Preusmeravamo na početnu stranicu nakon uspešne prijave
-        navigate('/'); 
+        navigate('/');
       } else {
-        // Postavljamo poruku o grešci koju vraća backend
-        setError(data.message || 'Došlo je do greške.');
+        setError(data.message || 'Error');
       }
     } catch (err) {
-      setError('Nije moguće povezati se sa serverom.');
+      setError('Unable to connect to server.');
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h1 className="auth-title">Welcome Back</h1>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label htmlFor="username">Korisničko ime</label>
-            <input
-              type="text"
-              id="username"
-              className="form-input"
-              value={korisnickoIme}
-              onChange={(e) => setKorisnickoIme(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Lozinka</label>
-            <input
-              type="password"
-              id="password"
-              className="form-input"
-              value={lozinka}
-              onChange={(e) => setLozinka(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="auth-btn">
-            Prijavi se
-          </button>
-        </form>
-        <p className="switch-auth-link">
-          Nemaš nalog? <Link to="/register">Registruj se</Link>
-        </p>
+    <div
+      style={{
+        position: 'relative',
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Pozadinska slika */}
+      <img
+        src="/LoginPageBg.png"
+        alt="Login Background"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Desna polovina ekrana */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'flex-end', // bliže desnom rubu
+          alignItems: 'center',       // vertikalno centrirano
+          paddingRight: '25%',        // malo pomerena ulevo od desnog ruba
+          zIndex: 1,
+        }}
+      >
+        {/* Forma za login */}
+        <div
+          style={{
+            width: '400px',        // fiksna širina forme
+            maxHeight: '95vh',     // da stane u ekran
+            overflowY: 'auto',     // unutrašnji scroll ako je potrebno
+          }}
+        >
+          <h1 className="auth-title">Welcome Back</h1>
+          {error && <div className="error-message">{error}</div>}
+          <form onSubmit={handleLogin}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                className="form-input"
+                value={korisnickoIme}
+                onChange={(e) => setKorisnickoIme(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                className="form-input"
+                value={lozinka}
+                onChange={(e) => setLozinka(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="auth-btn">
+              Sign in
+            </button>
+          </form>
+          <p className="switch-auth-link">
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -4,11 +4,11 @@ import '../css/auth.css';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    ime: '',
-    prezime: '',
-    korisnickoIme: '',
+    Name: '',
+    Surname: '',
+    Username: '',
     email: '',
-    lozinka: '',
+    password: '',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -31,50 +31,89 @@ export default function RegisterPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Preusmeravamo na stranicu za prijavu nakon uspešne registracije
         navigate('/login');
       } else {
-        setError(data.message || 'Došlo je do greške pri registraciji.');
+        setError(data.message || 'An error occurred during registration.');
       }
     } catch (err) {
-      setError('Nije moguće povezati se sa serverom.');
+      setError('Unable to connect to server.');
     }
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h1 className="auth-title">Create Account</h1>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleRegister}>
-          {/* Dodajemo polja za ime, prezime, email... */}
-          <div className="form-group">
-            <label htmlFor="ime">Ime</label>
-            <input type="text" id="ime" className="form-input" onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="prezime">Prezime</label>
-            <input type="text" id="prezime" className="form-input" onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="korisnickoIme">Korisničko ime</label>
-            <input type="text" id="korisnickoIme" className="form-input" onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" className="form-input" onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label htmlFor="lozinka">Lozinka</label>
-            <input type="password" id="lozinka" className="form-input" onChange={handleChange} required />
-          </div>
-          <button type="submit" className="auth-btn">
-            Registruj se
-          </button>
-        </form>
-        <p className="switch-auth-link">
-          Već imaš nalog? <Link to="/login">Prijavi se</Link>
-        </p>
+    <div
+      style={{
+        position: 'relative',
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Pozadinska slika */}
+      <img
+        src="/RegisterPageBg.png"
+        alt="Register Background"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      />
+
+      {/* Desna polovina ekrana */}
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'flex-end', // sada bliže desnom rubu
+          alignItems: 'center',
+          paddingRight: '10%',        // smanjeno sa 15% na 5% da pomeri formu udesno
+          zIndex: 1,
+        }}
+      >
+        {/* Forma za registraciju */}
+        <div
+          style={{
+            width: '400px',       // fiksna širina forme
+            maxHeight: '95vh',    // da stane u ekran
+          }}
+        >
+          <h1 className="auth-title">Create Account</h1>
+          {error && <div className="error-message">{error}</div>}
+          <form onSubmit={handleRegister}>
+            <div className="form-group">
+              <label htmlFor="ime">Name</label>
+              <input type="text" id="ime" className="form-input" onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="prezime">Surname</label>
+              <input type="text" id="prezime" className="form-input" onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="korisnickoIme">Username</label>
+              <input type="text" id="korisnickoIme" className="form-input" onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" className="form-input" onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="lozinka">Password</label>
+              <input type="password" id="lozinka" className="form-input" onChange={handleChange} required />
+            </div>
+            <button type="submit" className="auth-btn">
+              Register
+            </button>
+          </form>
+          <p className="switch-auth-link">
+            Already have an account? <Link to="/login">Sign in</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

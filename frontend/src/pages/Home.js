@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FiUser, FiSearch, FiHeart, FiShoppingBag } from "react-icons/fi";
 import "../css/Home.css";
 
 export default function Home() {
   const navigate = useNavigate();
   const [animated, setAnimated] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimated(false), 2500); // nakon 2.5s animacije, skini je
+    const timer = setTimeout(() => setAnimated(false), 2500);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
-      {/* Slika */}
+      {/* Pozadinska slika */}
       <img
         src="/mintmade-fashion.png"
         alt="Fashion"
@@ -33,28 +35,38 @@ export default function Home() {
         <div>hello@reallygreatsite.com</div>
       </div>
 
+      {/* Ikonice gore desno */}
+      <div className="icon-bar">
+        <button className="icon-btn"><FiSearch /></button>
+        <button className="icon-btn"><FiHeart /></button>
+        <button className="icon-btn"><FiShoppingBag /></button>
+
+        {/* Ikonica korisnika + meni */}
+        <div className="user-menu-wrapper">
+          <button className="icon-btn" onClick={() => setMenuOpen(!menuOpen)}>
+            <FiUser />
+          </button>
+
+          {menuOpen && (
+            <div className="menu-dropdown">
+              <Link to="/login" className="menu-link" onClick={() => setMenuOpen(false)}>
+                Sign in
+              </Link>
+              <Link to="/register" className="menu-link" onClick={() => setMenuOpen(false)}>
+                Register
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Naslov */}
       <h1 className={`launch-text ${!animated ? "no-animation" : ""}`}>
         We're launching <br /> soon
       </h1>
 
-      {/* Dugme */}
-      <button
-        onClick={() => navigate("/products")}
-        style={{
-          position: "absolute",
-          bottom: "30px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          padding: "15px 30px",
-          fontSize: "20px",
-          border: "2px solid white",
-          borderRadius: "8px",
-          background: "white",
-          color: "black",
-          cursor: "pointer",
-        }}
-      >
+      {/* Dugme za shop */}
+      <button onClick={() => navigate("/products")} className="shop-btn">
         Shop now
       </button>
     </div>

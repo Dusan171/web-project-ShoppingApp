@@ -7,5 +7,14 @@
     "email": "malicovek@yahoo.com",
     "lozinka": "$2b$10$ZqmIM00qTWHJ27D93NsjX.1T.vSVr7GQgY2K3WEtXETZQTveexJLS",
     "uloga": "Kupac"
+  },
+  {
+    "id": "1758117299956",
+    "ime": "Bojana",
+    "prezime": "Milosevic",
+    "korisnickoIme": "BojanaMilosevic",
+    "email": "bojanamilosevic.ns@gmail.com",
+    "lozinka": "$2b$10$T3TqRr8sVrpy46F55CsprOzWd3FqO/H0pzHOyHCyggkNO0IMq5hH.",
+    "uloga": "Kupac"
   }
 ]

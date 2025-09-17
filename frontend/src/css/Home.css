@@ -1,13 +1,11 @@
-/* Home.css */
-
-/* Animacija naslova iz donje ivice */
+/* Animacija naslova */
 @keyframes slideUpFromBottom {
   0% {
-    transform: translate(-50%, 100vh); /* kreće ispod ekrana */
+    transform: translate(-50%, 100vh);
     opacity: 0;
   }
   100% {
-    transform: translate(-50%, 0); /* dolazi na svoju poziciju */
+    transform: translate(-50%, 0);
     opacity: 1;
   }
 }
@@ -28,14 +26,14 @@
   animation: slideUpFromBottom 2.5s ease-out forwards;
 }
 
-/* Animacija za tekst gore levo */
+/* Tekst gore levo */
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-100%); /* kreće van ekrana s leve strane */
+    transform: translateX(-100%);
     opacity: 0;
   }
   100% {
-    transform: translateX(0); /* dolazi na svoje mesto */
+    transform: translateX(0);
     opacity: 1;
   }
 }
@@ -50,4 +48,76 @@
   line-height: 1.5;
   opacity: 0;
   animation: slideInFromLeft 2s ease-out forwards;
+}
+
+/* Dugme za shop */
+.shop-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 30px;
+  font-size: 20px;
+  border: 2px solid white;
+  border-radius: 8px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.shop-btn:hover {
+  background: #f2f2f2;
+}
+
+/* Gornja traka s ikonicama */
+.icon-bar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Ikonice */
+.icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: white;
+  transition: transform 0.2s;
+}
+
+.icon-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Meni korisnika */
+.user-menu-wrapper {
+  position: relative;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 20;
+}
+
+.menu-link {
+  display: block;
+  padding: 8px 16px;
+  color: black;
+  text-decoration: none;
+}
+
+.menu-link:hover {
+  background: #f2f2f2;
 }

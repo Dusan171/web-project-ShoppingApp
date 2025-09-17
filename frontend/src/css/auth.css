@@ -5,7 +5,6 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  /* Koristimo istu pozadinu kao na products-page */
   background-image: "url('/background-products.jpg')";
   background-repeat: no-repeat;
   background-position: center center;
@@ -19,30 +18,32 @@
   max-width: 400px;
   width: 100%;
   padding: 30px;
-  background: rgba(255, 255, 255, 0.95); /* Polu-providna bela */
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
   text-align: center;
+  color: #000; /* Crna boja za sav tekst unutar kartice */
 }
 
 .auth-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #333;
+  color: #000; /* Crna boja naslova */
   margin-bottom: 25px;
 }
 
 .form-group {
   margin-bottom: 20px;
   text-align: left;
+  color: #000; /* Crna boja labela i teksta unutar grupe */
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #555;
+  color: #000; /* Crna boja labela */
 }
 
 .form-input {
@@ -51,13 +52,14 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  box-sizing: border-box; /* Da padding ne utiče na širinu */
+  box-sizing: border-box;
+  color: #000; /* Crna boja unetog teksta */
 }
 
 .auth-btn {
   width: 100%;
   padding: 12px 30px;
-  background: #4B215F; /* Ista ljubičasta boja */
+  background: #4B215F; 
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -70,26 +72,26 @@
 }
 
 .auth-btn:hover {
-  background: #321642; /* Tamnija nijansa za hover */
+  background: #321642;
 }
 
 .switch-auth-link {
   margin-top: 20px;
-  color: #444;
+  color: #000; /* Crna boja teksta ispred linka */
 }
 
 .switch-auth-link a {
   font-weight: bold;
-  color: #4B215F;
+  color: #4B215F; /* Boja linka ostaje ista */
   text-decoration: underline;
 }
 
 .error-message {
-    color: #d9534f; /* Crvena boja za greške */
-    background-color: #f2dede;
-    border: 1px solid #ebccd1;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #d9534f; 
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
 }
