@@ -1,28 +1,35 @@
 import express from "express";
-import productRoutes from "./routes/productRoutes.js";
-import fs from "fs";
-import categoryRoutes from "./routes/categoryRoutes.js";
 import cors from "cors";
+import fs from "fs";
 
+import productRoutes from "./routes/productRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+import authRoutes from "./routes/userRoutes.js"; 
+
+//Kreira 'app' instancu ODMAH nakon importova
 const app = express();
 const PORT = 5000;
 
+//Podešavanje sav middleware (CORS, express.json)
 app.use(cors({
   origin: "http://localhost:3000", 
   methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type"]
+  allowedHeaders: ["Content-Type", "Authorization"] 
 }));
-
 
 app.use(express.json());
 
+//Povezivanje svih rutere sa njihovim osnovnim putanjama
 app.use("/api/products", productRoutes);
-
 app.use("/api/categories", categoryRoutes);
+app.use("/api/auth", authRoutes); 
 
+//Inicijalizaciona logika (ako je neophodna ovde)
 const CATEGORIES_FILE = "./data/categories.json";
 if (!fs.existsSync(CATEGORIES_FILE)) {
-  fs.mkdirSync("./data", { recursive: true });
+  if (!fs.existsSync("./data")) {
+    fs.mkdirSync("./data", { recursive: true });
+  }
   const categories = [
     { name: "Electronics" },
     { name: "Clothing" },
@@ -34,5 +41,3 @@ if (!fs.existsSync(CATEGORIES_FILE)) {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-
-

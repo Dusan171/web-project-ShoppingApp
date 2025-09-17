@@ -1,0 +1,95 @@
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  /* Koristimo istu pozadinu kao na products-page */
+  background-image: "url('/background-products.jpg')";
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: rgba(0,0,0,0.3);
+  background-blend-mode: overlay;
+}
+
+.auth-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.95); /* Polu-providna bela */
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.auth-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Da padding ne utiče na širinu */
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px 30px;
+  background: #4B215F; /* Ista ljubičasta boja */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.auth-btn:hover {
+  background: #321642; /* Tamnija nijansa za hover */
+}
+
+.switch-auth-link {
+  margin-top: 20px;
+  color: #444;
+}
+
+.switch-auth-link a {
+  font-weight: bold;
+  color: #4B215F;
+  text-decoration: underline;
+}
+
+.error-message {
+    color: #d9534f; /* Crvena boja za greške */
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
