@@ -16,5 +16,28 @@
     "email": "bojanamilosevic.ns@gmail.com",
     "lozinka": "$2b$10$T3TqRr8sVrpy46F55CsprOzWd3FqO/H0pzHOyHCyggkNO0IMq5hH.",
     "uloga": "Kupac"
+  },
+  {
+    "id": "1758146719308",
+    "Name": "",
+    "Surname": "",
+    "Username": "",
+    "email": "pera123@gmail.com",
+    "password": "",
+    "ime": "pera",
+    "prezime": "peric",
+    "korisnickoIme": "pera123",
+    "lozinka": "$2b$10$nnpWnGPyfqyjMIkDUGY1Qu0058LRIAdO2Z/FotJDpDaacs46CQg1m",
+    "uloga": "Kupac"
+  },
+  {
+    "id": "1758182821686",
+    "ime": "Ivana",
+    "prezime": "Milosevic",
+    "korisnickoIme": "ivana123",
+    "email": "ivanamilosevic.ns@gmail.com",
+    "telefon": "0691012255",
+    "lozinka": "$2b$10$TcLduujhWnrkeRXpLFRefuPl3zwnDebLab.fNNa8ovGYGizPhfBam",
+    "uloga": "Kupac"
   }
 ]

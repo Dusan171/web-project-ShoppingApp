@@ -4,28 +4,44 @@ import '../css/auth.css';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
-    Name: '',
-    Surname: '',
-    Username: '',
+    ime: '',
+    prezime: '',
+    korisnickoIme: '',
     email: '',
-    password: '',
+    telefon: '',
+    lozinka: '',
+    potvrdaLozinke: '',
+    uloga: 'kupac',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');
 
+    if (formData.lozinka !== formData.potvrdaLozinke) {
+      setError('Lozinke se ne poklapaju.');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ime: formData.ime,
+          prezime: formData.prezime,
+          korisnickoIme: formData.korisnickoIme,
+          email: formData.email,
+          telefon: formData.telefon,
+          lozinka: formData.lozinka,
+          uloga: formData.uloga,
+        }),
       });
 
       const data = await response.json();
@@ -33,10 +49,10 @@ export default function RegisterPage() {
       if (response.ok) {
         navigate('/login');
       } else {
-        setError(data.message || 'An error occurred during registration.');
+        setError(data.message || 'Došlo je do greške prilikom registracije.');
       }
     } catch (err) {
-      setError('Unable to connect to server.');
+      setError('Neuspešno povezivanje sa serverom.');
     }
   };
 
@@ -70,46 +86,149 @@ export default function RegisterPage() {
         style={{
           flex: 1,
           display: 'flex',
-          justifyContent: 'flex-end', // sada bliže desnom rubu
+          justifyContent: 'flex-end',
           alignItems: 'center',
-          paddingRight: '10%',        // smanjeno sa 15% na 5% da pomeri formu udesno
+          paddingRight: '10%',
           zIndex: 1,
         }}
       >
-        {/* Forma za registraciju */}
         <div
           style={{
-            width: '400px',       // fiksna širina forme
-            maxHeight: '95vh',    // da stane u ekran
+            width: '450px',
+            maxHeight: '95vh',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            padding: '25px',
+            borderRadius: '12px',
           }}
         >
           <h1 className="auth-title">Create Account</h1>
           {error && <div className="error-message">{error}</div>}
+
           <form onSubmit={handleRegister}>
-            <div className="form-group">
-              <label htmlFor="ime">Name</label>
-              <input type="text" id="ime" className="form-input" onChange={handleChange} required />
+            {/* Grid raspored */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '15px',
+              }}
+            >
+              <div className="form-group">
+                <label htmlFor="ime">Name</label>
+                <input
+                  type="text"
+                  id="ime"
+                  name="ime"
+                  className="form-input"
+                  value={formData.ime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="prezime">Surname</label>
+                <input
+                  type="text"
+                  id="prezime"
+                  name="prezime"
+                  className="form-input"
+                  value={formData.prezime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="korisnickoIme">Username</label>
+                <input
+                  type="text"
+                  id="korisnickoIme"
+                  name="korisnickoIme"
+                  className="form-input"
+                  value={formData.korisnickoIme}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="form-input"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="telefon">Phone</label>
+                <input
+                  type="tel"
+                  id="telefon"
+                  name="telefon"
+                  className="form-input"
+                  value={formData.telefon}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="uloga">Role</label>
+                <select
+                  id="uloga"
+                  name="uloga"
+                  className="form-input"
+                  value={formData.uloga}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="kupac">Kupac</option>
+                  <option value="prodavac">Prodavac</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="lozinka">Password</label>
+                <input
+                  type="password"
+                  id="lozinka"
+                  name="lozinka"
+                  className="form-input"
+                  value={formData.lozinka}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="potvrdaLozinke">Confirm</label>
+                <input
+                  type="password"
+                  id="potvrdaLozinke"
+                  name="potvrdaLozinke"
+                  className="form-input"
+                  value={formData.potvrdaLozinke}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label htmlFor="prezime">Surname</label>
-              <input type="text" id="prezime" className="form-input" onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="korisnickoIme">Username</label>
-              <input type="text" id="korisnickoIme" className="form-input" onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" id="email" className="form-input" onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="lozinka">Password</label>
-              <input type="password" id="lozinka" className="form-input" onChange={handleChange} required />
-            </div>
-            <button type="submit" className="auth-btn">
+
+            <button
+              type="submit"
+              className="auth-btn"
+              style={{ marginTop: '20px', width: '100%' }}
+            >
               Register
             </button>
           </form>
+
           <p className="switch-auth-link">
             Already have an account? <Link to="/login">Sign in</Link>
           </p>

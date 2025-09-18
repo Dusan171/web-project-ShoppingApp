@@ -15,16 +15,15 @@
 
 .page-title {
   font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;         /* veći naslov za isticanje */
+  font-size: 3.5rem;         
   font-weight: 700;
   color: #fff;
   margin-bottom: 10px;
-  letter-spacing: 2px;       /* širi slova za umetnički efekat */
-  text-transform: uppercase; /* sve veliko za dramatičan izgled */
+  letter-spacing: 2px;       
+  text-transform: uppercase; 
   text-align: center;
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* blaga senka */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); 
 }
-
 
 .page-subtitle {
   font-size: 1.2rem;
@@ -56,23 +55,20 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-
-  list-style: none; /* uklanja bullet */
-  padding: 0;       /* uklanja default padding */
-  margin: 0;        /* uklanja default margin */
+  list-style: none; 
+  padding: 0;       
+  margin: 0;        
 }
-
 
 /* ===== KARTICA PROIZVODA ===== */
 .product-card {
-  background: white; /* umesto rgba(255,255,255,0.95) */
+  background: white; 
   border-radius: 12px;
   padding: 20px;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
-
 
 .product-card:hover {
   transform: translateY(-5px);
@@ -168,6 +164,7 @@
   margin-bottom: 20px;
   color: #555;
 }
+
 /* ===== PRODUCT DETAILS STRANICA ===== */
 .product-details {
   display: grid;
@@ -183,14 +180,14 @@
 .product-details-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* slika se razvlači preko cele leve polovine */
+  object-fit: cover; /* leva polovina */
 }
 
 .product-details-info {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centrirano vertikalno */
-  align-items: center;     /* centrirano horizontalno */
+  justify-content: flex-start; /* tekst na vrhu */
+  align-items: center;          /* centrirano horizontalno */
   padding: 40px;
   background: #fff;
   text-align: center;
@@ -204,26 +201,30 @@
 .product-details-info p {
   font-size: 1.1rem;
   color: #444;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   max-width: 400px;
 }
 
+/* Dugme manje, odmah ispod teksta, pomereno desno */
 .product-details-info .btn {
-  padding: 12px 30px;
-  background: #4B215F; /* ljubičasta kao na slici */
+  padding: 10px 20px;
+  background: #4B215F;
   color: #fff;
   border: none;
   border-radius: 6px;
   font-weight: bold;
   letter-spacing: 1px;
   transition: background 0.3s;
+  width: auto;
+  margin-top: 10px;
+  align-self: flex-end;       /* dugme pomereno desno unutar desne polovine */
 }
 
 .product-details-info .btn:hover {
   background: #321642;
 }
 
-/* Mobilna verzija – stacked */
+/* Mobilna verzija – dugme centrirano ispod teksta */
 @media (max-width: 768px) {
   .product-details {
     grid-template-columns: 1fr;
@@ -231,5 +232,10 @@
 
   .product-details-image {
     height: 300px;
+  }
+
+  .product-details-info .btn {
+    align-self: center;
+    margin-top: 10px;
   }
 }
