@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/auth.css'; // Uvozimo stilove
+import '../css/auth.css'; 
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
   const [korisnickoIme, setKorisnickoIme] = useState('');
   const [lozinka, setLozinka] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,7 +24,8 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
+        //localStorage.setItem('token', data.token);
+        login(data.token);
         navigate('/');
       } else {
         setError(data.message || 'Error');
