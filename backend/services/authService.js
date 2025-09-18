@@ -18,7 +18,7 @@ export const register = async (userData) => {
     id: Date.now().toString(), // Jednostavan unique ID
     ...userData,
     lozinka: hashedPassword,
-    uloga: 'Kupac', // Default uloga
+   // uloga: 'Kupac', // Default uloga
     // ostala polja
   };
   

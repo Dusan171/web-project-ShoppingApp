@@ -188,8 +188,8 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   required
                 >
-                  <option value="kupac">Kupac</option>
-                  <option value="prodavac">Prodavac</option>
+                  <option value="kupac">Costumer</option>
+                  <option value="prodavac">Seller</option>
                 </select>
               </div>
 

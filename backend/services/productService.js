@@ -19,5 +19,5 @@ export default {
 
   deleteLogical: (id) => {
     return productRepository.deleteProduct(id);
-  },
+  }
 };

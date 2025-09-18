@@ -39,5 +39,15 @@
     "telefon": "0691012255",
     "lozinka": "$2b$10$TcLduujhWnrkeRXpLFRefuPl3zwnDebLab.fNNa8ovGYGizPhfBam",
     "uloga": "Kupac"
+  },
+  {
+    "id": "1758225075304",
+    "ime": "Milutin",
+    "prezime": "Nemanjic",
+    "korisnickoIme": "kralj",
+    "email": "kraljnem@yahoo.com",
+    "telefon": "222222222",
+    "lozinka": "$2b$10$hAN848FSrRW/h7bqsBkjs.MJ0hM9NFoBLLnGPenkjK0UUVK2ZpGDy",
+    "uloga": "prodavac"
   }
 ]
