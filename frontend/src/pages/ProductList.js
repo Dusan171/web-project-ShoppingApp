@@ -5,7 +5,7 @@ import "../css/product.css";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true); // 👈 dodato
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     loadProducts();
@@ -69,7 +69,16 @@ export default function ProductList() {
           </div>
         ) : (
          <ul className="product-grid">
-  {products.map((p) => (
+  {products.map((p) => {
+              const highestBid = p.ponude?.sort((a, b) => b.cena - a.cena)[0];
+
+              const displayPrice = highestBid ? highestBid.cena : p.price;
+
+              const priceLabel = p.salesType === 'auction' 
+                ? (highestBid ? "Current Bid:" : "Starting at:")
+                : "Price:";
+  
+  return(
     <li key={p.id} className="product-card">
       {/* Klik vodi na detalje proizvoda */}
       <Link
@@ -87,7 +96,8 @@ export default function ProductList() {
         )}
 
         <h3>{p.name}</h3>
-        <p className="product-price">${p.price}</p>
+        <p className="product-price">
+          {priceLabel}${displayPrice}</p>
       </Link>
 
       {/* Akcije ostaju van linka */}
@@ -103,7 +113,8 @@ export default function ProductList() {
         </Link>
       </div>
     </li>
-  ))}
+  );
+  })}
 </ul>
 
         )}
