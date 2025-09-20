@@ -49,5 +49,15 @@
     "telefon": "222222222",
     "lozinka": "$2b$10$hAN848FSrRW/h7bqsBkjs.MJ0hM9NFoBLLnGPenkjK0UUVK2ZpGDy",
     "uloga": "prodavac"
+  },
+  {
+    "id": "1758282466938",
+    "ime": "Dragutin",
+    "prezime": "Topalovic",
+    "korisnickoIme": "Dt",
+    "email": "dare@yahoo.com",
+    "telefon": "4444444",
+    "lozinka": "$2b$10$Z/xsJRyjiYsxY3u1py.ScuNeHbv765GccIgl9ZVEUPxi1JcaOAJz.",
+    "uloga": "kupac"
   }
 ]
