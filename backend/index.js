@@ -2,15 +2,19 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
+// tvoje postojeće rute
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import authRoutes from "./routes/userRoutes.js"; 
 
-//Kreira 'app' instancu ODMAH nakon importova
+// nova cart ruta
+import cartController from "./controllers/cartController.js";
+
+// Kreira 'app' instancu ODMAH nakon importova
 const app = express();
 const PORT = 5000;
 
-//Podešavanje sav middleware (CORS, express.json)
+// Podešavanje middleware (CORS, express.json)
 app.use(cors({
   origin: "http://localhost:3000", 
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -19,12 +23,15 @@ app.use(cors({
 
 app.use(express.json());
 
-//Povezivanje svih rutere sa njihovim osnovnim putanjama
+// Povezivanje svih rutera sa njihovim osnovnim putanjama
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
-app.use("/api/auth", authRoutes); 
+app.use("/api/auth", authRoutes);
 
-//Inicijalizaciona logika (ako je neophodna ovde)
+// ✨ nova ruta za korpu
+app.use("/api/cart", cartController);
+
+// Inicijalizaciona logika (ako je neophodna ovde)
 const CATEGORIES_FILE = "./data/categories.json";
 if (!fs.existsSync(CATEGORIES_FILE)) {
   if (!fs.existsSync("./data")) {
@@ -38,6 +45,7 @@ if (!fs.existsSync(CATEGORIES_FILE)) {
   fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(categories, null, 2), "utf8");
 }
 
+// Pokretanje servera
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

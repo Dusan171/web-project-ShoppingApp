@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../services/productService";
 import "../css/product.css";
+import { getCartByUserId } from "../services/cartService"; 
+
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -22,6 +24,17 @@ export default function ProductDetails() {
   if (!product) {
     return <div className="loading">Loading product details...</div>;
   }
+
+  async function handleShopNow(productId) {
+  try {
+    const cart = await getCartByUserId(userId);
+    console.log("🛒 Korpa korisnika:", cart);
+
+    // ovde možeš dodati logiku za "addProductToCart" posle
+  } catch (err) {
+    console.error("Greška pri dohvatanju korpe:", err);
+  }
+}
 
   return (
     <div className="product-details">
@@ -45,8 +58,7 @@ export default function ProductDetails() {
         <p className="price">${product.price}</p>
         <p className="description">{product.description}</p>
 
-        <button className="btn shop-btn">SHOP NOW</button>
-      </div>
+        <button className="btn shop-btn" onClick={() => handleShopNow(product.id)}> SHOP NOW</button> </div>
     </div>
   );
 }

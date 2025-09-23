@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ci1",
+    "cartId": "c1",
+    "productId": "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
+    "quantity": 2
+  },
+  {
+    "id": "ci2",
+    "cartId": "c1",
+    "productId": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
+    "quantity": 1
+  },
+  {
+    "id": "ci3",
+    "cartId": "c2",
+    "productId": "61859649-b686-42e0-b71b-aab922160bb4",
+    "quantity": 3
+  }
+]

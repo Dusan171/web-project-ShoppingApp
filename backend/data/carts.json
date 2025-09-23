@@ -1,0 +1,28 @@
+[
+  {
+    "id": "c1",
+    "customerId": "1758092100027",
+    "status": "IN_PROGRESS",
+    "items": [
+      {
+        "productId": "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
+        "quantity": 2
+      },
+      {
+        "productId": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
+        "quantity": 1
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "customerId": "1758117299956",
+    "status": "PENDING",
+    "items": [
+      {
+        "productId": "61859649-b686-42e0-b71b-aab922160bb4",
+        "quantity": 3
+      }
+    ]
+  }
+]
