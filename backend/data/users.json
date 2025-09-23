@@ -49,5 +49,25 @@
     "telefon": "15325432",
     "lozinka": "$2b$10$sktQWjPZlBiYbIryqfiOpOd/MUvH508Sc0yEoMgnM3sSbuKKxz.4G",
     "uloga": "Kupac"
+  },
+  {
+    "id": "1758225075304",
+    "ime": "Milutin",
+    "prezime": "Nemanjic",
+    "korisnickoIme": "kralj",
+    "email": "kraljnem@yahoo.com",
+    "telefon": "222222222",
+    "lozinka": "$2b$10$hAN848FSrRW/h7bqsBkjs.MJ0hM9NFoBLLnGPenkjK0UUVK2ZpGDy",
+    "uloga": "prodavac"
+  },
+  {
+    "id": "1758282466938",
+    "ime": "Dragutin",
+    "prezime": "Topalovic",
+    "korisnickoIme": "Dt",
+    "email": "dare@yahoo.com",
+    "telefon": "4444444",
+    "lozinka": "$2b$10$Z/xsJRyjiYsxY3u1py.ScuNeHbv765GccIgl9ZVEUPxi1JcaOAJz.",
+    "uloga": "kupac"
   }
 ]

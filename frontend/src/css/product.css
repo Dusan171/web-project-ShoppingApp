@@ -224,6 +224,16 @@
 .product-details-info .btn:hover {
   background: #321642;
 }
+.sold-badge {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+}
 
 /* Mobilna verzija – stacked */
 @media (max-width: 768px) {

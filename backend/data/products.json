@@ -12,7 +12,9 @@
       "id": "1",
       "name": "Electronics"
     },
-    "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg"
+    "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
@@ -27,7 +29,18 @@
       "id": "3",
       "name": "Books"
     },
-    "image": "https://burst.shopifycdn.com/photos/fashion-model-in-pink.jpg?width=1000&format=pjpg&exif=0&iptc=0"
+    "image": "https://burst.shopifycdn.com/photos/fashion-model-in-pink.jpg?width=1000&format=pjpg&exif=0&iptc=0",
+    "prodavacId": "1758225075304",
+    "status": "Processing",
+    "ponude": [
+      {
+        "cena": 1000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-19T12:30:58.280Z"
+      }
+    ],
+    "kupacId": "1758282466938",
+    "finalnaCena": 1000
   },
   {
     "id": "dbe41bbc-398e-4334-ad78-ca1fd0754ef5",
@@ -38,7 +51,16 @@
     "salesType": "auction",
     "dateOfCreation": "2025-09-09T22:45:17.596Z",
     "isDeleted": false,
-    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/bb3a6f2f-65fd-4eea-bdf0-d4b41594450e/naomi+selects10.jpg"
+    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/bb3a6f2f-65fd-4eea-bdf0-d4b41594450e/naomi+selects10.jpg",
+    "prodavacId": "1758225075304",
+    "status": "Active",
+    "ponude": [
+      {
+        "cena": 9000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-20T07:58:59.650Z"
+      }
+    ]
   },
   {
     "id": "61859649-b686-42e0-b71b-aab922160bb4",
@@ -53,7 +75,9 @@
       "id": "1",
       "name": "Electronics"
     },
-    "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840"
+    "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "cf8bb29e-52f3-4ec3-9bd2-f5f4c5d3f7fb",
@@ -68,7 +92,9 @@
       "id": "2",
       "name": "Clothing"
     },
-    "image": "https://img.joomcdn.net/8a41b1fe53b59753e453ae02c99356b90f8d09f7_1024_1024.jpeg"
+    "image": "https://img.joomcdn.net/8a41b1fe53b59753e453ae02c99356b90f8d09f7_1024_1024.jpeg",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "280cf040-dcb5-4a8c-9073-a483587eda48",
@@ -83,7 +109,9 @@
       "id": "4",
       "name": "Shoes"
     },
-    "image": "https://plus.unsplash.com/premium_photo-1708274140680-11c9e42dcac9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFsZSUyMGZhc2hpb24lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D"
+    "image": "https://plus.unsplash.com/premium_photo-1708274140680-11c9e42dcac9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFsZSUyMGZhc2hpb24lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "7e9ea283-6af1-4853-a91c-78f5037e3f0c",
@@ -98,7 +126,9 @@
       "id": "2",
       "name": "Clothing"
     },
-    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/cd3b25b0-24c9-4e3c-9de7-f1f034c35504/EE7A6231.jpg"
+    "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/cd3b25b0-24c9-4e3c-9de7-f1f034c35504/EE7A6231.jpg",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "c93cea78-af8b-47e1-9aff-27c7c051d6a3",
@@ -109,7 +139,9 @@
     "salesType": "auction",
     "dateOfCreation": "2025-09-13T07:38:07.787Z",
     "isDeleted": false,
-    "image": "https://media.istockphoto.com/id/1018293976/photo/attractive-fashionable-woman-posing-in-white-trendy-sweater-beige-pants-and-autumn-heels-on.jpg?s=612x612&w=0&k=20&c=_CLawpZw6l9z0uV4Uon-7lqaS013E853ub883pkIK3c="
+    "image": "https://media.istockphoto.com/id/1018293976/photo/attractive-fashionable-woman-posing-in-white-trendy-sweater-beige-pants-and-autumn-heels-on.jpg?s=612x612&w=0&k=20&c=_CLawpZw6l9z0uV4Uon-7lqaS013E853ub883pkIK3c=",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "id": "cd58b2d6-706e-4d1e-a6ce-1e10de94bc82",
@@ -124,7 +156,9 @@
       "id": "4",
       "name": "Shoes"
     },
-    "image": "https://cdn.prod.website-files.com/611cda85065cd630ff59f7ff/642e18c5e42d31284b54992e_GyMVKyIVYAGrxoiaL_qz1uB-L7HaUVweRuPfL1AOs4MPn_GWyWRLg7-axFhgJVaSxIoa0hCTu4LhfQeQutKrnRcDSwpgtiW3X2Ywc-wpLCwsDvB56_oNWiarfvjzuzVOFnCZf2hRUayGuYiD1KTaAw.png"
+    "image": "https://cdn.prod.website-files.com/611cda85065cd630ff59f7ff/642e18c5e42d31284b54992e_GyMVKyIVYAGrxoiaL_qz1uB-L7HaUVweRuPfL1AOs4MPn_GWyWRLg7-axFhgJVaSxIoa0hCTu4LhfQeQutKrnRcDSwpgtiW3X2Ywc-wpLCwsDvB56_oNWiarfvjzuzVOFnCZf2hRUayGuYiD1KTaAw.png",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "name": "Classic Trench Coat",
@@ -133,7 +167,9 @@
     "price": "3",
     "salesType": "fixedPrice",
     "image": "https://img.freepik.com/free-photo/portrait-young-man-yellow-scene_23-2148184810.jpg?semt=ais_incoming&w=740&q=80",
-    "id": "1757942159980"
+    "id": "1757942159980",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "name": "Cozy Knit Hat",
@@ -142,7 +178,9 @@
     "price": "231",
     "salesType": "auction",
     "image": "https://storage.googleapis.com/lulu-fanatics/product/58189/1280/lululemon-crazy-cozy-beanie-heathered-core-ultra-light-grey-032493-324632.jpg",
-    "id": "1757942950698"
+    "id": "1757942950698",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   },
   {
     "name": "Pleated Skirt",
@@ -151,6 +189,8 @@
     "price": "64",
     "salesType": "fixedPrice",
     "image": "https://eu.maje.com/dw/image/v2/AAON_PRD/on/demandware.static/-/Sites-maje-master-catalog/default/dw523720bd/images/hi-res/Maje_MFPJU01357-2517_F_1.jpg?sw=1520&sh=2000",
-    "id": "1757945967269"
+    "id": "1757945967269",
+    "prodavacId": "1758225075304",
+    "status": "Active"
   }
 ]

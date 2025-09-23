@@ -32,3 +32,40 @@ export async function deleteProduct(id) {
   const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   return res.json();
 }
+
+// Funkcija za slanje nove ponude
+export async function placeBidOnProduct(productId, price) {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:5000/api/products/${productId}/bids`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ price: price }) // Šalje samo cenu
+  });
+  
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || 'Failed to place bid.');
+  }
+  return data;
+}
+
+// Funkcija za završavanje aukcije
+export async function endAuctionForProduct(productId) {
+  const token = localStorage.getItem('token');
+  const response = await fetch(`http://localhost:5000/api/products/${productId}/end-auction`, {
+    method: 'POST', // Ne treba body, server zna ko je prodavac iz tokena
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || 'Failed to end auction.');
+  }
+  return data;
+}
