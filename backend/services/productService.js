@@ -11,7 +11,7 @@ export default {
   },
 
   create: (product) => {
-    return productRepository.createProduct(product); // 👈 koristiš createProduct
+    return productRepository.createProduct(product); 
   },
 
   update: (id, data) => {
@@ -21,78 +21,90 @@ export default {
   deleteLogical: (id) => {
     return productRepository.deleteProduct(id);
   },
+
   placeBid: (productId, price, userId) => {
     const product = productRepository.getProductById(productId);
-    
-    // Validacija 1: Proveri da li proizvod postoji i da li je na aukciji
-    if (!product || product.salesType !== 'auction') { // Proveravamo 'salesType' polje
-      throw new Error('Product not found or is not an auction.');
+
+    if (!product || product.salesType !== "auction") {
+      throw new Error("Product not found or is not an auction.");
     }
 
-    // Validacija 2: Proveri da li je aukcija već završena (npr. prodat)
-    if (product.status !== 'Active') { // Mnogo jednostavnije
-  throw new Error('Auction for this product is not active.');
-}
+    if (product.status !== "Active") {
+      throw new Error("Auction for this product is not active.");
+    }
 
-    // Pronalazimo trenutnu najvišu ponudu
     const highestBid = product.ponude?.sort((a, b) => b.cena - a.cena)[0];
     const currentPrice = highestBid ? highestBid.cena : product.price;
 
-    // Validacija 3: Proveri da li je nova ponuda veća
     if (price <= parseFloat(currentPrice)) {
-      throw new Error('Your bid must be higher than the current price.');
+      throw new Error("Your bid must be higher than the current price.");
     }
 
     const newBid = {
       cena: price,
       kupacId: userId,
-      datum: new Date().toISOString()
+      datum: new Date().toISOString(),
     };
 
-    // Inicijalizuj 'ponude' niz ako ne postoji
     if (!product.ponude) {
       product.ponude = [];
     }
     product.ponude.push(newBid);
-    
-    // Čuvamo ceo izmenjeni proizvod nazad u "bazu"
+
     return productRepository.updateProduct(productId, product);
   },
 
-  /**
-   * Završava aukciju za proizvod.
-   */
   endAuction: (productId, sellerId) => {
     const product = productRepository.getProductById(productId);
 
-    // Validacija 1: Proveri da li proizvod postoji
     if (!product) {
-      throw new Error('Product not found.');
+      throw new Error("Product not found.");
     }
-    
-    // Validacija 2: Proveri da li je ulogovani korisnik vlasnik proizvoda
+
     if (product.prodavacId !== sellerId) {
-      throw new Error('You are not authorized to end this auction.');
+      throw new Error("You are not authorized to end this auction.");
     }
 
-    // Validacija 3: Proveri da li postoji bar jedna ponuda
-    if (!product.ponude || product.ponude.length ===
- 0) {
-      throw new Error('Cannot end auction with no bids.');
+    if (!product.ponude || product.ponude.length === 0) {
+      throw new Error("Cannot end auction with no bids.");
     }
-    
-    // Pronalazimo pobedničku ponudu (poslednju, tj. najveću)
+
     const winningBid = product.ponude.sort((a, b) => b.cena - a.cena)[0];
-    
-    // Ažuriramo status proizvoda
-    product.status = 'Processing'; 
-    product.kupacId = winningBid.kupacId; 
-    product.finalnaCena = winningBid.cena; 
 
-    const updatedProduct = productRepository.updateProduct(productId, product);
+    product.status = "Processing";
+    product.kupacId = winningBid.kupacId;
+    product.finalnaCena = winningBid.cena;
 
-    // Ovde bi išla logika za ažuriranje korisnika, za sada je preskačemo da ne komplikujemo
+    return productRepository.updateProduct(productId, product);
+  },
 
-    return updatedProduct;
+ updateStatus: (productId, newStatus, userId) => {
+  console.log("🔧 Service updateStatus called with:", { productId, newStatus, userId });
+
+  const product = productRepository.getProductById(productId);
+
+  if (!product) {
+    throw new Error("Product not found");
   }
+
+  if (product.salesType !== "fixedPrice") {
+    throw new Error("Status can only be updated for fixed price products.");
+  }
+
+  if (!userId) {
+    throw new Error("Unauthorized");
+  }
+
+  if (product.status !== "Active") {
+    throw new Error("Product is not available anymore.");
+  }
+
+  product.status = newStatus;
+  product.kupacId = userId;
+
+  console.log("💾 Saving product:", product);
+  return productRepository.updateProduct(productId, product);
+},
+
+
 };

@@ -14,7 +14,8 @@
     },
     "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Processing",
+    "kupacId": "1758182821686"
   },
   {
     "id": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
@@ -31,7 +32,7 @@
     },
     "image": "https://burst.shopifycdn.com/photos/fashion-model-in-pink.jpg?width=1000&format=pjpg&exif=0&iptc=0",
     "prodavacId": "1758225075304",
-    "status": "Processing",
+    "status": "Active",
     "ponude": [
       {
         "cena": 1000,
@@ -77,7 +78,8 @@
     },
     "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Processing",
+    "kupacId": "1758660875117"
   },
   {
     "id": "cf8bb29e-52f3-4ec3-9bd2-f5f4c5d3f7fb",
@@ -192,5 +194,15 @@
     "id": "1757945967269",
     "prodavacId": "1758225075304",
     "status": "Active"
+  },
+  {
+    "name": "jakna",
+    "description": "sdavsfvas",
+    "price": "4565",
+    "image": "https://www.011shop.rs/uploads/store/products/images/jakna-haringtonka619b5eac09648.jpg",
+    "salesType": "fixed",
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1758673553242"
   }
 ]

@@ -245,3 +245,31 @@
     height: 300px;
   }
 }
+/* ===== TABS SEKCIJA ===== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid #4B215F;
+  background: white;
+  color: #4B215F;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: #4B215F;
+  color: white;
+}
+
+.tab-btn:hover {
+  background: #321642;
+  color: white;
+}

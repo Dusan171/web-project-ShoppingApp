@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { getProduct, placeBidOnProduct, endAuctionForProduct } from "../services/productService";
+import { 
+  getProduct, 
+  placeBidOnProduct, 
+  endAuctionForProduct, 
+  updateProductStatus // ✅ dodato
+} from "../services/productService";
 import { useAuth } from "../context/AuthContext";
 import "../css/product.css";
 import { getCartByUserId } from "../services/cartService"; 
 
-
 export default function ProductDetails() {
   const { id } = useParams();
-  const { user } = useAuth(); // Dohvatamo ulogovanog korisnika
+  const { user } = useAuth();
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -21,10 +25,12 @@ export default function ProductDetails() {
       setError('');
       const data = await getProduct(id);
       setProduct(data);
-      
-      const highestBid = data.ponude?.sort((a, b) => b.cena - a.cena)[0];
-      const currentPrice = highestBid ? highestBid.cena : data.price;
-      setBidAmount(Math.ceil(parseFloat(currentPrice)) + 1);
+
+      if (data.salesType === "auction") {
+        const highestBid = data.ponude?.sort((a, b) => b.cena - a.cena)[0];
+        const currentPrice = highestBid ? highestBid.cena : data.price;
+        setBidAmount(Math.ceil(parseFloat(currentPrice)) + 1);
+      }
     } catch (error) {
       console.error("Error loading product:", error);
       setError("Failed to load product details.");
@@ -43,7 +49,7 @@ export default function ProductDetails() {
     try {
       await placeBidOnProduct(product.id, parseFloat(bidAmount));
       alert('Your bid has been placed successfully!');
-      loadProduct(); // Osveži podatke da se vidi nova ponuda
+      loadProduct();
     } catch (err) {
       setError(err.message);
     }
@@ -55,10 +61,37 @@ export default function ProductDetails() {
       try {
         await endAuctionForProduct(product.id);
         alert('Auction has been successfully ended!');
-        loadProduct(); // Osveži podatke da se vidi novi status proizvoda
+        loadProduct();
       } catch (err) {
         setError(err.message);
       }
+    }
+  };
+
+  const handleShopNow = async (productId) => {
+    if (!user) {
+      alert("You must be logged in to buy!");
+      return;
+    }
+
+    if (product.salesType !== "fixedPrice") {
+      alert("Only fixed price products can be purchased directly.");
+      return;
+    }
+
+    try {
+      // ✅ Prvo promeni status proizvoda u "Processing"
+      await updateProductStatus(productId, "Processing");
+      alert("Product is now being processed!");
+
+      // Ovde kasnije možeš dodati logiku za dodavanje u korpu
+      // const cart = await getCartByUserId(user.id);
+      // await addProductToCart(productId, cart.id);
+
+      loadProduct(); // refresuj detalje
+    } catch (err) {
+      console.error("Greška pri promeni statusa:", err);
+      setError("Failed to update product status.");
     }
   };
 
@@ -70,21 +103,15 @@ export default function ProductDetails() {
   const isAuction = product.salesType === 'auction';
   const isOwner = user && user.id === product.prodavacId;
 
-  async function handleShopNow(productId) {
-    try {
-      const cart = await getCartByUserId(userId);
-      console.log("🛒 Korpa korisnika:", cart);
-
-      // ovde možeš dodati logiku za "addProductToCart" posle
-    } catch (err) {
-      console.error("Greška pri dohvatanju korpe:", err);
-    }
-  }
-
   return (
     <div className="product-details">
       <div className="product-details-image">
-        {product.image && <img src={product.image.startsWith("http") ? product.image : `/${product.image}`} alt={product.name} />}
+        {product.image && (
+          <img
+            src={product.image.startsWith("http") ? product.image : `/${product.image}`}
+            alt={product.name}
+          />
+        )}
       </div>
 
       <div className="product-details-info">
@@ -93,25 +120,25 @@ export default function ProductDetails() {
         </h2>
 
         {product.category && <p className="category">{product.category.name}</p>}
-        
+
         <p className="price">
-          {isAuction ? 'Current Bid: ' : 'Price: '}
-          ${currentDisplayPrice}
+          {isAuction ? 'Current Bid: ' : 'Price: '} ${currentDisplayPrice}
         </p>
 
-        <button className="btn shop-btn" onClick={() => handleShopNow(product.id)}> SHOP NOW</button> </div>
+        {product.salesType === 'fixedPrice' && product.status === 'Active' && (
+          <button className="btn shop-btn" onClick={() => handleShopNow(product.id)}>
+            SHOP NOW
+          </button>
+        )}
+
         {isAuction && <p>Number of bids: {product.ponude?.length || 0}</p>}
-        
+
         <p className="description">{product.description}</p>
-        
         {error && <p className="error-message small">{error}</p>}
 
-        {/* --- LOGIKA ZA PRIKAZ AKCIJA --- */}
-        
-        {/* AKO JE AUKCIJA */}
+        {/* Aukcija logika */}
         {isAuction && product.status === 'Active' && (
           <>
-            {/* Prikaz forme za bid AKO je korisnik ulogovan I NIJE vlasnik */}
             {user && !isOwner && (
               <form className="bid-form" onSubmit={handlePlaceBid}>
                 <h3>Place Your Bid</h3>
@@ -128,21 +155,16 @@ export default function ProductDetails() {
               </form>
             )}
 
-            {/* Prikaz dugmeta za kraj aukcije AKO je korisnik ulogovan I JESTE vlasnik */}
             {user && isOwner && (
-              <button onClick={handleEndAuction} className="btn shop-btn">End Auction Now</button>
+              <button onClick={handleEndAuction} className="btn shop-btn">
+                End Auction Now
+              </button>
             )}
           </>
         )}
 
-        {/* AKO JE FIKSNA CENA (Koleginicin deo) */}
-        {product.salesType === 'fixedPrice' && product.status === 'Active' && (
-           <button className="btn shop-btn">SHOP NOW</button>
-        )}
-
-        {/* Poruka ako je proizvod prodat/u obradi */}
         {product.status !== 'Active' && (
-            <div className="sold-badge">This item is no longer available ({product.status})</div>
+          <div className="sold-badge">This item is no longer available ({product.status})</div>
         )}
       </div>
     </div>

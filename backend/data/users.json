@@ -58,7 +58,7 @@
     "email": "kraljnem@yahoo.com",
     "telefon": "222222222",
     "lozinka": "$2b$10$hAN848FSrRW/h7bqsBkjs.MJ0hM9NFoBLLnGPenkjK0UUVK2ZpGDy",
-    "uloga": "prodavac"
+    "uloga": "Prodavac"
   },
   {
     "id": "1758282466938",
@@ -68,6 +68,16 @@
     "email": "dare@yahoo.com",
     "telefon": "4444444",
     "lozinka": "$2b$10$Z/xsJRyjiYsxY3u1py.ScuNeHbv765GccIgl9ZVEUPxi1JcaOAJz.",
-    "uloga": "kupac"
+    "uloga": "Kupac"
+  },
+  {
+    "id": "1758660875117",
+    "ime": "prodavac",
+    "prezime": "prodavac",
+    "korisnickoIme": "prodavac",
+    "email": "prodavac@gmail.com",
+    "telefon": "57565657675",
+    "lozinka": "$2b$10$XVoF7F9tlCWi/tF75Ih9JOkx/ZNaB5bPA/5v8O5DB8c4ZU0TP77I2",
+    "uloga": "Prodavac"
   }
 ]

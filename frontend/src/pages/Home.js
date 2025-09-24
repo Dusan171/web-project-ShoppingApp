@@ -1,35 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FiUser, FiSearch, FiHeart, FiShoppingBag, FiLogOut } from "react-icons/fi";
-import { useAuth } from "../context/AuthContext"; // 1. UVOZIMO useAuth
+import {
+  FiUser,
+  FiSearch,
+  FiHeart,
+  FiShoppingBag,
+  FiLogOut,
+} from "react-icons/fi";
+import { useAuth } from "../context/AuthContext";
 import "../css/Home.css";
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth(); // 2. DOHVATAMO user i logout IZ CONTEXTA
+  const { user, logout } = useAuth();
 
   const [animated, setAnimated] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Ako je korisnik ulogovan, ne treba nam animacija "We're launching soon"
     if (user) {
       setAnimated(false);
     } else {
       const timer = setTimeout(() => setAnimated(false), 2500);
       return () => clearTimeout(timer);
     }
-  }, [user]); // Efekat se ponovo pokreće ako se 'user' promeni (login/logout)
-
+  }, [user]);
 
   const handleLogout = () => {
     logout();
-    setMenuOpen(false); // Zatvori meni nakon odjave
-    navigate('/login'); // Opciono: preusmeri na login stranicu
+    setMenuOpen(false);
+    navigate("/login");
   };
 
-  // === GLAVNI PRIKAZ ZA SVE ===
-  // Prikazujemo pozadinu i navigaciju uvek
+  const handleBrowseClick = () => {
+  if (!user) {
+    navigate("/products"); // gost
+  } else if (user.uloga === "Prodavac") {
+    navigate("/products"); // prodavac sada takođe ide na /products
+  } else {
+    navigate("/products"); // kupac
+  }
+};
+
+
   return (
     <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
       {/* Pozadinska slika */}
@@ -37,8 +50,12 @@ export default function Home() {
         src="/mintmade-fashion.png"
         alt="Fashion"
         style={{
-          position: "absolute", top: 0, left: 0, width: "100%",
-          height: "100%", objectFit: "cover"
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
         }}
       />
 
@@ -48,13 +65,19 @@ export default function Home() {
         <div>hello@reallygreatsite.com</div>
       </div>
 
-      {/* Ikonice gore desno (Navigacija) */}
+      {/* Ikonice gore desno */}
       <div className="icon-bar">
-        <button className="icon-btn"><FiSearch /></button>
-        <button className="icon-btn"><FiHeart /></button>
-        <button className="icon-btn"><FiShoppingBag /></button>
+        <button className="icon-btn">
+          <FiSearch />
+        </button>
+        <button className="icon-btn">
+          <FiHeart />
+        </button>
+        <button className="icon-btn">
+          <FiShoppingBag />
+        </button>
 
-        {/* --- USLOVNI MENI ZA KORISNIKA --- */}
+        {/* Dropdown meni za korisnika */}
         <div className="user-menu-wrapper">
           <button className="icon-btn" onClick={() => setMenuOpen(!menuOpen)}>
             <FiUser />
@@ -63,25 +86,48 @@ export default function Home() {
           {menuOpen && (
             <div className="menu-dropdown">
               {user ? (
-                // 3a. PRIKAZ ZA ULOGOVANOG KORISNIKA
                 <>
                   <div className="menu-user-info">
                     Signed in as: <strong>{user.korisnickoIme}</strong>
                   </div>
-                  <Link to="/profile" className="menu-link" onClick={() => setMenuOpen(false)}>
+
+                  {/* ✅ Samo za prodavca */}
+                  {user.uloga === "Prodavac" && (
+                    <Link
+                      to="/my-products"
+                      className="menu-link"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      My Products
+                    </Link>
+                  )}
+
+                  <Link
+                    to="/profile"
+                    className="menu-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     My Profile
                   </Link>
+
                   <button onClick={handleLogout} className="menu-link-button">
-                    <FiLogOut style={{ marginRight: '5px' }}/> Sign out
+                    <FiLogOut style={{ marginRight: "5px" }} /> Sign out
                   </button>
                 </>
               ) : (
-                // 3b. PRIKAZ ZA GOSTA
                 <>
-                  <Link to="/login" className="menu-link" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    to="/login"
+                    className="menu-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Sign in
                   </Link>
-                  <Link to="/register" className="menu-link" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    to="/register"
+                    className="menu-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Register
                   </Link>
                 </>
@@ -91,37 +137,30 @@ export default function Home() {
         </div>
       </div>
 
-      {/* --- USLOVNI SADRŽAJ STRANICE --- */}
-      {/* Prikazujemo različit sadržaj u zavisnosti od uloge korisnika */}
-      {!user ? (
-        // 4a. PRIKAZ ZA GOSTA
-        <>
+      {/* Sadržaj stranice */}
+      <div className="dashboard-content">
+        {user ? (
+          <h1>
+            Welcome, {user.korisnickoIme}!{" "}
+            <small>({user.uloga})</small>
+          </h1>
+        ) : (
           <h1 className={`launch-text ${!animated ? "no-animation" : ""}`}>
             We're launching <br /> soon
           </h1>
-          <button onClick={() => navigate("/products")} className="shop-btn">
-            Shop now
-          </button>
-        </>
-      ) : user.uloga === 'Prodavac' ? (
-        // 4b. PRIKAZ ZA PRODAVCA
-        <div className="dashboard-content">
-          <h1>Seller Dashboard</h1>
-          <p>Manage your products and view active auctions.</p>
-          <button onClick={() => navigate("/add")} className="dashboard-btn">
-            Add New Product
-          </button>
-        </div>
-      ) : (
-        // 4c. PRIKAZ ZA KUPCA (i sve ostale uloge)
-        <div className="dashboard-content">
-          <h1>Welcome, {user.korisnickoIme}!</h1>
-          <p>Discover amazing products and deals.</p>
-          <button onClick={() => navigate("/products")} className="dashboard-btn">
-            Browse Products
-          </button>
-        </div>
-      )}
+        )}
+
+        <p>
+          {user?.uloga === "Prodavac"
+            ? "Manage your products and view active auctions."
+            : "Discover amazing products and deals."}
+        </p>
+
+        {/* ✅ Dugme koje vodi na različite stranice */}
+        <button onClick={handleBrowseClick} className="dashboard-btn">
+          Browse Products
+        </button>
+      </div>
     </div>
   );
 }

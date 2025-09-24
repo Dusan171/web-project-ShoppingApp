@@ -53,4 +53,24 @@ export default {
       res.status(400).json({ error: err.message });
     }
   },
+
+  // 🚀 checkout endpoint
+  checkout: (req, res) => {
+    try {
+      const { total } = req.body;
+      const cartId = req.params.id;
+
+      const updatedCart = cartService.checkout(cartId, total);
+      if (!updatedCart) {
+        return res.status(404).json({ error: "Cart not found" });
+      }
+
+      res.json({
+        message: "Checkout successful",
+        cart: updatedCart
+      });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
 };

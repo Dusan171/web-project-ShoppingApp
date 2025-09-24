@@ -1,6 +1,6 @@
 import fs from "fs";
 
-export default class CartService {
+export default class CartRepository {
   constructor(filePath = "./data/carts.json") {
     this.filePath = filePath;
   }

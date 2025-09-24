@@ -5,33 +5,34 @@ import fs from "fs";
 // tvoje postojeće rute
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
-import authRoutes from "./routes/userRoutes.js"; 
+import authRoutes from "./routes/userRoutes.js";
 
 // nova cart ruta
-import cartController from "./controllers/cartController.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
-// Kreira 'app' instancu ODMAH nakon importova
 const app = express();
 const PORT = 5000;
 
-// Podešavanje middleware (CORS, express.json)
+// ✅ Middleware (CORS + JSON)
 app.use(cors({
   origin: "http://localhost:3000", 
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"] 
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // dodali PATCH i OPTIONS
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 }));
+
+// ✅ omogući preflight za sve rute
+app.options(/.*/, cors());
 
 app.use(express.json());
 
-// Povezivanje svih rutera sa njihovim osnovnim putanjama
+// ✅ Rute
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/cart", cartRoutes);
 
-// ✨ nova ruta za korpu
-app.use("/api/cart", cartController);
-
-// Inicijalizaciona logika (ako je neophodna ovde)
+// ✅ Inicijalizacija kategorija ako ne postoje
 const CATEGORIES_FILE = "./data/categories.json";
 if (!fs.existsSync(CATEGORIES_FILE)) {
   if (!fs.existsSync("./data")) {
@@ -45,7 +46,7 @@ if (!fs.existsSync(CATEGORIES_FILE)) {
   fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(categories, null, 2), "utf8");
 }
 
-// Pokretanje servera
+// ✅ Pokretanje servera
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(` Server running at http://localhost:${PORT}`);
 });

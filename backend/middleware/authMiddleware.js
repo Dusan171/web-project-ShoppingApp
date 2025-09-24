@@ -21,7 +21,11 @@ export const protect = (req, res, next) => {
 
       // 5. Ako je sve u redu, zakačimo dekodirane podatke na 'req' objekat
       // Tako će svaka sledeća funkcija (kontroler) znati ko je ulogovani korisnik
-      req.user = decoded;
+      req.user = { 
+  id: decoded.id || decoded.userId, // ✅ uvek postavi id
+  ...decoded 
+};
+
       
       // 6. Puštamo zahtev da prođe dalje do kontrolera
       next();

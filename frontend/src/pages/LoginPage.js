@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/auth.css'; 
+import '../css/auth.css';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
@@ -24,8 +24,15 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        //localStorage.setItem('token', data.token);
+        // Snimamo token
         login(data.token);
+        localStorage.setItem('token', data.token);
+
+        // Snimamo korisnika (backend mora vratiti objekat user!)
+        if (data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
         navigate('/');
       } else {
         setError(data.message || 'Error');
@@ -65,18 +72,18 @@ export default function LoginPage() {
         style={{
           flex: 1,
           display: 'flex',
-          justifyContent: 'flex-end', // bliže desnom rubu
-          alignItems: 'center',       // vertikalno centrirano
-          paddingRight: '25%',        // malo pomerena ulevo od desnog ruba
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          paddingRight: '25%',
           zIndex: 1,
         }}
       >
         {/* Forma za login */}
         <div
           style={{
-            width: '400px',        // fiksna širina forme
-            maxHeight: '95vh',     // da stane u ekran
-            overflowY: 'auto',     // unutrašnji scroll ako je potrebno
+            width: '400px',
+            maxHeight: '95vh',
+            overflowY: 'auto',
           }}
         >
           <h1 className="auth-title">Welcome Back</h1>

@@ -1,8 +1,8 @@
-import CartRepository from "./cartRepository.js";
-import CartItemRepository from "./cartItemRepository.js";
 import Cart from "../models/cart.js";
 import CartItem from "../models/cartItem.js";
 import { v4 as uuidv4 } from "uuid";
+import CartRepository from "../repositories/cartRepository.js";
+import CartItemRepository from "../repositories/cartItemRepository.js";
 
 export default class CartService {
   constructor() {
@@ -44,6 +44,38 @@ export default class CartService {
   }
 
   getByUserIdAndStatus(userId) {
-    return this.getByUserIdAndStatus(userId, "IN_PROGRESS")
+    return this.cartRepository.getByUserIdAndStatus(userId, "IN_PROGRESS");
   }
+
+  // 🔹 izračunaj total za korpu
+  calculateTotal(cart, products) {
+    return cart.items.reduce((sum, item) => {
+      const product = products[item.productId];
+      if (!product) return sum;
+      return sum + product.price * item.quantity;
+    }, 0);
+  }
+
+  // 🔹 checkout (završi kupovinu)
+ // u CartService.js
+checkout(cartId, products) {
+  const cart = this.cartRepository.getById(cartId);
+  if (!cart) return null;
+
+  const items = this.cartItemRepository.getByCartId(cartId);
+
+  // ponovo formiramo cart objekat sa itemima
+  const fullCart = { ...cart, items };
+
+  // izračunamo total koristeći products mapu (id → { price })
+  const total = this.calculateTotal(fullCart, products);
+
+  cart.status = "COMPLETED";
+  cart.total = total;
+  cart.completedAt = new Date();
+
+  this.cartRepository.update(cartId, cart);
+  return cart;
+}
+
 }
