@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllProducts, deleteProduct } from "../services/productService";
 import "../css/product.css";
+import { getCartItems } from "../services/cartItemService";
+ 
 
 export default function ProductTabs() {
   const [tab, setTab] = useState("all");
@@ -24,7 +26,14 @@ export default function ProductTabs() {
     try {
       setLoading(true);
       const data = await getAllProducts();
-      setAllProducts(data);
+
+      const cartItems = await getCartItems();
+
+      const cartItemIds = new Set(cartItems.map(item => item.productId));
+
+      const filteredProducts = data.filter(product => !cartItemIds.has(product.id));
+
+       setAllProducts(filteredProducts);
     } catch (error) {
       console.error("Error fetching all products:", error);
     } finally {
@@ -38,6 +47,7 @@ export default function ProductTabs() {
       const res = await fetch("http://localhost:5000/api/products/my", {
         headers: { Authorization: `Bearer ${token}` },
       });
+
       if (!res.ok) throw new Error("Failed to fetch my products");
       const data = await res.json();
 

@@ -25,15 +25,11 @@ export default {
     try {
       const productData = {
         ...req.body,
-        prodavacId: req.user.id, // uvek veži za ulogovanog prodavca
+        prodavacId: req.user.id, // ulogovani prodavac
         status: "Active", // default status
       };
 
-      console.log("📥 Received product with seller:", productData);
-
       const newProduct = productService.create(productData);
-      console.log("💾 Saved product:", newProduct);
-
       res.status(201).json(newProduct);
     } catch (err) {
       res.status(400).json({ error: err.message });
@@ -65,7 +61,7 @@ export default {
     try {
       const productId = req.params.id;
       const { price } = req.body;
-      const userId = req.user.id; // iz tokena
+      const userId = req.user.id;
 
       const updatedProduct = await productService.placeBid(
         productId,
@@ -96,45 +92,73 @@ export default {
     }
   },
 
-  // 🔄 Update status (npr. Sold, Active, Inactive)
+  // 🔄 Update status (Active → Processing → Sold)
   updateStatus: (req, res) => {
     try {
       const { status } = req.body;
       const userId = req.user?.id;
-
-      console.log("🟢 PATCH /:id/status");
-      console.log("📦 Body status:", status);
-      console.log("👤 Logged userId:", userId);
-      console.log("🛍 ProductId:", req.params.id);
 
       const updatedProduct = productService.updateStatus(
         req.params.id,
         status,
         userId
       );
-      console.log("✅ Updated product:", updatedProduct);
 
       res.json(updatedProduct);
     } catch (err) {
-      console.error("❌ Error in updateStatus:", err.message);
       res.status(400).json({ error: err.message });
     }
   },
 
   // 👤 Proizvodi samo ulogovanog prodavca
- getMine: (req, res) => {
-  try {
-    const products = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+  getMine: (req, res) => {
+    try {
+      const products = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+      const myProducts = products.filter(
+        (p) => String(p.prodavacId) === String(req.user.id)
+      );
+      res.json(myProducts);
+    } catch (err) {
+      res.status(500).json({ message: "Failed to load your products" });
+    }
+  },
 
-    // Pretvori oba u string da sigurno uporedi
-    const myProducts = products.filter(
-      (p) => String(p.prodavacId) === String(req.user.id)
-    );
+  // 🚫 Otkazivanje kupovine (samo fiksna cena)
+  cancelPurchase: (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.user.id;
 
-    res.json(myProducts);
-  } catch (err) {
-    console.error("❌ Error in getMine:", err.message);
-    res.status(500).json({ message: "Failed to load your products" });
-  }
-},
+      let products = JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8"));
+      const product = products.find((p) => String(p.id) === String(id));
+
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      // ✅ samo kupac može da otkaže
+      if (String(product.kupacId) !== String(userId)) {
+        return res
+          .status(403)
+          .json({ error: "You can only cancel your own purchases" });
+      }
+
+      // ✅ samo ako je status "Processing"
+      if (product.status !== "Processing") {
+        return res.status(400).json({
+          error: "Purchase can only be cancelled if status is Processing",
+        });
+      }
+
+      // ✅ vrati na prodaju
+      product.status = "Active";
+      delete product.kupacId;
+
+      fs.writeFileSync(PRODUCTS_FILE, JSON.stringify(products, null, 2));
+
+      res.json({ message: "Purchase cancelled", product });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to cancel purchase" });
+    }
+  },
 };

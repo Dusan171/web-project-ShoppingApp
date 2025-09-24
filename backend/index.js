@@ -9,6 +9,7 @@ import authRoutes from "./routes/userRoutes.js";
 
 // nova cart ruta
 import cartRoutes from "./routes/cartRoutes.js";
+import cartItemRoutes from "./routes/cartItemRoutes.js";
 
 const app = express();
 const PORT = 5000;
@@ -31,6 +32,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/cart-items", cartItemRoutes)
 
 // ✅ Inicijalizacija kategorija ako ne postoje
 const CATEGORIES_FILE = "./data/categories.json";

@@ -79,5 +79,15 @@
     "telefon": "57565657675",
     "lozinka": "$2b$10$XVoF7F9tlCWi/tF75Ih9JOkx/ZNaB5bPA/5v8O5DB8c4ZU0TP77I2",
     "uloga": "Prodavac"
+  },
+  {
+    "id": "1758674485205",
+    "ime": "kupac",
+    "prezime": "kupac",
+    "korisnickoIme": "kupac123",
+    "email": "kupac123@gmail.com",
+    "telefon": "57565756",
+    "lozinka": "$2b$10$htOk9bzGQJzLXobSbqpzs.Cn1J/.2b5BW2XknFDYhJHYz/v81Q1Mu",
+    "uloga": "kupac"
   }
 ]

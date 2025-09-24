@@ -15,6 +15,11 @@ export default class CartItemService {
     return this.cartItemRepository.getById(id);
   }
 
+  update(id, data)  {
+    return this.cartItemRepository.update(id, data);
+  }
+
+
   getItemsByCartId(cartId) {
     return this.cartItemRepository.getByCartId(cartId);
   }

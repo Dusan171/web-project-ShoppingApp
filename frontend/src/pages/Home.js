@@ -42,6 +42,9 @@ export default function Home() {
   }
 };
 
+const handleCarts = () => {
+  navigate("/carts")
+}
 
   return (
     <div style={{ position: "relative", height: "100vh", width: "100vw" }}>
@@ -159,6 +162,9 @@ export default function Home() {
         {/* ✅ Dugme koje vodi na različite stranice */}
         <button onClick={handleBrowseClick} className="dashboard-btn">
           Browse Products
+        </button>
+       <button onClick={handleCarts} className="dashboard-btn">
+          Carts
         </button>
       </div>
     </div>

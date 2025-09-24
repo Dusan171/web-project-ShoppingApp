@@ -106,5 +106,36 @@ export default {
   return productRepository.updateProduct(productId, product);
 },
 
+cancelPurchase: (productId, userId) => {
+  let products = readProducts();
+  const index = products.findIndex((p) => String(p.id) === String(productId));
+
+  if (index === -1) {
+    throw new Error("Product not found");
+  }
+
+  const product = products[index];
+
+  // ✅ Kupac može da otkaže kupovinu samo ako je status Obrada
+  if (product.status !== "Obrada") {
+    throw new Error("Purchase cannot be cancelled unless status is 'Obrada'");
+  }
+
+  // ✅ Proveri da li je kupac baš ovaj user
+  if (String(product.kupacId) !== String(userId)) {
+    throw new Error("You are not the buyer of this product");
+  }
+
+  // ✅ Vrati nazad status i ukloni kupca
+  product.status = "Active";
+  delete product.kupacId;
+
+  products[index] = product;
+  writeProducts(products);
+
+  return product;
+},
+
+
 
 };

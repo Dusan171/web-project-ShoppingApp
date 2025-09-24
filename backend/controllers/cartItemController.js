@@ -1,8 +1,10 @@
-import cartItemService from "../services/cartItemService.js";
+import CartItemService  from "../services/cartItemService.js";
+
+const cartItemService = new CartItemService();
 
 export default {
   getAll: (req, res) => {
-    res.json(cartItemService.getAll());
+    res.json(cartItemService.getAllItems());
   },
 
   getOne: (req, res) => {

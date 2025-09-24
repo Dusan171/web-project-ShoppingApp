@@ -8,6 +8,8 @@ import ProductTabs from "./pages/ProductTabs";
 import ProductForm from "./pages/ProductForm";  // 👈 dodaj import
 import Profile from "./pages/Profile";
 import MyProducts from "./pages/MyProducts";
+import ProductDetails from "./pages/ProductDetails";
+import CartSeller from "./pages/CartsSeller";
 
 function App() {
   return (
@@ -18,9 +20,12 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/products" element={<ProductTabs />} />
         <Route path="/profile" element={<Profile />} />
-       <Route path="/my-products" element={<MyProducts />} />  // ✅
+       <Route path="/my-products" element={<MyProducts />} />  
+       <Route path="/products/:id" element={<ProductDetails />} />
 
 
+        <Route path="/carts" element={<CartSeller />} />
+        {/* <Route path="/products/:id" element={<ProductDetails />} /> */}
 
 
         {/* 👇 dodaj forme za dodavanje i editovanje proizvoda */}
