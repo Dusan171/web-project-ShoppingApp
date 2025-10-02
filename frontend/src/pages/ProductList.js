@@ -75,13 +75,14 @@ export default function ProductList() {
       <div className="container">
         <div className="header-section">
           <h1 className="page-title">Our Products</h1>
-          <div className="actions">
-            {user && isSeller && (
+
+          {user && isSeller && (
+            <div className="actions">
               <button className="add-btn" onClick={handleAddClick}>
                 ➕ Add Product
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {loading ? (
@@ -104,7 +105,6 @@ export default function ProductList() {
                     : "Starting at:"
                   : "Price:";
 
-              // Samo vlasnik proizvoda vidi dugmad
               const isOwner = isSeller && String(user?.id) === String(p.prodavacId);
 
               return (

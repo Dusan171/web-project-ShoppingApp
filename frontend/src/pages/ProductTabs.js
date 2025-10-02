@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { getAllProducts, deleteProduct } from "../services/productService";
 import "../css/product.css";
 import { getCartItems } from "../services/cartItemService";
+import { useAuth } from "../context/AuthContext"; // ✅ dodato
+
 
 export default function ProductTabs() {
   const [tab, setTab] = useState("all");
@@ -11,30 +13,29 @@ export default function ProductTabs() {
   const [myProducts, setMyProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const user = JSON.parse(localStorage.getItem("user"));
+
+const { user } = useAuth();
   const token = localStorage.getItem("token");
+
+  const isSeller = user && user.uloga === "Prodavac";
 
   useEffect(() => {
     async function fetchProducts() {
       try {
         setLoading(true);
 
-        // Load all products
         const data = await getAllProducts();
         const cartItems = await getCartItems();
         const cartItemIds = new Set(cartItems.map(item => item.productId));
-        const filteredProducts = data.filter(product => !cartItemIds.has(product.id));
-        setAllProducts(filteredProducts);
+        setAllProducts(data.filter(product => !cartItemIds.has(product.id)));
 
-        // Load my products only if user is a seller
-        if (user?.uloga === "Prodavac") {
+        if (isSeller) {
           const res = await fetch("http://localhost:5000/api/products/my", {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (!res.ok) throw new Error("Failed to fetch my products");
           const myData = await res.json();
-          const filtered = myData.filter((p) => String(p.prodavacId) === String(user.id));
-          setMyProducts(filtered);
+          setMyProducts(myData.filter(p => String(p.prodavacId) === String(user.id)));
         }
 
       } catch (err) {
@@ -45,25 +46,23 @@ export default function ProductTabs() {
     }
 
     fetchProducts();
-  }, [user?.uloga, token]); // sada ESLint neće prijavljivati warning
+  }, [isSeller, token, user?.id]);
 
   async function handleDelete(id) {
     if (window.confirm("Are you sure you want to delete this product?")) {
       await deleteProduct(id);
-      // Reload products
+
       const data = await getAllProducts();
       const cartItems = await getCartItems();
       const cartItemIds = new Set(cartItems.map(item => item.productId));
-      const filteredProducts = data.filter(product => !cartItemIds.has(product.id));
-      setAllProducts(filteredProducts);
+      setAllProducts(data.filter(product => !cartItemIds.has(product.id)));
 
-      if (user?.uloga === "Prodavac") {
+      if (isSeller) {
         const res = await fetch("http://localhost:5000/api/products/my", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const myData = await res.json();
-        const filtered = myData.filter((p) => String(p.prodavacId) === String(user.id));
-        setMyProducts(filtered);
+        setMyProducts(myData.filter(p => String(p.prodavacId) === String(user.id)));
       }
     }
   }
@@ -79,12 +78,12 @@ export default function ProductTabs() {
             <>
               <h3>Nema proizvoda koje ste vi kreirali</h3>
               <p>Dodajte svoj prvi proizvod.</p>
-              <Link to="/add" className="add-btn">➕ Add Product</Link>
+              {isSeller && <Link to="/add" className="add-btn">➕ Add Product</Link>}
             </>
           ) : (
             <>
               <h3>No products found</h3>
-              {showAddBtn && (
+              {showAddBtn && isSeller && (
                 <>
                   <p>Start by adding your first product to the collection.</p>
                   <Link to="/add" className="add-btn">➕ Add Product</Link>
@@ -106,8 +105,7 @@ export default function ProductTabs() {
               ? highestBid ? "Current Bid:" : "Starting at:"
               : "Price:";
 
-          // Show Edit/Delete buttons only to owner
-          const isOwner = user?.uloga === "Prodavac" && String(user.id) === String(p.prodavacId);
+          const isOwner = isSeller && String(user.id) === String(p.prodavacId);
 
           return (
             <li key={p.id} className="product-card">
@@ -155,8 +153,8 @@ export default function ProductTabs() {
         <div className="header-section">
           <h1 className="page-title">Products</h1>
 
-          <div style={{ marginTop: "20px" }}>
-            {user?.uloga === "Prodavac" && (
+          {isSeller && (
+            <div style={{ marginTop: "20px" }}>
               <button
                 onClick={() => setTab("my")}
                 style={{
@@ -166,10 +164,10 @@ export default function ProductTabs() {
               >
                 My Products
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
-          {tab === "all" && (
+          {tab === "all" && isSeller && (
             <div className="actions">
               <Link to="/add" className="add-btn">➕ Add Product</Link>
             </div>

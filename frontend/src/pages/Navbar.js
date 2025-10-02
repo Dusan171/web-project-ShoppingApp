@@ -5,14 +5,14 @@ import { useAuth } from "../context/AuthContext";
 import "../css/Navbar.css";
 
 export default function Navbar() {
-  const { user, logout } = useAuth();
+  const { user, logout } = useAuth(); // koristimo AuthContext
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout();
+    logout(); // briše user iz state-a i localStorage
     setMenuOpen(false);
-    navigate("/login");
+    navigate("/login"); // opcionalno, vodi na login stranicu
   };
 
   return (
@@ -41,25 +41,44 @@ export default function Navbar() {
                 </div>
 
                 {user.uloga === "Prodavac" && (
-                  <Link to="/carts" className="menu-link" onClick={() => setMenuOpen(false)}>
+                  <Link
+                    to="/carts"
+                    className="menu-link"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Cart Seller
                   </Link>
                 )}
 
-                <Link to="/profile" className="menu-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/profile"
+                  className="menu-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   My Profile
                 </Link>
 
-                <button onClick={handleLogout} className="menu-link-button">
+                <button
+                  onClick={handleLogout}
+                  className="menu-link-button"
+                >
                   <FiLogOut /> Sign out
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="menu-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/login"
+                  className="menu-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Sign in
                 </Link>
-                <Link to="/register" className="menu-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/register"
+                  className="menu-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Register
                 </Link>
               </>
