@@ -1,23 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProduct, createProduct, updateProduct } from "../services/productService";
-import { useAuth } from "../context/AuthContext"; 
+import { useAuth } from "../context/AuthContext";
 
 export default function ProductForm() {
-  const { user, token } = useAuth(); 
-  const { id } = useParams(); 
+  const { user, token } = useAuth();
+  const { id } = useParams();
   const navigate = useNavigate();
+  const alerted = useRef(false);
 
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     image: "",
-    salesType: "fixedPrice", 
+    salesType: "fixedPrice",
+    categoryId: "",
+    location: {
+      street: "",
+      number: "",
+      city: "",
+      postalCode: "",
+      latitude: "",  // automatski
+      longitude: "", // automatski
+    },
+    status: "Processing",
+    reviewByBuyer: false,
+    reviewBySeller: false,
+    ponude: [],
   });
 
-  const alerted = useRef(false); 
-
+  // Provera da li je korisnik prodavac
   useEffect(() => {
     if ((!user || user.uloga !== "Prodavac") && !alerted.current) {
       alerted.current = true;
@@ -26,38 +39,71 @@ export default function ProductForm() {
     }
   }, [user, navigate]);
 
+  // Učitavanje proizvoda u slučaju editovanja
   useEffect(() => {
     async function loadProduct() {
       try {
         const product = await getProduct(id);
         setFormData({
+          ...formData,
           name: product.name,
           description: product.description || "",
           price: product.price,
           image: product.image || "",
           salesType: product.salesType || "fixedPrice",
+          categoryId: product.categoryId || "",
+          location: product.location || {
+            street: "",
+            number: "",
+            city: "",
+            postalCode: "",
+            latitude: "",
+            longitude: "",
+          },
+          status: product.status || "Processing",
+          reviewByBuyer: product.reviewByBuyer || false,
+          reviewBySeller: product.reviewBySeller || false,
+          ponude: product.ponude || [],
         });
       } catch (err) {
         console.error("Error loading product", err);
       }
     }
 
-    if (id) {
-      loadProduct();
-    }
+    if (id) loadProduct();
   }, [id]);
 
   function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (["street", "number", "city", "postalCode"].includes(name)) {
+      setFormData({
+        ...formData,
+        location: { ...formData.location, [name]: value },
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    // latitude i longitude automatski (dummy vrednosti, ili geokodiranje)
+    const updatedForm = {
+      ...formData,
+      location: {
+        ...formData.location,
+        latitude: "0.0",
+        longitude: "0.0",
+      },
+    };
+
     try {
       if (id) {
-        await updateProduct(id, formData, token);
+        await updateProduct(id, updatedForm, token);
       } else {
-        await createProduct(formData, token);
+        await createProduct(updatedForm, token);
       }
       navigate("/products");
     } catch (err) {
@@ -72,57 +118,62 @@ export default function ProductForm() {
       <form onSubmit={handleSubmit} className="product-form">
         <label>
           Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
         </label>
 
         <label>
           Description:
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
+          <textarea name="description" value={formData.description} onChange={handleChange} required />
         </label>
 
         <label>
           Price:
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
+          <input type="number" name="price" value={formData.price} onChange={handleChange} required />
         </label>
 
         <label>
           Image URL:
-          <input
-            type="text"
-            name="image"
-            value={formData.image}
-            onChange={handleChange}
-          />
+          <input type="text" name="image" value={formData.image} onChange={handleChange} />
         </label>
 
         <label>
           Sales Type:
-          <select
-            name="salesType"
-            value={formData.salesType}
-            onChange={handleChange}
-          >
+          <select name="salesType" value={formData.salesType} onChange={handleChange}>
             <option value="fixedPrice">Fixed Price</option>
             <option value="auction">Auction</option>
           </select>
         </label>
+
+        <label>
+          Category:
+          <select name="categoryId" value={formData.categoryId} onChange={handleChange} required>
+            <option value="">Select Category</option>
+            <option value="1">Electronics</option>
+            <option value="2">Clothing</option>
+            <option value="3">Books</option>
+            <option value="4">Shoes</option>
+          </select>
+        </label>
+
+        <fieldset>
+          <legend>Location</legend>
+          <label>
+            Street:
+            <input type="text" name="street" value={formData.location.street} onChange={handleChange} required />
+          </label>
+          <label>
+            Number:
+            <input type="text" name="number" value={formData.location.number} onChange={handleChange} required />
+          </label>
+          <label>
+            City:
+            <input type="text" name="city" value={formData.location.city} onChange={handleChange} required />
+          </label>
+          <label>
+            Postal Code:
+            <input type="text" name="postalCode" value={formData.location.postalCode} onChange={handleChange} required />
+          </label>
+        </fieldset>
 
         <button type="submit" className="btn">
           {id ? "Update" : "Create"}

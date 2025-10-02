@@ -9,6 +9,7 @@ export default function ProductList() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // 👈 novo polje za pretragu
 
   const isSeller = user && user.uloga === "Prodavac";
 
@@ -59,6 +60,12 @@ export default function ProductList() {
     }
   }
 
+  // Filtriranje proizvoda po searchTerm
+  const filteredProducts = products.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
   return (
     <div
       className="products-page"
@@ -76,6 +83,23 @@ export default function ProductList() {
         <div className="header-section">
           <h1 className="page-title">Our Products</h1>
 
+          {/* Polje za pretragu */}
+          <input
+            type="text"
+            placeholder="Search products by name or description..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              padding: "10px 15px",
+              marginBottom: "20px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontSize: "1rem"
+            }}
+          />
+
           {user && isSeller && (
             <div className="actions">
               <button className="add-btn" onClick={handleAddClick}>
@@ -87,15 +111,15 @@ export default function ProductList() {
 
         {loading ? (
           <div className="loading">Loading products...</div>
-        ) : products.length === 0 ? (
+        ) : filteredProducts.length === 0 ? (
           <div className="empty-state">
             <div className="empty-state-icon">📦</div>
             <h3>No products found</h3>
-            <p>Start by adding your first product to the collection.</p>
+            {isSeller && <p>Try adding a new product!</p>}
           </div>
         ) : (
           <ul className="product-grid">
-            {products.map((p) => {
+            {filteredProducts.map((p) => {
               const highestBid = p.ponude?.sort((a, b) => b.cena - a.cena)[0];
               const displayPrice = highestBid ? highestBid.cena : p.price;
               const priceLabel =

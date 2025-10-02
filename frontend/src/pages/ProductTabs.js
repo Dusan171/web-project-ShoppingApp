@@ -6,17 +6,15 @@ import "../css/product.css";
 import { getCartItems } from "../services/cartItemService";
 import { useAuth } from "../context/AuthContext"; // ✅ dodato
 
-
 export default function ProductTabs() {
   const [tab, setTab] = useState("all");
   const [allProducts, setAllProducts] = useState([]);
   const [myProducts, setMyProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // polje za pretragu
 
-
-const { user } = useAuth();
+  const { user } = useAuth();
   const token = localStorage.getItem("token");
-
   const isSeller = user && user.uloga === "Prodavac";
 
   useEffect(() => {
@@ -37,7 +35,6 @@ const { user } = useAuth();
           const myData = await res.json();
           setMyProducts(myData.filter(p => String(p.prodavacId) === String(user.id)));
         }
-
       } catch (err) {
         console.error("Error fetching products:", err);
       } finally {
@@ -70,7 +67,13 @@ const { user } = useAuth();
   const renderProducts = (products, showAddBtn = true, isMine = false) => {
     if (loading) return <div className="loading">Loading products...</div>;
 
-    if (products.length === 0) {
+    // filtriranje po searchTerm
+    const filteredProducts = products.filter(p =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+
+    if (filteredProducts.length === 0) {
       return (
         <div className="empty-state">
           <div className="empty-state-icon">📦</div>
@@ -97,7 +100,7 @@ const { user } = useAuth();
 
     return (
       <ul className="product-grid">
-        {products.map((p) => {
+        {filteredProducts.map((p) => {
           const highestBid = p.ponude?.sort((a, b) => b.cena - a.cena)[0];
           const displayPrice = highestBid ? highestBid.cena : p.price;
           const priceLabel =
@@ -152,6 +155,24 @@ const { user } = useAuth();
       <div className="container">
         <div className="header-section">
           <h1 className="page-title">Products</h1>
+
+          {/* Polje za pretragu */}
+          <input
+            type="text"
+            placeholder="Search products by name or description..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              padding: "10px 15px",
+              margin: "20px auto",
+              display: "block",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              fontSize: "1rem"
+            }}
+          />
 
           {isSeller && (
             <div style={{ marginTop: "20px" }}>

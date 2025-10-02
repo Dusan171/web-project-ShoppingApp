@@ -296,5 +296,84 @@
         "datum": "2025-10-02T15:38:59.779Z"
       }
     ]
+  },
+  {
+    "name": "GUESS Crossbody Bag",
+    "description": "GUESS Crossbody Bag 'NOELLE' in black",
+    "price": "128",
+    "image": "https://cdn.aboutstatic.com/file/images/b66a19f7d74e3536015fa031e6515e32.png?bg=F4F4F5&quality=75&trim=1&height=630&width=1200&expand=1",
+    "salesType": "fixedPrice",
+    "category": "Odeća",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3a",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "0.0",
+      "longitude": "0.0"
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759431564619"
+  },
+  {
+    "name": "TH Flex Regular Fit Stripe Shirt",
+    "description": "TH Flex Regular Fit Stripe Shirt",
+    "price": "1458",
+    "image": "https://tommy-europe.scene7.com/is/image/TommyEurope/MW0MW39159_0A5_main?$b2c_updp_m_mainImage_1920$",
+    "salesType": "fixedPrice",
+    "category": "Odeća",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3a",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "0.0",
+      "longitude": "0.0"
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759431921989"
+  },
+  {
+    "name": "Hair Curling Wand",
+    "description": "Hair Curling Wand",
+    "price": "123",
+    "image": "https://m.media-amazon.com/images/I/61zjHCzdcUL._UF1000,1000_QL80_.jpg",
+    "salesType": "fixedPrice",
+    "category": "Elektronics",
+    "location": {
+      "street": "Preradoviceva",
+      "number": "2",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "0.0",
+      "longitude": "0.0"
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759432241724"
+  },
+  {
+    "name": "Sloane Fluted 2 Seat Sofa",
+    "description": "Sloane Fluted 2 Seat Sofa",
+    "price": "676877",
+    "image": "https://iconx-studios.com/cdn/shop/files/CDSLWWOLS6.jpg?v=1703243694",
+    "salesType": "fixedPrice",
+    "categoryId": "1",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3b",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "0.0",
+      "longitude": "0.0"
+    },
+    "status": "Active",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "prodavacId": "1758660875117",
+    "id": "1759434497692"
   }
 ]
