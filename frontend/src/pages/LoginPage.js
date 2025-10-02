@@ -24,11 +24,9 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Snimamo token
         login(data.token);
         localStorage.setItem('token', data.token);
 
-        // Snimamo korisnika (backend mora vratiti objekat user!)
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
         }
@@ -52,7 +50,6 @@ export default function LoginPage() {
         overflow: 'hidden',
       }}
     >
-      {/* Pozadinska slika */}
       <img
         src="/LoginPageBg.png"
         alt="Login Background"
@@ -67,7 +64,6 @@ export default function LoginPage() {
         }}
       />
 
-      {/* Desna polovina ekrana */}
       <div
         style={{
           flex: 1,
@@ -78,47 +74,46 @@ export default function LoginPage() {
           zIndex: 1,
         }}
       >
-        {/* Forma za login */}
-        <div
-          style={{
-            width: '400px',
-            maxHeight: '95vh',
-            overflowY: 'auto',
-          }}
-        >
-          <h1 className="auth-title">Welcome Back</h1>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleLogin}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                className="form-input"
-                value={korisnickoIme}
-                onChange={(e) => setKorisnickoIme(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                className="form-input"
-                value={lozinka}
-                onChange={(e) => setLozinka(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="auth-btn">
-              Sign in
-            </button>
-          </form>
-          <p className="switch-auth-link">
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </div>
+<div
+  style={{
+    width: '400px',
+   
+  }}
+>
+  <h1 className="auth-title">Welcome Back</h1>
+  {error && <div className="error-message">{error}</div>}
+  <form onSubmit={handleLogin}>
+    <div className="form-group">
+      <label htmlFor="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        className="form-input"
+        value={korisnickoIme}
+        onChange={(e) => setKorisnickoIme(e.target.value)}
+        required
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        className="form-input"
+        value={lozinka}
+        onChange={(e) => setLozinka(e.target.value)}
+        required
+      />
+    </div>
+    <button type="submit" className="auth-btn">
+      Sign in
+    </button>
+  </form>
+  <p className="switch-auth-link">
+    Don't have an account? <Link to="/register">Register</Link>
+  </p>
+</div>
+
       </div>
     </div>
   );

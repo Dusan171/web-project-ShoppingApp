@@ -1,32 +1,34 @@
 const API_URL = "http://localhost:5000/api/products";
 
-// 📦 Svi proizvodi
+function getToken() {
+  return localStorage.getItem("token");
+}
+
 export async function getAllProducts() {
   const res = await fetch(API_URL);
   return res.json();
 }
 
-// 📦 Jedan proizvod
 export async function getProduct(id) {
   const res = await fetch(`${API_URL}/${id}`);
   return res.json();
 }
 
-// ➕ Kreiranje proizvoda (prodavac)
-export async function createProduct(product, token) {
+export async function createProduct(product, token = getToken()) {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // mora token
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(product),
   });
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to create product");
+  return data;
 }
 
-// ✏️ Ažuriranje proizvoda
-export async function updateProduct(id, product, token) {
+export async function updateProduct(id, product, token = getToken()) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: {
@@ -35,24 +37,24 @@ export async function updateProduct(id, product, token) {
     },
     body: JSON.stringify(product),
   });
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to update product");
+  return data;
 }
 
-// ❌ Logičko brisanje proizvoda
-export async function deleteProduct(id, token) {
+export async function deleteProduct(id, token = getToken()) {
   const res = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res.json();
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to delete product");
+  return data;
 }
 
-// 🔄 Promena statusa proizvoda (npr. Active → Processing → Completed)
-export async function updateProductStatus(productId, status) {
-  const token = localStorage.getItem("token");
-
+export async function updateProductStatus(productId, status, token = getToken()) {
   const res = await fetch(`${API_URL}/${productId}/status`, {
     method: "PATCH",
     headers: {
@@ -63,16 +65,11 @@ export async function updateProductStatus(productId, status) {
   });
 
   const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.error || "Failed to update product status");
-  }
+  if (!res.ok) throw new Error(data.error || "Failed to update product status");
   return data;
 }
 
-// 🚫 Otkazivanje kupovine (samo ako je status = Obrada / Processing)
-export async function cancelPurchase(productId) {
-  const token = localStorage.getItem("token");
-
+export async function cancelPurchase(productId, token = getToken()) {
   const res = await fetch(`${API_URL}/${productId}/cancel`, {
     method: "POST",
     headers: {
@@ -82,8 +79,6 @@ export async function cancelPurchase(productId) {
   });
 
   const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.error || "Failed to cancel purchase");
-  }
+  if (!res.ok) throw new Error(data.error || "Failed to cancel purchase");
   return data;
 }

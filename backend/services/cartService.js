@@ -3,6 +3,7 @@ import CartItem from "../models/cartItem.js";
 import { v4 as uuidv4 } from "uuid";
 import CartRepository from "../repositories/cartRepository.js";
 import CartItemRepository from "../repositories/cartItemRepository.js";
+import productRepository from "../repositories/productRepository.js";
 
 export default class CartService {
   constructor() {
@@ -10,7 +11,6 @@ export default class CartService {
     this.cartItemRepository = new CartItemRepository();
   }
 
-  // koristi repo metod umesto ručnog pretraživanja
   getOrCreateCart(customerId) {
     let cart = this.cartRepository.getByUserIdAndStatus(customerId, "IN_PROGRESS");
 
@@ -47,35 +47,43 @@ export default class CartService {
     return this.cartRepository.getByUserIdAndStatus(userId, "IN_PROGRESS");
   }
 
-  // 🔹 izračunaj total za korpu
   calculateTotal(cart, products) {
     return cart.items.reduce((sum, item) => {
       const product = products[item.productId];
       if (!product) return sum;
-      return sum + product.price * item.quantity;
+      return sum + parseFloat(product.price) * item.quantity;
     }, 0);
   }
 
-  // 🔹 checkout (završi kupovinu)
- // u CartService.js
-checkout(cartId, products) {
-  const cart = this.cartRepository.getById(cartId);
-  if (!cart) return null;
+  checkout(cartId, products) {
+    const cart = this.cartRepository.getById(cartId);
+    if (!cart) return null;
 
-  const items = this.cartItemRepository.getByCartId(cartId);
+    const items = this.cartItemRepository.getByCartId(cartId);
+    const fullCart = { ...cart, items };
 
-  // ponovo formiramo cart objekat sa itemima
-  const fullCart = { ...cart, items };
+    const total = this.calculateTotal(fullCart, products);
 
-  // izračunamo total koristeći products mapu (id → { price })
-  const total = this.calculateTotal(fullCart, products);
+    cart.status = "COMPLETED";
+    cart.total = total;
+    cart.completedAt = new Date();
 
-  cart.status = "COMPLETED";
-  cart.total = total;
-  cart.completedAt = new Date();
+    this.cartRepository.update(cartId, cart);
+    return cart;
+  }
 
-  this.cartRepository.update(cartId, cart);
-  return cart;
-}
+  addProcessingProductsToCart(customerId) {
+    const products = productRepository.getAllProducts();
+    const processingProducts = products.filter(p => p.status === "Processing");
 
+    if (processingProducts.length === 0) return [];
+
+    const cart = this.getOrCreateCart(customerId);
+
+    const addedItems = processingProducts.map(product => {
+      return this.addProductToCart(customerId, product.id, 1);
+    });
+
+    return addedItems;
+  }
 }

@@ -31,7 +31,7 @@ export async function getCartByUserId(userId) {
 export function calculateTotal(cart, products) {
   return cart.items.reduce((sum, item) => {
     const product = products[item.productId];
-    if (!product) return sum; // ako nema proizvoda u katalogu, preskoči
+    if (!product) return sum; 
     return sum + product.price * item.quantity;
   }, 0);
 }

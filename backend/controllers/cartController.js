@@ -1,4 +1,5 @@
 import cartService from "../services/cartService.js";
+import productService from "../services/productService.js"; 
 
 export default {
   getAll: (req, res) => {
@@ -54,7 +55,6 @@ export default {
     }
   },
 
-  // 🚀 checkout endpoint
   checkout: (req, res) => {
     try {
       const { total } = req.body;
@@ -71,6 +71,26 @@ export default {
       });
     } catch (err) {
       res.status(400).json({ error: err.message });
+    }
+  },
+
+  addProcessingProductsToCart: (req, res) => {
+    const { userId } = req.params;
+    try {
+      const allProducts = productService.getAll();
+      const processingProducts = allProducts.filter(p => p.status === "Processing");
+
+      const cart = cartService.getOrCreateCart(userId);
+      const addedItems = [];
+
+      processingProducts.forEach(product => {
+        const item = cartService.addProductToCart(userId, product.id, 1);
+        addedItems.push(item);
+      });
+
+      res.status(200).json({ message: "Processing products added to cart", items: addedItems });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   }
 };

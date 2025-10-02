@@ -1,4 +1,3 @@
-// src/services/authService.js
 import * as userRepository from '../repositories/userRepository.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,7 +5,6 @@ import jwt from 'jsonwebtoken';
 export const register = async (userData) => {
   const { korisnickoIme, email, lozinka } = userData;
 
-  // Provera da li korisnik već postoji
   const existingUser =
     userRepository.findByUsername(korisnickoIme) ||
     userRepository.findByEmail(email);
@@ -15,17 +13,13 @@ export const register = async (userData) => {
     throw new Error('Korisničko ime ili email već postoje.');
   }
 
-  // Hesiranje lozinke
   const hashedPassword = await bcrypt.hash(lozinka, 10);
 
-  // Kreiranje novog korisnika
   const newUser = {
-    id: Date.now().toString(), // Jednostavan unique ID
+    id: Date.now().toString(),
     ...userData,
     lozinka: hashedPassword,
-    // Ako želiš default:
-    // uloga: 'Kupac',
-  };
+     };
 
   return userRepository.save(newUser);
 };
@@ -43,7 +37,6 @@ export const login = async (loginData) => {
     throw new Error('Pogrešno korisničko ime ili lozinka.');
   }
 
-  // Kreiranje tokena
   const payload = {
     id: user.id,
     uloga: user.uloga,
@@ -54,7 +47,6 @@ export const login = async (loginData) => {
     expiresIn: '1h',
   });
 
-  // Vrati token i podatke o user-u (bez lozinke!)
   return {
     token,
     user: {

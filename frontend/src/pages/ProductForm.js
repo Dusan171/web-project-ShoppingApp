@@ -1,43 +1,51 @@
-// src/pages/ProductForm.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProduct, createProduct, updateProduct } from "../services/productService";
+import { useAuth } from "../context/AuthContext"; 
 
 export default function ProductForm() {
-  const { id } = useParams(); // ako postoji, edit mode
+  const { user, token } = useAuth(); 
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
-    description: "", // 👈 dodato
+    description: "",
     price: "",
     image: "",
-    salesType: "fixed", // fixed | auction
+    salesType: "fixedPrice", 
   });
 
-  const token = localStorage.getItem("token");
+  const alerted = useRef(false); 
 
-  // ako editujemo, dovuci postojeći proizvod
   useEffect(() => {
+    if ((!user || user.uloga !== "Prodavac") && !alerted.current) {
+      alerted.current = true;
+      alert("Only the seller can add or edit products!");
+      navigate("/products");
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
+    async function loadProduct() {
+      try {
+        const product = await getProduct(id);
+        setFormData({
+          name: product.name,
+          description: product.description || "",
+          price: product.price,
+          image: product.image || "",
+          salesType: product.salesType || "fixedPrice",
+        });
+      } catch (err) {
+        console.error("Error loading product", err);
+      }
+    }
+
     if (id) {
       loadProduct();
     }
   }, [id]);
-
-  async function loadProduct() {
-    try {
-      const product = await getProduct(id);
-      setFormData({
-        name: product.name,
-        description: product.description || "", // 👈 dodato
-        price: product.price,
-        image: product.image || "",
-        salesType: product.salesType || "fixed",
-      });
-    } catch (err) {
-      console.error("Error loading product", err);
-    }
-  }
 
   function handleChange(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -54,6 +62,7 @@ export default function ProductForm() {
       navigate("/products");
     } catch (err) {
       console.error("Error saving product", err);
+      alert("Something went wrong while storing the product.");
     }
   }
 
@@ -73,7 +82,7 @@ export default function ProductForm() {
         </label>
 
         <label>
-          Description: {/* 👈 novo polje */}
+          Description:
           <textarea
             name="description"
             value={formData.description}
@@ -110,7 +119,7 @@ export default function ProductForm() {
             value={formData.salesType}
             onChange={handleChange}
           >
-            <option value="fixed">Fixed Price</option>
+            <option value="fixedPrice">Fixed Price</option>
             <option value="auction">Auction</option>
           </select>
         </label>

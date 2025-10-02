@@ -10,11 +10,8 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  try {
-    // authService.login neka vraća i token i user
-    const { token, user } = await authService.login(req.body);
+  try {    const { token, user } = await authService.login(req.body);
 
-    // Vrati token i korisnika (bez lozinke!)
     res.status(200).json({
       token,
       user: {

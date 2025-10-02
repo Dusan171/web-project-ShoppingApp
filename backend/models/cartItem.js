@@ -4,6 +4,6 @@ export default class CartItem {
     this.cartId = cartId;
     this.productId = productId;
     this.quantity = quantity;
-    this.status = status;
+    this.status = "IN_PROGRESS";
   }
 }

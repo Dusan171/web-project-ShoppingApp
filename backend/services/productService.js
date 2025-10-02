@@ -79,7 +79,7 @@ export default {
   },
 
  updateStatus: (productId, newStatus, userId) => {
-  console.log("🔧 Service updateStatus called with:", { productId, newStatus, userId });
+  console.log(" Service updateStatus called with:", { productId, newStatus, userId });
 
   const product = productRepository.getProductById(productId);
 
@@ -102,7 +102,7 @@ export default {
   product.status = newStatus;
   product.kupacId = userId;
 
-  console.log("💾 Saving product:", product);
+  console.log("Saving product:", product);
   return productRepository.updateProduct(productId, product);
 },
 
@@ -116,17 +116,14 @@ cancelPurchase: (productId, userId) => {
 
   const product = products[index];
 
-  // ✅ Kupac može da otkaže kupovinu samo ako je status Obrada
   if (product.status !== "Obrada") {
     throw new Error("Purchase cannot be cancelled unless status is 'Obrada'");
   }
 
-  // ✅ Proveri da li je kupac baš ovaj user
   if (String(product.kupacId) !== String(userId)) {
     throw new Error("You are not the buyer of this product");
   }
 
-  // ✅ Vrati nazad status i ukloni kupca
   product.status = "Active";
   delete product.kupacId;
 

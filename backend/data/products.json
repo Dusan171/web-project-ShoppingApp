@@ -14,7 +14,7 @@
     },
     "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg",
     "prodavacId": "1758225075304",
-    "status": "Processing",
+    "status": "Active",
     "kupacId": "1758182821686"
   },
   {
@@ -35,9 +35,29 @@
     "status": "Active",
     "ponude": [
       {
+        "cena": 17000,
+        "kupacId": "1758674485205",
+        "datum": "2025-09-30T07:44:15.499Z"
+      },
+      {
+        "cena": 16000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-30T07:27:07.148Z"
+      },
+      {
+        "cena": 15000,
+        "kupacId": "1758674485205",
+        "datum": "2025-09-29T23:52:28.349Z"
+      },
+      {
         "cena": 1000,
         "kupacId": "1758282466938",
         "datum": "2025-09-19T12:30:58.280Z"
+      },
+      {
+        "cena": 18000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-30T07:45:05.349Z"
       }
     ],
     "kupacId": "1758282466938",
@@ -78,7 +98,7 @@
     },
     "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840",
     "prodavacId": "1758225075304",
-    "status": "Processing",
+    "status": "Active",
     "kupacId": "1758660875117"
   },
   {
@@ -96,7 +116,8 @@
     },
     "image": "https://img.joomcdn.net/8a41b1fe53b59753e453ae02c99356b90f8d09f7_1024_1024.jpeg",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Active",
+    "kupacId": "1758674485205"
   },
   {
     "id": "280cf040-dcb5-4a8c-9073-a483587eda48",
@@ -143,7 +164,14 @@
     "isDeleted": false,
     "image": "https://media.istockphoto.com/id/1018293976/photo/attractive-fashionable-woman-posing-in-white-trendy-sweater-beige-pants-and-autumn-heels-on.jpg?s=612x612&w=0&k=20&c=_CLawpZw6l9z0uV4Uon-7lqaS013E853ub883pkIK3c=",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Active",
+    "ponude": [
+      {
+        "cena": 327000,
+        "kupacId": "1758660875117",
+        "datum": "2025-09-29T23:42:30.788Z"
+      }
+    ]
   },
   {
     "id": "cd58b2d6-706e-4d1e-a6ce-1e10de94bc82",
@@ -172,7 +200,8 @@
     "image": "https://img.freepik.com/free-photo/portrait-young-man-yellow-scene_23-2148184810.jpg?semt=ais_incoming&w=740&q=80",
     "id": "1757942159980",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Processing",
+    "kupacId": "1758660875117"
   },
   {
     "name": "Cozy Knit Hat",
@@ -194,16 +223,50 @@
     "image": "https://eu.maje.com/dw/image/v2/AAON_PRD/on/demandware.static/-/Sites-maje-master-catalog/default/dw523720bd/images/hi-res/Maje_MFPJU01357-2517_F_1.jpg?sw=1520&sh=2000",
     "id": "1757945967269",
     "prodavacId": "1758225075304",
-    "status": "Active"
+    "status": "Processing",
+    "kupacId": "1758674485205"
   },
   {
-    "name": "jakna",
-    "description": "sdavsfvas",
-    "price": "4565",
+    "name": "gghgj",
+    "description": "ghjhgj",
+    "price": "46",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5t8i-dFxfUQ7GfdbkpHxKYkrZlKL37DMxPQ&s",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759196235510",
+    "status": "Processing",
+    "id": "1759196601081",
+    "kupacId": "1758225075304"
+  },
+  {
+    "name": "jhh",
+    "description": "hhjhk",
+    "price": "456",
     "image": "https://www.011shop.rs/uploads/store/products/images/jakna-haringtonka619b5eac09648.jpg",
-    "salesType": "fixed",
+    "salesType": "fixedPrice",
     "prodavacId": "1758660875117",
+    "status": "Processing",
+    "id": "1759196629946",
+    "kupacId": "1758674485205"
+  },
+  {
+    "name": "gjghgjh",
+    "description": "ghgjghgj",
+    "price": "57565765",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5t8i-dFxfUQ7GfdbkpHxKYkrZlKL37DMxPQ&s",
+    "salesType": "fixedPrice",
+    "prodavacId": "1758660875117",
+    "status": "Processing",
+    "id": "1759218079785",
+    "kupacId": "1758674485205"
+  },
+  {
+    "name": "abcd",
+    "description": "abcd",
+    "price": "68",
+    "image": "https://cdn.officeshoes.ws/product_images/2024jz/big/1122553-san.jpg",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759415125298",
     "status": "Active",
-    "id": "1758673553242"
+    "id": "1759415162444"
   }
 ]

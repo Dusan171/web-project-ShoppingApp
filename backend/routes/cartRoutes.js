@@ -11,8 +11,8 @@ router.post("/", cartController.create);
 router.put("/:id", cartController.update);
 router.delete("/:id", cartController.deleteLogical);
 
-// 🚀 checkout ruta
 router.post("/:id/checkout", cartController.checkout);
 
+router.post("/add-processing/:userId", cartController.addProcessingProductsToCart);
 
 export default router;

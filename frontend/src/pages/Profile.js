@@ -1,4 +1,3 @@
-// src/pages/Profile.js
 import React from "react";
 
 export default function Profile() {

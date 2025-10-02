@@ -88,6 +88,56 @@
     "email": "kupac123@gmail.com",
     "telefon": "57565756",
     "lozinka": "$2b$10$htOk9bzGQJzLXobSbqpzs.Cn1J/.2b5BW2XknFDYhJHYz/v81Q1Mu",
+    "uloga": "Kupac"
+  },
+  {
+    "id": "1759195790208",
+    "ime": "prodavac1",
+    "prezime": "prodavac1",
+    "korisnickoIme": "prodavac1",
+    "email": "prodavac1@gmail.com",
+    "telefon": "575675",
+    "lozinka": "$2b$10$WcmYdFFikJN22jiAKKokGOIPf979VvwyKx/uNSlizoyHILPA81YrW",
     "uloga": "kupac"
+  },
+  {
+    "id": "1759195854218",
+    "ime": "prodavac12",
+    "prezime": "prodavac12",
+    "korisnickoIme": "prodavac12",
+    "email": "prodavac12@gmail.com",
+    "telefon": "86576",
+    "lozinka": "$2b$10$u9H8fQs3JRpbHP0kxG5X5udil34KU134k68iQsxs/lBtOaonUXBzq",
+    "uloga": "prodavac"
+  },
+  {
+    "id": "1759196235510",
+    "ime": "prodavac1234",
+    "prezime": "prodavac1234",
+    "korisnickoIme": "prodavac1234",
+    "email": "prodavac1234@gmail.com",
+    "telefon": "575675",
+    "lozinka": "$2b$10$qXR/uLMocCw3zgvZAcfwqO6z4HBhVPSoXEcXi471teuGKRKNw9O5C",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1759218190534",
+    "ime": "prodavac12345",
+    "prezime": "prodavac12345",
+    "korisnickoIme": "prodavac12345",
+    "email": "prodavac12345@gmail.com",
+    "telefon": "7656576",
+    "lozinka": "$2b$10$GGalavLj.qdLWP7BkfiN4.h21.lyFB3paydaL6bH4DfiiD6QKyUjy",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1759415125298",
+    "ime": "prodavacnovi",
+    "prezime": "prodavacnovi",
+    "korisnickoIme": "prodavacnovi",
+    "email": "prodavacnovi@gmail.com",
+    "telefon": "865767",
+    "lozinka": "$2b$10$uHugDxd1UInPbatKL6bniO3ombuDDqtOm33THSmk8qyVT/d.IRZm2",
+    "uloga": "Prodavac"
   }
 ]
