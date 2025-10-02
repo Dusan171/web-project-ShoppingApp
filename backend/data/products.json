@@ -268,5 +268,33 @@
     "prodavacId": "1759415125298",
     "status": "Active",
     "id": "1759415162444"
+  },
+  {
+    "name": "ugg funkette",
+    "description": "ugg funkette",
+    "price": "587",
+    "image": "https://dms.deckers.com/ugg/image/upload/t_pdp-slider-large-wp/v1729721441/1130395T-CHE_1.png?_s=RAABAB0",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759415125298",
+    "status": "Processing",
+    "id": "1759418890442",
+    "kupacId": "1758674485205"
+  },
+  {
+    "name": "Fall coat for women",
+    "description": "Fall coat for women",
+    "price": "123",
+    "image": "https://cdn2.thescoutguide.com/wp-content/uploads/2024/09/09094344/tsg-coatroundup-huntsville-carriagehouse-feature.jpg",
+    "salesType": "auction",
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759419516732",
+    "ponude": [
+      {
+        "cena": 124,
+        "kupacId": "1758674485205",
+        "datum": "2025-10-02T15:38:59.779Z"
+      }
+    ]
   }
 ]

@@ -52,5 +52,11 @@
     "productId": "1759196629946",
     "quantity": 1,
     "status": "IN_PROGRESS"
+  },
+  {
+    "id": "ecdc33e0-161e-4e9e-9160-febb996e881e",
+    "productId": "1759418890442",
+    "quantity": 1,
+    "status": "IN_PROGRESS"
   }
 ]

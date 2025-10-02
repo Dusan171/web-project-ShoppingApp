@@ -13,16 +13,22 @@ export const register = async (userData) => {
     throw new Error('Korisničko ime ili email već postoje.');
   }
 
-  const hashedPassword = await bcrypt.hash(lozinka, 10);
-
+ const hashedPassword = await bcrypt.hash(lozinka, 10);
+  
+  // Kreiranje novog korisnika 
   const newUser = {
-    id: Date.now().toString(),
+    id: Date.now().toString(), // Jednostavan unique ID
     ...userData,
     lozinka: hashedPassword,
-     };
-
+   // uloga: 'Kupac', // Default uloga
+    // ostala polja
+    proizvodiNaProdaju: [],
+    kupljeniProizvodi: []
+  };
+  
   return userRepository.save(newUser);
 };
+
 
 export const login = async (loginData) => {
   const { korisnickoIme, lozinka } = loginData;

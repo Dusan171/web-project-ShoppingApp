@@ -4,7 +4,8 @@ import fs from "fs";
 
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
-import authRoutes from "./routes/userRoutes.js";
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from "./routes/userRoutes.js"; 
 
 import cartRoutes from "./routes/cartRoutes.js";
 import cartItemRoutes from "./routes/cartItemRoutes.js";
@@ -28,6 +29,8 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/cart-items", cartItemRoutes)
+app.use("/api/users", userRoutes); 
+
 
 const CATEGORIES_FILE = "./data/categories.json";
 if (!fs.existsSync(CATEGORIES_FILE)) {

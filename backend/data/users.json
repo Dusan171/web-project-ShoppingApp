@@ -139,5 +139,17 @@
     "telefon": "865767",
     "lozinka": "$2b$10$uHugDxd1UInPbatKL6bniO3ombuDDqtOm33THSmk8qyVT/d.IRZm2",
     "uloga": "Prodavac"
+  },
+  {
+    "id": "1759418946844",
+    "ime": "kupac12",
+    "prezime": "kupac12",
+    "korisnickoIme": "kupac12",
+    "email": "kupac12@gmail.com",
+    "telefon": "686768",
+    "lozinka": "$2b$10$gmRYLlccopd4IkuhmrHZyujiEUa7fz9vY2sbzSmr8cFSKAjIqFQ/S",
+    "uloga": "Kupac",
+    "proizvodiNaProdaju": [],
+    "kupljeniProizvodi": []
   }
 ]
