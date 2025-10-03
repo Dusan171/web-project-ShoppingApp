@@ -15,7 +15,6 @@ function writeData(file, data) {
 }
 
 export default {
-  // 📦 PROIZVODI
   getAllProducts: () => readData(PRODUCTS_FILE),
 
   getProductById: (id) => {
@@ -25,7 +24,7 @@ export default {
 
   createProduct: (product) => {
     const products = readData(PRODUCTS_FILE);
-    product.id = Date.now().toString(); // generiši ID
+    product.id = Date.now().toString(); 
     products.push(product);
     writeData(PRODUCTS_FILE, products);
     return product;
@@ -47,12 +46,10 @@ export default {
     return filtered.length < products.length;
   },
 
-  // ✨ DODATA metoda — sada je imaš
   saveProducts: (products) => {
     writeData(PRODUCTS_FILE, products);
   },
 
-  // 📂 KATEGORIJE
   getCategories: () => readData(CATEGORIES_FILE),
   saveCategories: (categories) => writeData(CATEGORIES_FILE, categories),
 };

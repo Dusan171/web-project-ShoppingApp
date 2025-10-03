@@ -1,5 +1,9 @@
 const API_URL = "http://localhost:5000/api/products";
 
+function getToken() {
+  return localStorage.getItem("token");
+}
+
 export async function getAllProducts() {
   const res = await fetch(API_URL);
   return res.json();
@@ -10,62 +14,88 @@ export async function getProduct(id) {
   return res.json();
 }
 
-export async function createProduct(product) {
+export async function createProduct(product, token = getToken()) {
   const res = await fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-  });
-  return res.json();
-}
-
-export async function updateProduct(id, product) {
-  const res = await fetch(`${API_URL}/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(product),
-  });
-  return res.json();
-}
-
-export async function deleteProduct(id) {
-  const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-  return res.json();
-}
-
-// Funkcija za slanje nove ponude
-export async function placeBidOnProduct(productId, price) {
-  const token = localStorage.getItem('token');
-  const response = await fetch(`http://localhost:5000/api/products/${productId}/bids`, {
-    method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ price: price }) // Šalje samo cenu
+    body: JSON.stringify(product),
   });
-  
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.message || 'Failed to place bid.');
-  }
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to create product");
   return data;
 }
 
-// Funkcija za završavanje aukcije
-export async function endAuctionForProduct(productId) {
-  const token = localStorage.getItem('token');
-  const response = await fetch(`http://localhost:5000/api/products/${productId}/end-auction`, {
-    method: 'POST', // Ne treba body, server zna ko je prodavac iz tokena
+export async function updateProduct(id, product, token = getToken()) {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(product),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to update product");
+  return data;
+}
+
+export async function deleteProduct(id, token = getToken()) {
+  const res = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.message || "Failed to delete product");
+  return data;
+}
+
+export async function updateProductStatus(productId, status, token = getToken()) {
+  const res = await fetch(`${API_URL}/${productId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
   });
 
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.message || 'Failed to end auction.');
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Failed to update product status");
+  return data;
+}
+
+export async function cancelPurchase(productId, token = getToken()) {
+  const res = await fetch(`${API_URL}/${productId}/cancel`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || "Failed to cancel purchase");
+  return data;
+}
+export async function endAuction(productId, token = getToken()) {
+ 
+  const res = await fetch(`${API_URL}/${productId}/end-auction`, {
+    method: "POST", 
+    headers: {
+   
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+ 
+    throw new Error(data.message || "Failed to end the auction.");
   }
   return data;
 }

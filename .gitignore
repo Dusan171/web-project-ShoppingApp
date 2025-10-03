@@ -7,18 +7,16 @@ Thumbs.db
 .vscode/
 
 # ## Backend ###
-# Dependencies for Node.js
 backend/node_modules/
-# Environment variables for backend
 backend/.env
 
 # ## Frontend ###
-# Dependencies for React
 frontend/node_modules/
-# Production build folder
 frontend/build/
-# Environment variables for frontend
 frontend/.env.local
 frontend/.env.development.local
 frontend/.env.test.local
 frontend/.env.production.local
+
+# Root node_modules
+node_modules/

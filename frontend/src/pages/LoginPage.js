@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../css/auth.css'; 
+import '../css/auth.css';
 import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
@@ -24,8 +24,13 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        //localStorage.setItem('token', data.token);
         login(data.token);
+        localStorage.setItem('token', data.token);
+
+        if (data.user) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
+
         navigate('/');
       } else {
         setError(data.message || 'Error');
@@ -45,7 +50,6 @@ export default function LoginPage() {
         overflow: 'hidden',
       }}
     >
-      {/* Pozadinska slika */}
       <img
         src="/LoginPageBg.png"
         alt="Login Background"
@@ -60,58 +64,56 @@ export default function LoginPage() {
         }}
       />
 
-      {/* Desna polovina ekrana */}
       <div
         style={{
           flex: 1,
           display: 'flex',
-          justifyContent: 'flex-end', // bliže desnom rubu
-          alignItems: 'center',       // vertikalno centrirano
-          paddingRight: '25%',        // malo pomerena ulevo od desnog ruba
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          paddingRight: '25%',
           zIndex: 1,
         }}
       >
-        {/* Forma za login */}
-        <div
-          style={{
-            width: '400px',        // fiksna širina forme
-            maxHeight: '95vh',     // da stane u ekran
-            overflowY: 'auto',     // unutrašnji scroll ako je potrebno
-          }}
-        >
-          <h1 className="auth-title">Welcome Back</h1>
-          {error && <div className="error-message">{error}</div>}
-          <form onSubmit={handleLogin}>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                className="form-input"
-                value={korisnickoIme}
-                onChange={(e) => setKorisnickoIme(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                className="form-input"
-                value={lozinka}
-                onChange={(e) => setLozinka(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" className="auth-btn">
-              Sign in
-            </button>
-          </form>
-          <p className="switch-auth-link">
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </div>
+<div
+  style={{
+    width: '400px',
+   
+  }}
+>
+  <h1 className="auth-title">Welcome Back</h1>
+  {error && <div className="error-message">{error}</div>}
+  <form onSubmit={handleLogin}>
+    <div className="form-group">
+      <label htmlFor="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        className="form-input"
+        value={korisnickoIme}
+        onChange={(e) => setKorisnickoIme(e.target.value)}
+        required
+      />
+    </div>
+    <div className="form-group">
+      <label htmlFor="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        className="form-input"
+        value={lozinka}
+        onChange={(e) => setLozinka(e.target.value)}
+        required
+      />
+    </div>
+    <button type="submit" className="auth-btn">
+      Sign in
+    </button>
+  </form>
+  <p className="switch-auth-link">
+    Don't have an account? <Link to="/register">Register</Link>
+  </p>
+</div>
+
       </div>
     </div>
   );

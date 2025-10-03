@@ -3,36 +3,60 @@
     "id": "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
     "name": "Elegant Silk Blouse",
     "description": "pp123123",
-    "categoryId": "1",
+    "categoryId": "2",
     "price": "100",
     "salesType": "fixedPrice",
-    "dateOfCreation": "2025-09-09T22:39:46.515Z",
+    "dateOfCreation": "2025-10-02T20:56:56.175Z",
     "isDeleted": false,
-    "category": {
-      "id": "1",
-      "name": "Electronics"
-    },
     "image": "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?cs=srgb&dl=pexels-frendsmans-1926769.jpg&fm=jpg",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "kupacId": "1758182821686",
+    "location": {
+      "street": "Ulica Dositeja Obradovića",
+      "number": "21",
+      "city": "Subotica",
+      "postalCode": "24000",
+      "latitude": "",
+      "longitude": ""
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": []
   },
   {
     "id": "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
     "name": "Satin Luxe Top",
     "description": "Satin Luxe Top",
-    "categoryId": "2",
     "price": "993",
     "salesType": "auction",
     "dateOfCreation": "2025-09-09T22:40:15.114Z",
     "isDeleted": false,
-    "category": {
-      "id": "3",
-      "name": "Books"
-    },
+    "categoryId": "2",
     "image": "https://burst.shopifycdn.com/photos/fashion-model-in-pink.jpg?width=1000&format=pjpg&exif=0&iptc=0",
     "prodavacId": "1758225075304",
     "status": "Processing",
     "ponude": [
+      {
+        "cena": 18000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-30T07:45:05.349Z"
+      },
+      {
+        "cena": 17000,
+        "kupacId": "1758674485205",
+        "datum": "2025-09-30T07:44:15.499Z"
+      },
+      {
+        "cena": 16000,
+        "kupacId": "1758282466938",
+        "datum": "2025-09-30T07:27:07.148Z"
+      },
+      {
+        "cena": 15000,
+        "kupacId": "1758674485205",
+        "datum": "2025-09-29T23:52:28.349Z"
+      },
       {
         "cena": 1000,
         "kupacId": "1758282466938",
@@ -40,7 +64,7 @@
       }
     ],
     "kupacId": "1758282466938",
-    "finalnaCena": 1000
+    "finalnaCena": 18000
   },
   {
     "id": "dbe41bbc-398e-4334-ad78-ca1fd0754ef5",
@@ -49,11 +73,11 @@
     "categoryId": "2",
     "price": "8989",
     "salesType": "auction",
-    "dateOfCreation": "2025-09-09T22:45:17.596Z",
+    "dateOfCreation": "2025-10-02T21:59:50.668Z",
     "isDeleted": false,
     "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/bb3a6f2f-65fd-4eea-bdf0-d4b41594450e/naomi+selects10.jpg",
-    "prodavacId": "1758225075304",
-    "status": "Processing",
+    "prodavacId": "1759415125298",
+    "status": "Active",
     "ponude": [
       {
         "cena": 9006,
@@ -72,67 +96,91 @@
       }
     ],
     "kupacId": "1759218499184",
-    "finalnaCena": 9006
+    "finalnaCena": 9006,
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "23",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "45.2462786",
+      "longitude": "19.8738285"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false
   },
   {
     "id": "61859649-b686-42e0-b71b-aab922160bb4",
     "name": "Classic Tailored Blazer",
     "description": "Classic Tailored Blazer",
-    "categoryId": "1",
+    "categoryId": "2",
     "price": "123",
     "salesType": "fixedPrice",
-    "dateOfCreation": "2025-09-10T21:36:46.177Z",
+    "dateOfCreation": "2025-10-02T20:57:43.145Z",
     "isDeleted": false,
-    "category": {
-      "id": "1",
-      "name": "Electronics"
-    },
     "image": "https://uk.claudiepierlot.com/dw/image/v2/BCND_PRD/on/demandware.static/-/Sites-claudie-master-catalog/default/dwed5f9996/images/hi-res/Claudie_CFPVE00499-A017_F_1.jpg?sw=1255&sh=1840",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Sold",
+    "kupacId": "1758282466938",
+    "location": {
+      "street": "Cara Dušana",
+      "number": "10",
+      "city": "Zrenjanin",
+      "postalCode": "23000",
+      "latitude": "45.2090110",
+      "longitude": "20.3834780"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": []
   },
   {
     "id": "cf8bb29e-52f3-4ec3-9bd2-f5f4c5d3f7fb",
     "name": "Elegant Stiletto Heels",
     "description": "Elegant Stiletto Heels",
-    "categoryId": "2",
+    "categoryId": "4",
     "price": "5.67",
     "salesType": "fixedPrice",
-    "dateOfCreation": "2025-09-13T04:16:03.484Z",
+    "dateOfCreation": "2025-10-02T20:58:18.056Z",
     "isDeleted": false,
-    "category": {
-      "id": "2",
-      "name": "Clothing"
-    },
     "image": "https://img.joomcdn.net/8a41b1fe53b59753e453ae02c99356b90f8d09f7_1024_1024.jpeg",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "kupacId": "1758674485205",
+    "location": {
+      "street": "Jovana Cvijića",
+      "number": "33",
+      "city": "Pančevo",
+      "postalCode": "26000",
+      "latitude": "",
+      "longitude": ""
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": []
   },
   {
     "id": "280cf040-dcb5-4a8c-9073-a483587eda48",
     "name": "High-Waist Skinny Jeans",
     "description": "High-Waist Skinny Jeans",
-    "categoryId": "4",
+    "categoryId": "2",
     "price": "2151",
     "salesType": "auction",
-    "dateOfCreation": "2025-09-13T04:51:33.887Z",
+    "dateOfCreation": "2025-10-02T20:58:24.447Z",
     "isDeleted": false,
-    "category": {
-      "id": "4",
-      "name": "Shoes"
-    },
     "image": "https://plus.unsplash.com/premium_photo-1708274140680-11c9e42dcac9?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWFsZSUyMGZhc2hpb24lMjBtb2RlbHxlbnwwfHwwfHx8MA%3D%3D",
-    "prodavacId": "1758225075304",
-    "status": "Processing",
-    "ponude": [
-      {
-        "cena": 2500,
-        "kupacId": "1758282466938",
-        "datum": "2025-09-23T20:39:41.845Z"
-      }
-    ],
-    "kupacId": "1758282466938",
-    "finalnaCena": 2500
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "location": {
+      "street": "Kralja Petra",
+      "number": "12",
+      "city": "Beograd",
+      "postalCode": "11000",
+      "latitude": "44.8184087",
+      "longitude": "20.4538350"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": []
   },
   {
     "id": "7e9ea283-6af1-4853-a91c-78f5037e3f0c",
@@ -143,26 +191,39 @@
     "salesType": "fixedPrice",
     "dateOfCreation": "2025-09-13T05:06:28.263Z",
     "isDeleted": false,
-    "category": {
-      "id": "2",
-      "name": "Clothing"
-    },
     "image": "https://images.squarespace-cdn.com/content/v1/6204821bfe06b76898b431c5/cd3b25b0-24c9-4e3c-9de7-f1f034c35504/EE7A6231.jpg",
-    "prodavacId": "1758225075304",
+    "prodavacId": "1759415125298",
     "status": "Active"
   },
   {
     "id": "c93cea78-af8b-47e1-9aff-27c7c051d6a3",
     "name": "Classic Cashmere Sweater",
     "description": "Classic Cashmere Sweater",
-    "categoryId": "1",
+    "categoryId": "2",
     "price": "325235",
     "salesType": "auction",
-    "dateOfCreation": "2025-09-13T07:38:07.787Z",
+    "dateOfCreation": "2025-10-02T20:54:33.015Z",
     "isDeleted": false,
     "image": "https://media.istockphoto.com/id/1018293976/photo/attractive-fashionable-woman-posing-in-white-trendy-sweater-beige-pants-and-autumn-heels-on.jpg?s=612x612&w=0&k=20&c=_CLawpZw6l9z0uV4Uon-7lqaS013E853ub883pkIK3c=",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "ponude": [
+      {
+        "cena": 327000,
+        "kupacId": "1758660875117",
+        "datum": "2025-09-29T23:42:30.788Z"
+      }
+    ],
+    "location": {
+      "street": "Nikole Tesle",
+      "number": "7",
+      "city": "Niš",
+      "postalCode": "18000",
+      "latitude": "43.2997080",
+      "longitude": "21.8203780"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false
   },
   {
     "id": "cd58b2d6-706e-4d1e-a6ce-1e10de94bc82",
@@ -173,13 +234,10 @@
     "salesType": "fixedPrice",
     "dateOfCreation": "2025-09-13T07:53:18.425Z",
     "isDeleted": false,
-    "category": {
-      "id": "4",
-      "name": "Shoes"
-    },
     "image": "https://cdn.prod.website-files.com/611cda85065cd630ff59f7ff/642e18c5e42d31284b54992e_GyMVKyIVYAGrxoiaL_qz1uB-L7HaUVweRuPfL1AOs4MPn_GWyWRLg7-axFhgJVaSxIoa0hCTu4LhfQeQutKrnRcDSwpgtiW3X2Ywc-wpLCwsDvB56_oNWiarfvjzuzVOFnCZf2hRUayGuYiD1KTaAw.png",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Processing",
+    "kupacId": "1758674485205"
   },
   {
     "name": "Classic Trench Coat",
@@ -189,7 +247,7 @@
     "salesType": "fixedPrice",
     "image": "https://img.freepik.com/free-photo/portrait-young-man-yellow-scene_23-2148184810.jpg?semt=ais_incoming&w=740&q=80",
     "id": "1757942159980",
-    "prodavacId": "1758225075304",
+    "prodavacId": "1759415125298",
     "status": "Active"
   },
   {
@@ -200,8 +258,33 @@
     "salesType": "auction",
     "image": "https://storage.googleapis.com/lulu-fanatics/product/58189/1280/lululemon-crazy-cozy-beanie-heathered-core-ultra-light-grey-032493-324632.jpg",
     "id": "1757942950698",
-    "prodavacId": "1758225075304",
-    "status": "Active"
+    "prodavacId": "1759415125298",
+    "status": "Processing",
+    "location": {
+      "street": "Bulevar  oslobodjenja",
+      "number": "45",
+      "city": "Novi Sad",
+      "postalCode": "21000",
+      "latitude": "45.2594561",
+      "longitude": "19.8333456"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 250,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-03T20:00:30.804Z"
+      },
+      {
+        "cena": 249,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-03T20:00:06.829Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-02T20:55:16.067Z",
+    "kupacId": "1758282466938",
+    "finalnaCena": 250
   },
   {
     "name": "Pleated Skirt",
@@ -211,7 +294,360 @@
     "salesType": "fixedPrice",
     "image": "https://eu.maje.com/dw/image/v2/AAON_PRD/on/demandware.static/-/Sites-maje-master-catalog/default/dw523720bd/images/hi-res/Maje_MFPJU01357-2517_F_1.jpg?sw=1520&sh=2000",
     "id": "1757945967269",
-    "prodavacId": "1758225075304",
+    "prodavacId": "1759415125298",
     "status": "Active"
+  },
+  {
+    "name": "gghgj",
+    "description": "ghjhgj",
+    "price": "46",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5t8i-dFxfUQ7GfdbkpHxKYkrZlKL37DMxPQ&s",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759196235510",
+    "status": "Processing",
+    "id": "1759196601081",
+    "kupacId": "1758225075304"
+  },
+  {
+    "name": "UGG Funkette slippers",
+    "description": "UGG Funkette slippers combine cozy comfort with stylish design. Crafted from soft, plush materials, they provide warmth and cushioning for all-day wear at home. The slip-on design ensures easy on and off, while the durable sole offers grip and support. Perfect for relaxing indoors in ultimate comfort.",
+    "price": "68",
+    "image": "https://dms.deckers.com/ugg/image/upload/t_product-large-wp/v1751297948/1113474-MDSD_1.png?_s=RAABAB0",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "id": "1759415162444",
+    "categoryId": "4",
+    "location": {
+      "street": "Trg slobode ",
+      "number": "4",
+      "city": "Novi Sad",
+      "postalCode": "21130",
+      "latitude": "45.2547047",
+      "longitude": "19.8459167"
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T20:55:22.293Z"
+  },
+  {
+    "name": "ugg funkette",
+    "description": "ugg funkette",
+    "price": "587",
+    "image": "https://dms.deckers.com/ugg/image/upload/t_pdp-slider-large-wp/v1729721441/1130395T-CHE_1.png?_s=RAABAB0",
+    "salesType": "fixedPrice",
+    "prodavacId": "1759415125298",
+    "status": "Active",
+    "id": "1759418890442"
+  },
+  {
+    "name": "Fall coat for women",
+    "description": "Fall coat for women",
+    "price": "123",
+    "image": "https://cdn2.thescoutguide.com/wp-content/uploads/2024/09/09094344/tsg-coatroundup-huntsville-carriagehouse-feature.jpg",
+    "salesType": "auction",
+    "category": "Clothing",
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759419516732",
+    "ponude": [
+      {
+        "cena": 124,
+        "kupacId": "1758674485205",
+        "datum": "2025-10-02T15:38:59.779Z"
+      }
+    ],
+    "categoryId": "2",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3b",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "",
+      "longitude": ""
+    },
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "dateOfCreation": "2025-10-02T22:46:04.418Z"
+  },
+  {
+    "name": "GUESS Crossbody Bag",
+    "description": "GUESS Crossbody Bag 'NOELLE' in black",
+    "price": "128",
+    "image": "https://cdn.aboutstatic.com/file/images/b66a19f7d74e3536015fa031e6515e32.png?bg=F4F4F5&quality=75&trim=1&height=630&width=1200&expand=1",
+    "salesType": "fixedPrice",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3a",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "",
+      "longitude": ""
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759431564619",
+    "categoryId": "2",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T22:46:08.857Z"
+  },
+  {
+    "name": "TH Flex Regular Fit Stripe Shirt",
+    "description": "TH Flex Regular Fit Stripe Shirt",
+    "price": "1458",
+    "image": "https://tommy-europe.scene7.com/is/image/TommyEurope/MW0MW39159_0A5_main?$b2c_updp_m_mainImage_1920$",
+    "salesType": "fixedPrice",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3a",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "",
+      "longitude": ""
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759431921989",
+    "categoryId": "2",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T22:46:17.220Z"
+  },
+  {
+    "name": "Hair Curling Wand",
+    "description": "Hair Curling Wand",
+    "price": "123",
+    "image": "https://m.media-amazon.com/images/I/61zjHCzdcUL._UF1000,1000_QL80_.jpg",
+    "salesType": "fixedPrice",
+    "location": {
+      "street": "Preradoviceva",
+      "number": "2",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "",
+      "longitude": ""
+    },
+    "prodavacId": "1758660875117",
+    "status": "Active",
+    "id": "1759432241724",
+    "categoryId": "1",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T22:46:30.899Z"
+  },
+  {
+    "name": "Sloane Fluted 2 Seat Sofa",
+    "description": "Sloane Fluted 2 Seat Sofa",
+    "price": "676877",
+    "image": "https://iconx-studios.com/cdn/shop/files/CDSLWWOLS6.jpg?v=1703243694",
+    "salesType": "fixedPrice",
+    "categoryId": "3",
+    "location": {
+      "street": "Dunavske divizije",
+      "number": "3b",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Processing",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "prodavacId": "1758660875117",
+    "id": "1759434497692",
+    "dateOfCreation": "2025-10-02T22:46:36.622Z",
+    "kupacId": "1758282466938"
+  },
+  {
+    "name": "Strappy Middy Dress",
+    "description": "Strappy Middy Dress",
+    "price": "23",
+    "image": "https://image.hm.com/assets/hm/5b/03/5b0357dc890c2f4778a219cfd0bbb668e26bafa0.jpg?imwidth=2160",
+    "salesType": "fixedPrice",
+    "categoryId": "2",
+    "location": {
+      "street": "Preradoviceva",
+      "number": "23",
+      "city": "Petrovaradin",
+      "postalCode": "21131",
+      "latitude": "45.2508605",
+      "longitude": "19.8747817"
+    },
+    "status": "Active",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "prodavacId": "1758660875117",
+    "id": "1759435156933"
+  },
+  {
+    "name": "Classic men's sweater",
+    "description": "Classic men's sweater made from soft and warm cotton, perfect for everyday wear. Features a comfortable regular fit, long sleeves, and a subtle crew neckline. Ideal to pair with jeans or casual trousers, offering both style and comfort on cooler days.",
+    "price": "132",
+    "image": "https://image.hm.com/content/dam/global_campaigns/season_02/men/start-page-assets/w40/MS42LH4-4x5-teaser-2-men-startpage-wk-40.jpg?imwidth=4800",
+    "salesType": "fixedPrice",
+    "categoryId": "2",
+    "location": {
+      "street": "Kralja Aleksandra ",
+      "number": "3",
+      "city": "Novi Sad",
+      "postalCode": "21130",
+      "latitude": "45.2540999",
+      "longitude": "19.8446715"
+    },
+    "status": "Active",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T20:40:11.277Z",
+    "prodavacId": "1758660875117",
+    "id": "1759437611301"
+  },
+  {
+    "name": "Dyson Supersonic hair dryer",
+    "description": "Dyson Supersonic Hair Dryer – Speed. Precision. Hair Care.\nThis innovative hair dryer combines a powerful digital motor with intelligent heat control to protect hair from damage. Designed for fast drying and perfect styling, the Dyson Supersonic leaves hair smooth, shiny, and healthy, while its ergonomic design ensures effortless handling. Suitable for all hair types, even the most delicate.\n\nKey Features:\n\nFast and efficient drying with the V9 digital motor\n\nReal-time heat control to prevent hair damage\n\nLightweight, balanced design for easy handling\n\nMultiple attachments for precise styling: diffuser, concentrator, volumizing nozzle\n\nQuiet operation and long-lasting durability",
+    "price": "13452",
+    "image": "https://dyson-h.assetsadobe2.com/is/image/content/dam/dyson/leap-petite-global/markets/singapore/products/hair-care/supersonic/605J-IF-attachments-min.png?scl=1&fmt=png-alpha",
+    "salesType": "fixedPrice",
+    "categoryId": "1",
+    "location": {
+      "street": "Bulevar  oslobodjenja",
+      "number": "119",
+      "city": "Novi Sad",
+      "postalCode": "21000",
+      "latitude": "45.2457124",
+      "longitude": "19.8430161"
+    },
+    "status": "Active",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-02T23:49:07.065Z",
+    "prodavacId": "1758660875117",
+    "id": "1759448947077",
+    "kupacId": "1758674485205"
+  },
+  {
+    "name": "probni",
+    "description": "samo za probu",
+    "price": "120",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "1",
+    "location": {
+      "street": "nemanjina",
+      "number": "2",
+      "city": "novi sad",
+      "postalCode": "76999",
+      "latitude": "45.2678918",
+      "longitude": "19.8354613"
+    },
+    "status": "Processing",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 150,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-03T22:00:28.857Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-03T21:59:51.787Z",
+    "prodavacId": "1758225075304",
+    "id": "1759528791797",
+    "kupacId": "1758282466938",
+    "finalnaCena": 150
+  },
+  {
+    "name": "fiksnaproba",
+    "description": "da probam fiksnu",
+    "price": "500",
+    "image": "",
+    "salesType": "fixedPrice",
+    "categoryId": "1",
+    "location": {
+      "street": "bla",
+      "number": "2",
+      "city": "anja",
+      "postalCode": "222222",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-03T22:06:30.827Z",
+    "prodavacId": "1758225075304",
+    "id": "1759529190845",
+    "kupacId": "1758282466938"
+  },
+  {
+    "name": "aukcijska",
+    "description": "dddd",
+    "price": "3233",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "3",
+    "location": {
+      "street": "fffffff",
+      "number": "222",
+      "city": "ffff",
+      "postalCode": "33333",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Processing",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 5000,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-03T22:42:46.752Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-03T22:42:17.571Z",
+    "prodavacId": "1758225075304",
+    "id": "1759531337595",
+    "kupacId": "1758282466938",
+    "finalnaCena": 5000
+  },
+  {
+    "name": "konacno ",
+    "description": "proba",
+    "price": "124",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "3",
+    "location": {
+      "street": "gggg",
+      "number": "333",
+      "city": "ddd",
+      "postalCode": "3333",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 230,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-03T23:28:14.192Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-03T23:27:57.076Z",
+    "prodavacId": "1758225075304",
+    "id": "1759534077086",
+    "kupacId": "1758282466938",
+    "finalnaCena": 230
   }
 ]

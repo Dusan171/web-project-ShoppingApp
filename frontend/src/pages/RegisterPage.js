@@ -11,7 +11,7 @@ export default function RegisterPage() {
     telefon: '',
     lozinka: '',
     potvrdaLozinke: '',
-    uloga: 'kupac',
+    uloga: 'Kupac',
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -49,10 +49,10 @@ export default function RegisterPage() {
       if (response.ok) {
         navigate('/login');
       } else {
-        setError(data.message || 'Došlo je do greške prilikom registracije.');
+        setError(data.message || 'An error occurred during registration.');
       }
     } catch (err) {
-      setError('Neuspešno povezivanje sa serverom.');
+      setError('Failed to connect to the server.');
     }
   };
 
@@ -66,7 +66,6 @@ export default function RegisterPage() {
         overflow: 'hidden',
       }}
     >
-      {/* Pozadinska slika */}
       <img
         src="/RegisterPageBg.png"
         alt="Register Background"
@@ -81,7 +80,6 @@ export default function RegisterPage() {
         }}
       />
 
-      {/* Desna polovina ekrana */}
       <div
         style={{
           flex: 1,
@@ -105,7 +103,6 @@ export default function RegisterPage() {
           {error && <div className="error-message">{error}</div>}
 
           <form onSubmit={handleRegister}>
-            {/* Grid raspored */}
             <div
               style={{
                 display: 'grid',
@@ -188,8 +185,8 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   required
                 >
-                  <option value="kupac">Costumer</option>
-                  <option value="prodavac">Seller</option>
+                  <option value="Kupac">Costumer</option>
+                  <option value="Prodavac">Seller</option>
                 </select>
               </div>
 

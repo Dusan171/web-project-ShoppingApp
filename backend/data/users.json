@@ -41,6 +41,16 @@
     "uloga": "Kupac"
   },
   {
+    "id": "1758641549540",
+    "ime": "Kupac",
+    "prezime": "Kupac",
+    "korisnickoIme": "Kupac",
+    "email": "kupac@gmail.com",
+    "telefon": "15325432",
+    "lozinka": "$2b$10$sktQWjPZlBiYbIryqfiOpOd/MUvH508Sc0yEoMgnM3sSbuKKxz.4G",
+    "uloga": "Kupac"
+  },
+  {
     "id": "1758225075304",
     "ime": "Milutin",
     "prezime": "Nemanjic",
@@ -48,12 +58,10 @@
     "email": "kraljnem@yahoo.com",
     "telefon": "222222222",
     "lozinka": "$2b$10$hAN848FSrRW/h7bqsBkjs.MJ0hM9NFoBLLnGPenkjK0UUVK2ZpGDy",
-    "uloga": "prodavac",
+    "uloga": "Prodavac",
     "proizvodiNaProdaju": [
-      "3c929b15-9f1a-4d72-b4aa-cb32a08acb66",
-      "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4"
-    ],
-    "kupljeniProizvodi": []
+      "3c929b15-9f1a-4d72-b4aa-cb32a08acb66"
+    ]
   },
   {
     "id": "1758282466938",
@@ -63,10 +71,14 @@
     "email": "dare@yahoo.com",
     "telefon": "4444444",
     "lozinka": "$2b$10$Z/xsJRyjiYsxY3u1py.ScuNeHbv765GccIgl9ZVEUPxi1JcaOAJz.",
-    "uloga": "kupac",
+    "uloga": "Kupac",
     "proizvodiNaProdaju": [],
     "kupljeniProizvodi": [
-      "280cf040-dcb5-4a8c-9073-a483587eda48"
+      "1757942950698",
+      "1759528791797",
+      "1759531337595",
+      "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
+      "1759534077086"
     ]
   },
   {
@@ -82,5 +94,87 @@
     "kupljeniProizvodi": [
       "dbe41bbc-398e-4334-ad78-ca1fd0754ef5"
     ]
+  },
+  {
+    "id": "1758660875117",
+    "ime": "prodavac",
+    "prezime": "prodavac",
+    "korisnickoIme": "prodavac",
+    "email": "prodavac@gmail.com",
+    "telefon": "57565657675",
+    "lozinka": "$2b$10$XVoF7F9tlCWi/tF75Ih9JOkx/ZNaB5bPA/5v8O5DB8c4ZU0TP77I2",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1758674485205",
+    "ime": "kupac",
+    "prezime": "kupac",
+    "korisnickoIme": "kupac123",
+    "email": "kupac123@gmail.com",
+    "telefon": "57565756",
+    "lozinka": "$2b$10$htOk9bzGQJzLXobSbqpzs.Cn1J/.2b5BW2XknFDYhJHYz/v81Q1Mu",
+    "uloga": "Kupac"
+  },
+  {
+    "id": "1759195790208",
+    "ime": "prodavac1",
+    "prezime": "prodavac1",
+    "korisnickoIme": "prodavac1",
+    "email": "prodavac1@gmail.com",
+    "telefon": "575675",
+    "lozinka": "$2b$10$WcmYdFFikJN22jiAKKokGOIPf979VvwyKx/uNSlizoyHILPA81YrW",
+    "uloga": "kupac"
+  },
+  {
+    "id": "1759195854218",
+    "ime": "prodavac12",
+    "prezime": "prodavac12",
+    "korisnickoIme": "prodavac12",
+    "email": "prodavac12@gmail.com",
+    "telefon": "86576",
+    "lozinka": "$2b$10$u9H8fQs3JRpbHP0kxG5X5udil34KU134k68iQsxs/lBtOaonUXBzq",
+    "uloga": "prodavac"
+  },
+  {
+    "id": "1759196235510",
+    "ime": "prodavac1234",
+    "prezime": "prodavac1234",
+    "korisnickoIme": "prodavac1234",
+    "email": "prodavac1234@gmail.com",
+    "telefon": "575675",
+    "lozinka": "$2b$10$qXR/uLMocCw3zgvZAcfwqO6z4HBhVPSoXEcXi471teuGKRKNw9O5C",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1759218190534",
+    "ime": "prodavac12345",
+    "prezime": "prodavac12345",
+    "korisnickoIme": "prodavac12345",
+    "email": "prodavac12345@gmail.com",
+    "telefon": "7656576",
+    "lozinka": "$2b$10$GGalavLj.qdLWP7BkfiN4.h21.lyFB3paydaL6bH4DfiiD6QKyUjy",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1759415125298",
+    "ime": "prodavacnovi",
+    "prezime": "prodavacnovi",
+    "korisnickoIme": "prodavacnovi",
+    "email": "prodavacnovi@gmail.com",
+    "telefon": "865767",
+    "lozinka": "$2b$10$uHugDxd1UInPbatKL6bniO3ombuDDqtOm33THSmk8qyVT/d.IRZm2",
+    "uloga": "Prodavac"
+  },
+  {
+    "id": "1759418946844",
+    "ime": "kupac12",
+    "prezime": "kupac12",
+    "korisnickoIme": "kupac12",
+    "email": "kupac12@gmail.com",
+    "telefon": "686768",
+    "lozinka": "$2b$10$gmRYLlccopd4IkuhmrHZyujiEUa7fz9vY2sbzSmr8cFSKAjIqFQ/S",
+    "uloga": "Kupac",
+    "proizvodiNaProdaju": [],
+    "kupljeniProizvodi": []
   }
 ]

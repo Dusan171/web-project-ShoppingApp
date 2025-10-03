@@ -1,6 +1,10 @@
 import productRepository from "../repositories/productRepository.js";
 import * as userRepository from "../repositories/userRepository.js";
 import { addProductToBuyer } from './userService.js'; 
+import CartService from "./cartService.js"; 
+import CartItemService from "./cartItemService.js";
+const cartItemService = new CartItemService();
+const cartService = new CartService();
 
 export default {
   getAll: () => {
@@ -12,7 +16,7 @@ export default {
   },
 
   create: (product) => {
-    return productRepository.createProduct(product); // 👈 koristiš createProduct
+    return productRepository.createProduct(product); 
   },
 
   update: (id, data) => {
@@ -22,67 +26,130 @@ export default {
   deleteLogical: (id) => {
     return productRepository.deleteProduct(id);
   },
+
   placeBid: (productId, price, userId) => {
     const product = productRepository.getProductById(productId);
-    
-    // Validacija 1: Proveri da li proizvod postoji i da li je na aukciji
-    if (!product || product.salesType !== 'auction') { // Proveravamo 'salesType' polje
-      throw new Error('Product not found or is not an auction.');
+
+    if (!product || product.salesType !== "auction") {
+      throw new Error("Product not found or is not an auction.");
     }
 
-    // Validacija 2: Proveri da li je aukcija već završena (npr. prodat)
-    if (product.status !== 'Active') { // Mnogo jednostavnije
-  throw new Error('Auction for this product is not active.');
-}
+    if (product.status !== "Active") {
+      throw new Error("Auction for this product is not active.");
+    }
 
-    // Pronalazimo trenutnu najvišu ponudu
     const highestBid = product.ponude?.sort((a, b) => b.cena - a.cena)[0];
     const currentPrice = highestBid ? highestBid.cena : product.price;
 
-    // Validacija 3: Proveri da li je nova ponuda veća
     if (price <= parseFloat(currentPrice)) {
-      throw new Error('Your bid must be higher than the current price.');
+      throw new Error("Your bid must be higher than the current price.");
     }
 
     const newBid = {
       cena: price,
       kupacId: userId,
-      datum: new Date().toISOString()
+      datum: new Date().toISOString(),
     };
 
-    // Inicijalizuj 'ponude' niz ako ne postoji
     if (!product.ponude) {
       product.ponude = [];
     }
     product.ponude.push(newBid);
-    
-    // Čuvamo ceo izmenjeni proizvod nazad u "bazu"
+
     return productRepository.updateProduct(productId, product);
   },
 
-  /**
-   * Završava aukciju za proizvod.
-   */
-endAuction: (productId, sellerId) => {
+ endAuction: (productId, sellerId) => {
+    console.log({ productId, sellerId });
     const product = productRepository.getProductById(productId);
-    // ... sve tvoje validacije za proizvod, vlasnika i ponude ostaju ISTE ...
-    if (!product) { /*...*/ }
-    if (product.prodavacId !== sellerId) { /*...*/ }
-    if (!product.ponude || product.ponude.length === 0) { /*...*/ }
+    // ... validacije za proizvod, vlasnika i ponude...
+    if (!product) {
+      throw new Error("Product not found.");
+    }
+    if (product.prodavacId !== sellerId) {
+      throw new Error("You are not authorized to end this auction.");
+    }
+    if (!product.ponude || product.ponude.length === 0) {
+      throw new Error("Cannot end auction with no bids.");
+    }
 
     const winningBid = product.ponude.sort((a, b) => b.cena - a.cena)[0];
     const buyerId = winningBid.kupacId;
 
-    // Ažuriramo proizvod
-    product.status = 'Processing'; // Menjamo status u "Obrada"
+    product.status = 'Processing'; 
     product.kupacId = buyerId;
     product.finalnaCena = winningBid.cena;
     productRepository.updateProduct(productId, product);
 
-    // === POZIVAMO NAŠU NOVU, UNIVERZALNU FUNKCIJU ===
-    // Prosleđujemo joj sve potrebne informacije
     addProductToBuyer(productId, buyerId, sellerId);
-    
+     try {
+       // 1. DOHVATI ILI KREIRAJ KOŠARICU ZA POBJEDNIKA AUKCIJE (KUPCA)
+      const buyerCart = cartService.getOrCreateCart(buyerId);
+      
+      // 2. KREIRAJ CartItem U TOJ KOŠARICI
+      cartItemService.addItem(buyerCart.id, productId, 1, "IN_PROGRESS");
+
+      console.log(`✅ AUKCIJA ZAVRŠENA: Kreiran CartItem za proizvod ${productId} u košarici ${buyerCart.id} za kupca ${buyerId}`);
+      
+    } catch (error) {
+        console.error("!!! Greška prilikom kreiranja CartItem-a nakon aukcije:", error.message);
+    }
     return product;
-}
+  },
+
+  updateStatus: (productId, newStatus, userId) => {
+    console.log(" Service updateStatus called with:", { productId, newStatus, userId });
+
+    const product = productRepository.getProductById(productId);
+
+    if (!product) {
+      throw new Error("Product not found");
+    }
+
+    if (product.salesType !== "fixedPrice") {
+      throw new Error("Status can only be updated for fixed price products.");
+    }
+
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    if (product.status !== "Active") {
+      throw new Error("Product is not available anymore.");
+    }
+
+    product.status = newStatus;
+    product.kupacId = userId;
+
+    console.log("Saving product:", product);
+    return productRepository.updateProduct(productId, product);
+  },
+
+  cancelPurchase: (productId, userId) => {
+
+    let products = readProducts(); 
+    const index = products.findIndex((p) => String(p.id) === String(productId));
+
+    if (index === -1) {
+      throw new Error("Product not found");
+    }
+
+    const product = products[index];
+
+    if (product.status !== "Obrada") {
+      throw new Error("Purchase cannot be cancelled unless status is 'Obrada'");
+    }
+
+    if (String(product.kupacId) !== String(userId)) {
+      throw new Error("You are not the buyer of this product");
+    }
+
+    product.status = "Active";
+    delete product.kupacId;
+
+    products[index] = product;
+    writeProducts(products); 
+
+    return product;
+  },
 };

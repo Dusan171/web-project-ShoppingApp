@@ -22,28 +22,28 @@
   border-radius: 12px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
   text-align: center;
-  color: #000; /* Crna boja za sav tekst unutar kartice */
+  color: #000; 
 }
 
 .auth-title {
   font-family: 'Playfair Display', serif;
   font-size: 2.5rem;
   font-weight: 700;
-  color: #000; /* Crna boja naslova */
+  color: #000;
   margin-bottom: 25px;
 }
 
 .form-group {
   margin-bottom: 20px;
   text-align: left;
-  color: #000; /* Crna boja labela i teksta unutar grupe */
+  color: #000; 
 }
 
 .form-group label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #000; /* Crna boja labela */
+  color: #000;
 }
 
 .form-input {
@@ -53,7 +53,7 @@
   border-radius: 8px;
   font-size: 1rem;
   box-sizing: border-box;
-  color: #000; /* Crna boja unetog teksta */
+  color: #000; 
 }
 
 .auth-btn {
@@ -77,12 +77,12 @@
 
 .switch-auth-link {
   margin-top: 20px;
-  color: #000; /* Crna boja teksta ispred linka */
+  color: #000; 
 }
 
 .switch-auth-link a {
   font-weight: bold;
-  color: #4B215F; /* Boja linka ostaje ista */
+  color: #4B215F;
   text-decoration: underline;
 }
 
