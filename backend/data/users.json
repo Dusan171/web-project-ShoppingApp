@@ -68,5 +68,19 @@
     "kupljeniProizvodi": [
       "280cf040-dcb5-4a8c-9073-a483587eda48"
     ]
+  },
+  {
+    "id": "1759218499184",
+    "ime": "jelena",
+    "prezime": "jelena",
+    "korisnickoIme": "jelena",
+    "email": "jelena@gmail.com",
+    "telefon": "341234234234",
+    "lozinka": "$2b$10$83opG4FFGRzdpehm80qHLu7qD.cpEdPaU8hNzUezwu/Ga.JPCn5Ve",
+    "uloga": "kupac",
+    "proizvodiNaProdaju": [],
+    "kupljeniProizvodi": [
+      "dbe41bbc-398e-4334-ad78-ca1fd0754ef5"
+    ]
   }
 ]

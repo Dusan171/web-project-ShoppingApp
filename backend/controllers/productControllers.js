@@ -15,7 +15,7 @@ export default {
     }
   },
 
-  create: (req, res) => {   // 👈 ispravljeno
+  create: (req, res) => {   // ispravljeno
     try {
       console.log("📥 Received product:", req.body);
       const newProduct = productService.create(req.body);
