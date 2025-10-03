@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FiUser, FiSearch, FiShoppingBag, FiHome, FiLogOut } from "react-icons/fi";
+import {
+  User,
+  Search,
+  ShoppingCart,
+  Home,
+  LogOut,
+} from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import "../css/Navbar.css";
 
@@ -18,74 +24,68 @@ export default function Navbar() {
   return (
     <div className="navbar">
       <button className="icon-btn" onClick={() => navigate("/")}>
-        <FiHome />
+        <Home />
       </button>
       <button className="icon-btn">
-        <FiSearch />
+        <Search />
       </button>
       <button className="icon-btn">
-        <FiShoppingBag />
+        <ShoppingCart />
+      </button>
+      <button className="icon-btn" onClick={() => setMenuOpen(!menuOpen)}>
+        <User />
       </button>
 
-      <div className="user-menu-wrapper">
-        <button className="icon-btn" onClick={() => setMenuOpen(!menuOpen)}>
-          <FiUser />
-        </button>
+      {menuOpen && (
+        <div className="menu-dropdown">
+          {user ? (
+            <>
+              <div className="menu-user-info">
+                Signed in as: <strong>{user.korisnickoIme}</strong>
+              </div>
 
-        {menuOpen && (
-          <div className="menu-dropdown">
-            {user ? (
-              <>
-                <div className="menu-user-info">
-                  Signed in as: <strong>{user.korisnickoIme}</strong>
-                </div>
-
-                {user.uloga === "Prodavac" && (
-                  <Link
-                    to="/carts"
-                    className="menu-link"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Cart Seller
-                  </Link>
-                )}
-
+              {user.uloga === "Prodavac" && (
                 <Link
-                  to="/profile"
+                  to="/carts"
                   className="menu-link"
                   onClick={() => setMenuOpen(false)}
                 >
-                  My Profile
+                  Cart Seller
                 </Link>
+              )}
 
-                <button
-                  onClick={handleLogout}
-                  className="menu-link-button"
-                >
-                  <FiLogOut /> Sign out
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="menu-link"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Sign in
-                </Link>
-                <Link
-                  to="/register"
-                  className="menu-link"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Register
-                </Link>
-              </>
-            )}
-          </div>
-        )}
-      </div>
+              <Link
+                to="/profile"
+                className="menu-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                My Profile
+              </Link>
+
+              <button onClick={handleLogout} className="menu-link-button">
+                <LogOut /> Sign out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="menu-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="menu-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                Register
+              </Link>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,12 @@ import { useAuth } from "../context/AuthContext";
 import "../css/product.css";
 import { createCartItem } from "../services/cartItemService";
 
+const categoriesMap = {
+  "1": "Electronics",
+  "2": "Clothing",
+  "3": "Furniture",
+  "4": "Shoes"
+};
 
 export default function ProductDetails() {
   const { id } = useParams();
@@ -32,29 +38,29 @@ export default function ProductDetails() {
       loadProduct();
   }, [loadProduct]);
 
-const handleShopNow = async (productId) => {
-  if (!user) {
-    alert("You must be logged in to buy!");
-    return;
-  }
+  const handleShopNow = async (productId) => {
+    if (!user) {
+      alert("You must be logged in to buy!");
+      return;
+    }
 
-  try {
-    await updateProductStatus(productId, "Processing");
+    try {
+      await updateProductStatus(productId, "Processing");
 
-    await createCartItem({
-      cartId: user.cartId,
-      productId: productId,
-      quantity: 1,
-      status: "IN_PROGRESS"
-    });
+      await createCartItem({
+        cartId: user.cartId,
+        productId: productId,
+        quantity: 1,
+        status: "IN_PROGRESS"
+      });
 
-    alert("Product is now being processed and added to your cart!");
-    loadProduct();
-  } catch (err) {
-    console.error("Greška pri kupovini:", err);
-    setError("Failed to process product.");
-  }
-};
+      alert("Product is now being processed and added to your cart!");
+      loadProduct();
+    } catch (err) {
+      console.error("Greška pri kupovini:", err);
+      setError("Failed to process product.");
+    }
+  };
 
   const handleCancelPurchase = async (productId) => {
     if (!user) {
@@ -91,7 +97,9 @@ const handleShopNow = async (productId) => {
           {product.name}
         </h2>
 
-        {product.category && <p className="category">{product.category.name}</p>}
+        <p className="category">
+          Category: {product.category?.name || categoriesMap[product.categoryId] || "N/A"}
+        </p>
 
         <p className="price">Price: ${product.price}</p>
 
@@ -107,7 +115,6 @@ const handleShopNow = async (productId) => {
           </button>
         )}
 
-        {/* Ako korisnik nije Kupac a proizvod je aktivan */}
         {product.salesType === "fixedPrice" && product.status === "Active" && user?.uloga !== "Kupac" && (
           <p style={{ color: "red" }}>Only buyers can purchase this product.</p>
         )}
@@ -122,85 +129,82 @@ const handleShopNow = async (productId) => {
         )}
       </div>
 
-      
-{product && product.salesType === "auction" && (
-  <div className="auction-section" style={{ marginTop: "30px" }}>
-    <h3>Auction</h3>
+      {product && product.salesType === "auction" && (
+        <div className="auction-section" style={{ marginTop: "30px" }}>
+          <h3>Auction</h3>
 
-    {product.ponude && product.ponude.length > 0 ? (
-      <p>
-        Current highest bid: $
-        {Math.max(...product.ponude.map((p) => p.cena))}
-      </p>
-    ) : (
-      <p>No bids yet. Starting price: ${product.price}</p>
-    )}
+          {product.ponude && product.ponude.length > 0 ? (
+            <p>
+              Current highest bid: ${Math.max(...product.ponude.map((p) => p.cena))}
+            </p>
+          ) : (
+            <p>No bids yet. Starting price: ${product.price}</p>
+          )}
 
-    {user?.uloga === "Kupac"  && (
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const bidPrice = parseFloat(e.target.bid.value);
-          if (!bidPrice || bidPrice <= 0) return alert("Enter a valid bid");
+          {user?.uloga === "Kupac"  && (
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const bidPrice = parseFloat(e.target.bid.value);
+                if (!bidPrice || bidPrice <= 0) return alert("Enter a valid bid");
 
-          const token = localStorage.getItem("token"); 
+                const token = localStorage.getItem("token"); 
 
-          try {
-            const res = await fetch(
-              `http://localhost:5000/api/products/${product.id}/bid`,
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ price: bidPrice }),
-              }
-            );
+                try {
+                  const res = await fetch(
+                    `http://localhost:5000/api/products/${product.id}/bid`,
+                    {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                      },
+                      body: JSON.stringify({ price: bidPrice }),
+                    }
+                  );
 
-            if (!res.ok) {
-              const errData = await res.json();
-              throw new Error(errData.message || "Failed to place bid");
-            }
+                  if (!res.ok) {
+                    const errData = await res.json();
+                    throw new Error(errData.message || "Failed to place bid");
+                  }
 
-            alert("Bid placed successfully!");
-            loadProduct(); 
-            e.target.reset();
-          } catch (err) {
-            console.error(err);
-            alert("Error placing bid: " + err.message);
-          }
-        }}
-      >
-        <input
-          type="number"
-          name="bid"
-          placeholder="Your bid"
-          step="0.01"
-          min="0"
-          required
-          style={{ padding: "8px", marginRight: "10px", width: "120px" }}
-        />
-        <button type="submit" className="btn shop-btn">
-          Place Bid
-        </button>
-      </form>
-    )}
+                  alert("Bid placed successfully!");
+                  loadProduct(); 
+                  e.target.reset();
+                } catch (err) {
+                  console.error(err);
+                  alert("Error placing bid: " + err.message);
+                }
+              }}
+            >
+              <input
+                type="number"
+                name="bid"
+                placeholder="Your bid"
+                step="0.01"
+                min="0"
+                required
+                style={{ padding: "8px", marginRight: "10px", width: "120px" }}
+              />
+              <button type="submit" className="btn shop-btn">
+                Place Bid
+              </button>
+            </form>
+          )}
 
-    {user?.uloga !== "Kupac" && product.status === "Active" && (
-      <p style={{ color: "red" }}>
-        Only buyers can place bids.
-      </p>
-    )}
+          {user?.uloga !== "Kupac" && product.status === "Active" && (
+            <p style={{ color: "red" }}>
+              Only buyers can place bids.
+            </p>
+          )}
 
-    {product.status !== "Active" && (
-      <div className="sold-badge">
-        Auction ended ({product.status})
-      </div>
-    )}
-  </div>
-)}
-
+          {product.status !== "Active" && (
+            <div className="sold-badge">
+              Auction ended ({product.status})
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

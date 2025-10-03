@@ -4,14 +4,22 @@ import { Link } from "react-router-dom";
 import { getAllProducts, deleteProduct } from "../services/productService";
 import "../css/product.css";
 import { getCartItems } from "../services/cartItemService";
-import { useAuth } from "../context/AuthContext"; // ✅ dodato
+import { useAuth } from "../context/AuthContext";
 
 export default function ProductTabs() {
   const [tab, setTab] = useState("all");
   const [allProducts, setAllProducts] = useState([]);
   const [myProducts, setMyProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // polje za pretragu
+  const [selectedCategory, setSelectedCategory] = useState(""); // trenutno izabrana kategorija
+  const [products, setProducts] = useState([]);
+
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
+  const [salesType, setSalesType] = useState(""); 
+  const [categoryFilter, setCategoryFilter] = useState(""); 
+  const [locationFilter, setLocationFilter] = useState(""); 
 
   const { user } = useAuth();
   const token = localStorage.getItem("token");
@@ -21,7 +29,6 @@ export default function ProductTabs() {
     async function fetchProducts() {
       try {
         setLoading(true);
-
         const data = await getAllProducts();
         const cartItems = await getCartItems();
         const cartItemIds = new Set(cartItems.map(item => item.productId));
@@ -41,14 +48,12 @@ export default function ProductTabs() {
         setLoading(false);
       }
     }
-
     fetchProducts();
   }, [isSeller, token, user?.id]);
 
   async function handleDelete(id) {
     if (window.confirm("Are you sure you want to delete this product?")) {
       await deleteProduct(id);
-
       const data = await getAllProducts();
       const cartItems = await getCartItems();
       const cartItemIds = new Set(cartItems.map(item => item.productId));
@@ -67,11 +72,31 @@ export default function ProductTabs() {
   const renderProducts = (products, showAddBtn = true, isMine = false) => {
     if (loading) return <div className="loading">Loading products...</div>;
 
-    // filtriranje po searchTerm
-    const filteredProducts = products.filter(p =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+    // filtriranje po searchTerm, price, salesType, category i location
+    const filteredProducts = products.filter(p => {
+      const matchesSearch =
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      const matchesPrice =
+        (!priceFrom || parseFloat(p.price) >= parseFloat(priceFrom)) &&
+        (!priceTo || parseFloat(p.price) <= parseFloat(priceTo));
+
+      const matchesSalesType = !salesType || p.salesType === salesType;
+
+const matchesCategory = !categoryFilter || String(p.categoryId) === String(categoryFilter);
+
+     const matchesLocation =
+  !locationFilter || (
+    p.location &&
+    (
+      (p.location.street && p.location.street.toLowerCase().includes(locationFilter.toLowerCase())) ||
+      (p.location.city && p.location.city.toLowerCase().includes(locationFilter.toLowerCase()))
+    )
+  );
+
+      return matchesSearch && matchesPrice && matchesSalesType && matchesCategory && matchesLocation;
+    });
 
     if (filteredProducts.length === 0) {
       return (
@@ -156,7 +181,7 @@ export default function ProductTabs() {
         <div className="header-section">
           <h1 className="page-title">Products</h1>
 
-          {/* Polje za pretragu */}
+          {/* Polja za filtere */}
           <input
             type="text"
             placeholder="Search products by name or description..."
@@ -166,13 +191,44 @@ export default function ProductTabs() {
               width: "100%",
               maxWidth: "400px",
               padding: "10px 15px",
-              margin: "20px auto",
-              display: "block",
+              margin: "10px 0",
               borderRadius: "8px",
               border: "1px solid #ccc",
               fontSize: "1rem"
             }}
           />
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "15px" }}>
+            <input
+              type="number"
+              placeholder="Price from"
+              value={priceFrom}
+              onChange={(e) => setPriceFrom(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Price to"
+              value={priceTo}
+              onChange={(e) => setPriceTo(e.target.value)}
+            />
+            <select value={salesType} onChange={(e) => setSalesType(e.target.value)}>
+              <option value="">All types</option>
+              <option value="auction">Auction</option>
+              <option value="fixedPrice">Fixed Price</option>
+            </select>
+            <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+              <option value="">All categories</option>
+              <option value="1">Electronics</option>
+              <option value="2">Clothing</option>
+              <option value="3">Furniture</option>
+              <option value="4">Shoes</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Location"
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+            />
+          </div>
 
           {isSeller && (
             <div style={{ marginTop: "20px" }}>

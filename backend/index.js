@@ -40,7 +40,9 @@ if (!fs.existsSync(CATEGORIES_FILE)) {
   const categories = [
     { name: "Electronics" },
     { name: "Clothing" },
-    { name: "Books" }
+    { name: "Furniture" },
+    { name: "Shoes" }
+
   ];
   fs.writeFileSync(CATEGORIES_FILE, JSON.stringify(categories, null, 2), "utf8");
 }

@@ -9,7 +9,14 @@ export default function ProductList() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // 👈 novo polje za pretragu
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [filters, setFilters] = useState({
+    priceFrom: "",
+    priceTo: "",
+    salesType: "",
+    categoryId: "",
+    location: "",
+  });
 
   const isSeller = user && user.uloga === "Prodavac";
 
@@ -60,11 +67,27 @@ export default function ProductList() {
     }
   }
 
-  // Filtriranje proizvoda po searchTerm
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+  // Filtriranje proizvoda po searchTerm i dodatnim filterima
+  const filteredProducts = products.filter(p => {
+    const matchesSearch =
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()));
+
+    const matchesPriceFrom = !filters.priceFrom || parseFloat(p.price) >= parseFloat(filters.priceFrom);
+    const matchesPriceTo = !filters.priceTo || parseFloat(p.price) <= parseFloat(filters.priceTo);
+    const matchesSalesType = !filters.salesType || p.salesType === filters.salesType;
+const matchesCategory = !filters.categoryId || String(p.categoryId) === String(filters.categoryId);
+const matchesLocation =
+  !locationFilter || (
+    p.location &&
+    (
+      (p.location.street && p.location.street.toLowerCase().includes(locationFilter.toLowerCase())) ||
+      (p.location.city && p.location.city.toLowerCase().includes(locationFilter.toLowerCase()))
+    )
   );
+
+    return matchesSearch && matchesPriceFrom && matchesPriceTo && matchesSalesType && matchesCategory && matchesLocation;
+  });
 
   return (
     <div
@@ -99,6 +122,51 @@ export default function ProductList() {
               fontSize: "1rem"
             }}
           />
+
+          {/* Filteri */}
+          <div className="filters" style={{ marginBottom: "20px" }}>
+            <input
+              type="number"
+              placeholder="Price from"
+              value={filters.priceFrom}
+              onChange={(e) => setFilters({...filters, priceFrom: e.target.value})}
+              style={{ marginRight: "10px", padding: "5px", width: "100px" }}
+            />
+            <input
+              type="number"
+              placeholder="Price to"
+              value={filters.priceTo}
+              onChange={(e) => setFilters({...filters, priceTo: e.target.value})}
+              style={{ marginRight: "10px", padding: "5px", width: "100px" }}
+            />
+            <select
+              value={filters.salesType}
+              onChange={(e) => setFilters({...filters, salesType: e.target.value})}
+              style={{ marginRight: "10px", padding: "5px" }}
+            >
+              <option value="">All sales types</option>
+              <option value="fixedPrice">Fixed Price</option>
+              <option value="auction">Auction</option>
+            </select>
+            <select
+              value={filters.categoryId}
+              onChange={(e) => setFilters({...filters, categoryId: e.target.value})}
+              style={{ marginRight: "10px", padding: "5px" }}
+            >
+              <option value="">All categories</option>
+              <option value="1">Electronics</option>
+              <option value="2">Clothing</option>
+              <option value="3">Furniture</option>
+              <option value="4">Shoes</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Location"
+              value={filters.location}
+              onChange={(e) => setFilters({...filters, location: e.target.value})}
+              style={{ marginRight: "10px", padding: "5px", width: "150px" }}
+            />
+          </div>
 
           {user && isSeller && (
             <div className="actions">

@@ -21,8 +21,8 @@ export default function ProductForm() {
       number: "",
       city: "",
       postalCode: "",
-      latitude: "",  // automatski
-      longitude: "", // automatski
+      latitude: "",
+      longitude: "",
     },
     status: "Processing",
     reviewByBuyer: false,
@@ -86,17 +86,39 @@ export default function ProductForm() {
     }
   }
 
+  // Funkcija za geokodiranje adrese
+  async function fetchCoordinates({ street, number, city, postalCode }) {
+    const address = `${street} ${number}, ${city}, ${postalCode}`;
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data.length > 0) {
+        return {
+          latitude: data[0].lat,
+          longitude: data[0].lon,
+        };
+      }
+    } catch (err) {
+      console.error("Geocoding error:", err);
+    }
+    return { latitude: "", longitude: "" };
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // latitude i longitude automatski (dummy vrednosti, ili geokodiranje)
+    // automatski dohvata latitude i longitude pre POST-a
+    const coords = await fetchCoordinates(formData.location);
     const updatedForm = {
       ...formData,
       location: {
         ...formData.location,
-        latitude: "0.0",
-        longitude: "0.0",
+        latitude: coords.latitude,
+        longitude: coords.longitude,
       },
+      dateOfCreation: new Date().toISOString() // ⬅ dodato
     };
 
     try {
@@ -150,7 +172,7 @@ export default function ProductForm() {
             <option value="">Select Category</option>
             <option value="1">Electronics</option>
             <option value="2">Clothing</option>
-            <option value="3">Books</option>
+            <option value="3">Furniture</option>
             <option value="4">Shoes</option>
           </select>
         </label>
