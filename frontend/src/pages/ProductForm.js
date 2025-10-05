@@ -118,7 +118,7 @@ export default function ProductForm() {
         latitude: coords.latitude,
         longitude: coords.longitude,
       },
-      dateOfCreation: new Date().toISOString() // ⬅ dodato
+      dateOfCreation: new Date().toISOString()
     };
 
     try {

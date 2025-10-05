@@ -4,7 +4,6 @@ function MyProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Funkcija za učitavanje proizvoda korisnika
   const loadProducts = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -25,7 +24,7 @@ function MyProducts() {
         return res.json();
       })
       .then((data) => {
-        // Proizvodi sa statusom "Sold" ili "approved" se ne prikazuju
+
         setProducts(data);
       })
       .catch((err) => console.error("Error fetching products:", err))
@@ -36,7 +35,6 @@ function MyProducts() {
     loadProducts();
   }, []);
 
-  // Funkcija za odobravanje proizvoda
   const approveProduct = async (productId) => {
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -52,7 +50,6 @@ function MyProducts() {
 
       if (!res.ok) throw new Error("Failed to approve product");
 
-      // Nakon approve, logički obriši proizvod sa stranice
       setProducts((prev) => prev.filter((p) => p.id !== productId));
 
     } catch (err) {

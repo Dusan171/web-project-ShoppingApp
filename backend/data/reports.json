@@ -1,0 +1,40 @@
+[
+  {
+    "id": "5bc440ae-73c5-46dd-bf3e-0334525b7466",
+    "razlog": "Cista prevara, potpuno neispravan proizvod!!!",
+    "productId": "61859649-b686-42e0-b71b-aab922160bb4",
+    "reporterId": "1758282466938",
+    "reportedId": "1759415125298",
+    "datum": "2025-10-04T18:52:02.752Z",
+    "status": "Podneta"
+  },
+  {
+    "id": "5bc440ae-73c5-46dd-bf3e-0334525b7466",
+    "razlog": "Cista prevara, potpuno neispravan proizvod!!!",
+    "productId": "61859649-b686-42e0-b71b-aab922160bb4",
+    "reporterId": "1758282466938",
+    "reportedId": "1759415125298",
+    "datum": "2025-10-04T18:52:02.752Z",
+    "status": "Odbijena",
+    "rejectionReason": "Namerno ostecen, da bi dobili odstetu."
+  },
+  {
+    "id": "6bb9f10f-db62-4b94-b0f8-51eb7bea3ae3",
+    "razlog": "majmuni bezobrazni ****",
+    "productId": "1759534077086",
+    "reporterId": "1758282466938",
+    "reportedId": "1758225075304",
+    "datum": "2025-10-04T23:55:14.444Z",
+    "status": "Podneta"
+  },
+  {
+    "id": "6bb9f10f-db62-4b94-b0f8-51eb7bea3ae3",
+    "razlog": "majmuni bezobrazni ****",
+    "productId": "1759534077086",
+    "reporterId": "1758282466938",
+    "reportedId": "1758225075304",
+    "datum": "2025-10-04T23:55:14.444Z",
+    "status": "Odbijena",
+    "rejectionReason": "nekulturni ste"
+  }
+]

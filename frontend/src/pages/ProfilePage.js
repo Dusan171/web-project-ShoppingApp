@@ -1,76 +1,189 @@
-import React, { useState, useEffect } from 'react';
-import { getMyProfile } from '../services/userService';
-import { getProduct } from '../services/productService'; // Pretpostavka da ova funkcija postoji
-import '../css/ProfilePage.css'; // Kreiraćemo ovaj fajl
+import React, { useState, useEffect, useCallback } from 'react';
+import '../css/ProfilePage.css'; 
+
+async function fetchProfile(token) {
+    const res = await fetch('/api/users/profile', {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to fetch profile');
+    return res.json();
+}
+
+async function updateBasicInfo(data, token) {
+    const res = await fetch('/api/users/profile/basic', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || 'Failed to update basic info');
+    }
+    return res.json();
+}
+
+async function updateSensitiveInfo(data, token) {
+    const res = await fetch('/api/users/profile/sensitive', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.message || 'Failed to update sensitive info');
+    }
+    return res.json();
+}
 
 export default function ProfilePage() {
-  const [profileData, setProfileData] = useState(null);
-  const [purchasedProducts, setPurchasedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getMyProfile();
-        setProfileData(data);
+    const [basicInfo, setBasicInfo] = useState({
+        ime: '', prezime: '', telefon: '', datumRodjenja: '', opis: '', profilnaSlika: ''
+    });
+    const [sensitiveInfo, setSensitiveInfo] = useState({
+        currentPassword: '', newUsername: '', newEmail: '', newPassword: ''
+    });
 
-        // Ako korisnik ima kupljene proizvode, dohvati njihove detalje
-        if (data.kupljeniProizvodi && data.kupljeniProizvodi.length > 0) {
-          // Promise.all nam omogućava da čekamo da se svi API pozivi završe
-          const productPromises = data.kupljeniProizvodi.map(id => getProduct(id));
-          const resolvedProducts = await Promise.all(productPromises);
-          setPurchasedProducts(resolvedProducts);
+    const loadProfile = useCallback(async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setLoading(false);
+            setError("Niste prijavljeni.");
+            return;
         }
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setLoading(false);
-      }
+        try {
+            setLoading(true);
+            const data = await fetchProfile(token);
+            setProfile(data);
+            setBasicInfo({
+                ime: data.ime || '',
+                prezime: data.prezime || '',
+                telefon: data.telefon || '',
+                datumRodjenja: data.datumRodjenja ? data.datumRodjenja.split('T')[0] : '',
+                opis: data.opis || '',
+                profilnaSlika: data.profilnaSlika || ''
+            });
+            setSensitiveInfo({ currentPassword: '', newUsername: '', newEmail: '', newPassword: '' });
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        loadProfile();
+    }, [loadProfile]);
+
+    const handleBasicChange = (e) => setBasicInfo({ ...basicInfo, [e.target.name]: e.target.value });
+    const handleSensitiveChange = (e) => setSensitiveInfo({ ...sensitiveInfo, [e.target.name]: e.target.value });
+
+    const handleBasicSubmit = async (e) => {
+        e.preventDefault();
+        setError(''); setSuccess('');
+        const token = localStorage.getItem('token');
+        try {
+            await updateBasicInfo(basicInfo, token);
+            setSuccess('Basic information successfully updated!');
+            loadProfile();
+        } catch (err) {
+            setError(err.message);
+        }
+    };
+    
+    const handleSensitiveSubmit = async (e) => {
+        e.preventDefault();
+        if (!sensitiveInfo.currentPassword) {
+            setError("You must enter your current password to modify sensitive data.");
+            return;
+        }
+        setError(''); setSuccess('');
+        const token = localStorage.getItem('token');
+        try {
+            await updateSensitiveInfo(sensitiveInfo, token);
+            setSuccess('Sensitive data successfully updated! Please log in again if you have changed your username or password.');
+        } catch (err) {
+            setError(err.message);
+        }
     };
 
-    fetchProfile();
-  }, []);
+    if (loading) return <div className="profile-page"><div>Učitavanje profila...</div></div>;
+    if (!profile) return <div className="profile-page"><div className="profile-card">{error || "Profil nije pronađen."}</div></div>;
 
-  if (loading) {
-    return <div className="loading">Loading profile...</div>;
-  }
+    return (
+         <div className="profile-page">
+            <div className="container">
+                {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                {success && <div className="alert alert-success" role="alert">{success}</div>}
 
-  if (!profileData) {
-    return <div className="error-state">Could not load your profile. Please log in again.</div>;
-  }
+                <div className="row">
+                    {/* --- KARTICA ZA OSNOVNE PODATKE --- */}
+                    <div className="col-lg-6 mb-4">
+                        <div className="profile-card h-100">
+                            <h2>Basic Information</h2>
+                            <form onSubmit={handleBasicSubmit}>
+                                <div className="mb-3">
+                                    <label className="form-label">First Name</label>
+                                    <input type="text" name="ime" value={basicInfo.ime} onChange={handleBasicChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Last Name</label>
+                                    <input type="text" name="prezime" value={basicInfo.prezime} onChange={handleBasicChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Phone</label>
+                                    <input type="text" name="telefon" value={basicInfo.telefon} onChange={handleBasicChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Date of Birth</label>
+                                    <input type="date" name="datumRodjenja" value={basicInfo.datumRodjenja} onChange={handleBasicChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Description</label>
+                                    <textarea name="opis" value={basicInfo.opis} onChange={handleBasicChange} className="form-control" rows="3"></textarea>
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Profile Picture URL</label>
+                                    <input type="text" name="profilnaSlika" value={basicInfo.profilnaSlika} onChange={handleBasicChange} className="form-control" />
+                                </div>
+                                <button type="submit" className="btn btn-primary">Save Basic Info</button>
+                            </form>
+                        </div>
+                    </div>
 
-  return (
-    <div className="profile-page">
-      <div className="container">
-        <h1 className="page-title">My Profile</h1>
-        
-        <div className="profile-card">
-          <h2>{profileData.ime} {profileData.prezime}</h2>
-          <p><strong>Username:</strong> {profileData.korisnickoIme}</p>
-          <p><strong>Email:</strong> {profileData.email}</p>
-          <p><strong>Phone:</strong> {profileData.telefon}</p>
-          <p><strong>Role:</strong> {profileData.uloga}</p>
-          {/* Ovde kasnije može doći dugme za izmenu profila */}
+                    {/* --- KARTICA ZA OSJETLJIVE PODATKE --- */}
+                    <div className="col-lg-6 mb-4">
+                        <div className="profile-card h-100">
+                            <h2>Sensitive Data</h2>
+                            <p className="text-muted small">To change your username, email or password, your current password is required.</p>
+                            <form onSubmit={handleSensitiveSubmit}>
+                                <div className="mb-3">
+                                    <label className="form-label">Current Password *</label>
+                                    <input type="password" name="currentPassword" value={sensitiveInfo.currentPassword} onChange={handleSensitiveChange} className="form-control" required />
+                                </div>
+                                <hr/>
+                                <div className="mb-3">
+                                    <label className="form-label">New Username</label>
+                                    <input type="text" name="newUsername" placeholder={profile.korisnickoIme} value={sensitiveInfo.newUsername} onChange={handleSensitiveChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">New Email</label>
+                                    <input type="email" name="newEmail" placeholder={profile.email} value={sensitiveInfo.newEmail} onChange={handleSensitiveChange} className="form-control" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">New Password</label>
+                                    <input type="password" name="newPassword" value={sensitiveInfo.newPassword} onChange={handleSensitiveChange} className="form-control" />
+                                </div>
+                                <button type="submit" className="btn btn-warning">Save Sensitive Data</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div className="products-section">
-          <h2>My Purchased Products</h2>
-          {purchasedProducts.length > 0 ? (
-            <ul className="product-grid">
-              {purchasedProducts.map(product => (
-                <li key={product.id} className="product-card">
-                  {/* Možemo iskoristiti stilove iz product.css */}
-                  <h3>{product.name}</h3>
-                  <p className="product-price">Paid: ${product.finalnaCena || product.price}</p>
-                  <p>Status: {product.status}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>You haven't purchased any products yet.</p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

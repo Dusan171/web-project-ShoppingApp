@@ -1,0 +1,76 @@
+.admin-dashboard {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    background-color: #f8f9fa; 
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 30px;
+}
+
+@media (min-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.dashboard-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-card-header {
+    padding: 1.25rem;
+    background-color: #f1f3f5;
+    border-bottom: 1px solid #dee2e6;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #343a40;
+}
+
+.dashboard-card-body {
+    padding: 0; 
+    flex-grow: 1;
+    overflow-x: auto; 
+}
+
+.dashboard-table {
+    width: 100%;
+    margin-bottom: 0; 
+    border-collapse: collapse;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 1rem;
+    vertical-align: middle;
+    text-align: left;
+    border-top: 1px solid #dee2e6;
+}
+
+.dashboard-table thead th {
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+.dashboard-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.dashboard-table td .btn {
+    white-space: nowrap; 
+}
+
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: #6c757d;
+}

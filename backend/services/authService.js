@@ -14,14 +14,12 @@ export const register = async (userData) => {
   }
 
  const hashedPassword = await bcrypt.hash(lozinka, 10);
-  
-  // Kreiranje novog korisnika 
+
   const newUser = {
-    id: Date.now().toString(), // Jednostavan unique ID
+    id: Date.now().toString(),
     ...userData,
     lozinka: hashedPassword,
-   // uloga: 'Kupac', // Default uloga
-    // ostala polja
+
     proizvodiNaProdaju: [],
     kupljeniProizvodi: []
   };

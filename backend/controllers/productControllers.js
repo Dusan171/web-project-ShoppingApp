@@ -18,7 +18,7 @@ export default {
     }
   },
 
-  create: (req, res) => {   // 👈 ispravljeno
+  create: (req, res) => {   
     try {
       const productData = {
         ...req.body,

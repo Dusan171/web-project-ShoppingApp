@@ -78,11 +78,11 @@ export default function ProductList() {
     const matchesSalesType = !filters.salesType || p.salesType === filters.salesType;
 const matchesCategory = !filters.categoryId || String(p.categoryId) === String(filters.categoryId);
 const matchesLocation =
-  !locationFilter || (
+  !filters.location || (
     p.location &&
     (
-      (p.location.street && p.location.street.toLowerCase().includes(locationFilter.toLowerCase())) ||
-      (p.location.city && p.location.city.toLowerCase().includes(locationFilter.toLowerCase()))
+      (p.location.street && p.location.street.toLowerCase().includes(filters.location.toLowerCase())) ||
+      (p.location.city && p.location.city.toLowerCase().includes(filters.location.toLowerCase()))
     )
   );
 

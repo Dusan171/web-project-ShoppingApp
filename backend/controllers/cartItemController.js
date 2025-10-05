@@ -1,8 +1,6 @@
 import CartItemService  from "../services/cartItemService.js";
 import productService from "../services/productService.js";
 
-
-
 const cartItemService = new CartItemService();
 
 export default {
@@ -30,9 +28,6 @@ create: (req, res) => {
     res.status(400).json({ error: err.message });
   }
 },
-
-
-
 
   update: (req, res) => {
     try {
@@ -82,10 +77,8 @@ create: (req, res) => {
       const cartItem = cartItemService.getItemById(cartItemId);
       if (!cartItem) return res.status(404).json({ error: "Cart item not found" });
 
-      // 1. Ažuriraj status cartItem-a
       cartItemService.update(cartItemId, { status: "approved" });
 
-      // 2. Ažuriraj status proizvoda
       const product = productService.getOne(cartItem.productId);
       if (product) {
         productService.update(product.id, { status: "Sold", kupacId: product.kupacId });

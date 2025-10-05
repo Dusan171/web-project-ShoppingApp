@@ -32,3 +32,10 @@ export const protect = (req, res, next) => {
     return res.status(401).json({ message: 'Not authorized, no token' });
   }
 };
+export const isAdmin = (req, res, next) => {
+    if (req.user && req.user.uloga === 'Administrator') {
+        next(); // Korisnik je admin, nastavi dalje
+    } else {
+        res.status(403).json({ message: 'Not authorized as an administrator' }); // 403 Forbidden
+    }
+};

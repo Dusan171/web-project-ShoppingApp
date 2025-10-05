@@ -69,8 +69,8 @@
     "prezime": "Topalovic",
     "korisnickoIme": "Dt",
     "email": "dare@yahoo.com",
-    "telefon": "4444444",
-    "lozinka": "$2b$10$Z/xsJRyjiYsxY3u1py.ScuNeHbv765GccIgl9ZVEUPxi1JcaOAJz.",
+    "telefon": "06574381921",
+    "lozinka": "$2b$10$MZ/KwK2fiHuwWumeu1aX3uTNxdFX4UK1LAE2QlfyW4M3Q5cNO6o.e",
     "uloga": "Kupac",
     "proizvodiNaProdaju": [],
     "kupljeniProizvodi": [
@@ -79,7 +79,10 @@
       "1759531337595",
       "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
       "1759534077086"
-    ]
+    ],
+    "datumRodjenja": "1978-02-22",
+    "opis": "Iskren i ozbiljan kupac.",
+    "profilnaSlika": ""
   },
   {
     "id": "1759218499184",
@@ -176,5 +179,16 @@
     "uloga": "Kupac",
     "proizvodiNaProdaju": [],
     "kupljeniProizvodi": []
+  },
+  {
+    "id": "admin001",
+    "ime": "Admin",
+    "prezime": "Adminic",
+    "korisnickoIme": "admin",
+    "email": "admin@yahoo.com",
+    "telefon": "0000000",
+    "lozinka": "$2b$10$MiwS2EcWZGMuQJuRfsU50uKSyNzMIVDo1TA8xc/bsYSIOQWZJWQaq",
+    "uloga": "Administrator",
+    "blokiran": false
   }
 ]

@@ -11,14 +11,14 @@ import { useAuth } from "../context/AuthContext";
 import "../css/Navbar.css";
 
 export default function Navbar() {
-  const { user, logout } = useAuth(); // koristimo AuthContext
+  const { user, logout } = useAuth(); 
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
  console.log("KORISNIK U NAVBARU:", user); 
   const handleLogout = () => {
-    logout(); // briše user iz state-a i localStorage
+    logout();
     setMenuOpen(false);
-    navigate("/login"); // opcionalno, vodi na login stranicu
+    navigate("/login"); 
   };
 
   return (
@@ -53,6 +53,15 @@ export default function Navbar() {
                   Cart Seller
                 </Link>
               )}
+               {user.uloga === "Kupac" && (
+          <Link
+            to="/my-purchases"
+            className="menu-link"
+            onClick={() => setMenuOpen(false)}
+          >
+            My Purchases
+          </Link>
+        )}
 
               <Link
                 to="/profile"
@@ -61,6 +70,15 @@ export default function Navbar() {
               >
                 My Profile
               </Link>
+              {user.uloga === "Administrator" && (
+  <Link
+    to="/admin"
+    className="menu-link"
+    onClick={() => setMenuOpen(false)}
+  >
+    Admin Panel
+  </Link>
+)}
 
               <button onClick={handleLogout} className="menu-link-button">
                 <LogOut /> Sign out

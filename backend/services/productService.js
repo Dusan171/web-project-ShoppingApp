@@ -83,10 +83,8 @@ export default {
 
     addProductToBuyer(productId, buyerId, sellerId);
      try {
-       // 1. DOHVATI ILI KREIRAJ KOŠARICU ZA POBJEDNIKA AUKCIJE (KUPCA)
       const buyerCart = cartService.getOrCreateCart(buyerId);
-      
-      // 2. KREIRAJ CartItem U TOJ KOŠARICI
+
       cartItemService.addItem(buyerCart.id, productId, 1, "IN_PROGRESS");
 
       console.log(`✅ AUKCIJA ZAVRŠENA: Kreiran CartItem za proizvod ${productId} u košarici ${buyerCart.id} za kupca ${buyerId}`);

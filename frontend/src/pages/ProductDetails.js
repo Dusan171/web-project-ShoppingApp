@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getProduct, updateProductStatus, cancelPurchase, endAuction } from "../services/productService";
 import { useAuth } from "../context/AuthContext";
 import "../css/product.css";
@@ -12,22 +12,36 @@ const categoriesMap = {
   "4": "Shoes"
 };
 
+async function getSellerProfile(sellerId) {
+    const res = await fetch(`/api/users/${sellerId}`); 
+    if (!res.ok) return null; 
+    return res.json();
+}
+
 export default function ProductDetails() {
   const { id } = useParams();
   const { user } = useAuth();
 
   const [product, setProduct] = useState(null);
+
+  const [seller, setSeller] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const loadProduct = useCallback(async () => {
     try {
-      setLoading(true);
+       setLoading(true);
       setError("");
-      const data = await getProduct(id);
-      setProduct(data);
+   
+      const productData = await getProduct(id);
+      setProduct(productData);
+
+      if (productData && productData.prodavacId) {
+          const sellerData = await getSellerProfile(productData.prodavacId);
+          setSeller(sellerData); 
+      }
     } catch (error) {
-      console.error("Error loading product:", error);
+      console.error("Error loading product details:", error);
       setError("Failed to load product details.");
     } finally {
       setLoading(false);
@@ -78,20 +92,16 @@ export default function ProductDetails() {
     }
   };
   const handleEndAuction = async (productId) => {
-    // Uvijek je dobro pitati za potvrdu prije destruktivne akcije
+ 
     if (!window.confirm("Da li ste sigurni da želite završiti aukciju? Pobjednik će biti korisnik s najvišom ponudom.")) {
       return;
     }
-
     try {
-      // Pozivamo novu funkciju iz servisa
       await endAuction(productId);
       alert("Aukcija je uspješno završena!");
-      // Osvježavamo podatke o proizvodu da se prikaže novi status
       loadProduct(); 
     } catch (err) {
       console.error("Greška pri završavanju aukcije:", err);
-      // Prikazujemo grešku korisniku
       setError(err.message || "Failed to end the auction."); 
     }
   };
@@ -115,6 +125,15 @@ export default function ProductDetails() {
           {product.name}
         </h2>
 
+ {seller ? (
+      <p className="seller-info" style={{ fontStyle: 'italic', color: '#555', marginBottom: '1rem' }}>
+          Prodavac: <Link to={`/profile/${seller.id}`}>{seller.korisnickoIme}</Link>
+      </p>
+  ) : (
+      <p className="seller-info" style={{ fontStyle: 'italic', color: '#555', marginBottom: '1rem' }}>
+          Prodavac se učitava...
+      </p>
+  )}
         <p className="category">
           Category: {product.category?.name || categoriesMap[product.categoryId] || "N/A"}
         </p>

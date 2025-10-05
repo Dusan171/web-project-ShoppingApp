@@ -1,16 +1,14 @@
 import express from "express";
 import cors from "cors";
 import fs from "fs";
-
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
-
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from "./routes/userRoutes.js"; 
-
 import cartRoutes from "./routes/cartRoutes.js";
 import cartItemRoutes from "./routes/cartItemRoutes.js";
-
+import reviewRoutes from './routes/reviewRoutes.js';
+import reportRoutes from './routes/reportRoutes.js';
 
 const app = express();
 const PORT = 5000;
@@ -28,13 +26,12 @@ app.use(express.json());
 
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
-
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/cart-items", cartItemRoutes)
 app.use("/api/users", userRoutes); 
-
-
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/reports', reportRoutes);
 
 const CATEGORIES_FILE = "./data/categories.json";
 if (!fs.existsSync(CATEGORIES_FILE)) {
