@@ -1,52 +1,46 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  display: flex;
-  gap: 15px;
-  padding: 10px 20px;
-  background: transparent;
-  z-index: 1000;
+ .navbar {
+position: fixed;
+top: 0;
+right: 0;
+display: flex;
+gap: 15px;
+padding: 10px 20px;
+background: transparent;
+z-index: 1000;
 }
-
 .icon-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 28px;
-  padding: 0;
+background: transparent;
+border: none;
+cursor: pointer;
+font-size: 28px;
+padding: 0;
 }
-
 .icon-btn svg {
-  fill: none;     
-  stroke: white; 
-  stroke-width: 2; 
+fill: none;
+stroke: white;
+stroke-width: 2;
 }
-
 .user-menu-wrapper {
-  position: relative;
+position: relative;
 }
-
 .menu-dropdown {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background: white;
-  border-radius: 8px;
-  padding: 10px;
-  z-index: 20;
+position: absolute;
+top: 40px;
+right: 0;
+background: white;
+border-radius: 8px;
+padding: 10px;
+z-index: 20;
 }
-
 .menu-link, .menu-link-button {
-  display: block;
-  padding: 8px 16px;
-  text-decoration: none;
-  color: black;
+display: block;
+padding: 8px 16px;
+text-decoration: none;
+color: black;
 }
-
 .menu-user-info {
-  padding: 10px 15px;
-  color: #555;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #eee;
+padding: 10px 15px;
+color: #555;
+font-size: 0.9rem;
+border-bottom: 1px solid #eee;
 }

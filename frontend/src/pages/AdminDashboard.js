@@ -27,15 +27,31 @@ async function deleteReviewAPI(reviewId, token) {
     if (!res.ok) { const err = await res.json(); throw new Error(err.message); }
     return res.json();
 }
+async function updateReviewAPI(reviewId, newComment, token) {
+    const res = await fetch(`/api/reviews/${reviewId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ komentar: newComment })
+    });
+    if (!res.ok) { const err = await res.json(); throw new Error(err.message); }
+    return res.json();
+}
 
 export default function AdminDashboard() {
     const [reports, setReports] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    
+    // State za modal odbijanja prijave
     const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
     const [selectedReport, setSelectedReport] = useState(null);
     const [rejectionReason, setRejectionReason] = useState('');
+
+    // State za modal izmjene recenzije
+    const [isEditReviewModalOpen, setIsEditReviewModalOpen] = useState(false);
+    const [selectedReviewForEdit, setSelectedReviewForEdit] = useState(null);
+    const [newCommentText, setNewCommentText] = useState('');
 
     const loadData = useCallback(async () => {
         const token = localStorage.getItem('token');
@@ -100,6 +116,30 @@ export default function AdminDashboard() {
         }
     };
 
+    const openEditReviewModal = (review) => {
+        setSelectedReviewForEdit(review);
+        setNewCommentText(review.komentar);
+        setIsEditReviewModalOpen(true);
+    };
+
+    const closeEditReviewModal = () => {
+        setIsEditReviewModalOpen(false);
+        setSelectedReviewForEdit(null);
+        setNewCommentText('');
+    };
+
+    const handleEditReviewSubmit = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            await updateReviewAPI(selectedReviewForEdit.id, newCommentText, token);
+            alert("Review comment updated successfully.");
+            closeEditReviewModal();
+            loadData();
+        } catch (err) {
+            alert(`Error: ${err.message}`);
+        }
+    };
+
     if (loading) return <h2>Loading...</h2>;
 
     return (
@@ -109,8 +149,6 @@ export default function AdminDashboard() {
                 {error && <p className="alert alert-danger">{error}</p>}
                 
                 <div className="dashboard-grid">
-                    
-                    {/* === KARTICA ZA PRIJAVE === */}
                     <div className="dashboard-card">
                         <div className="dashboard-card-header">Report Management</div>
                         <div className="dashboard-card-body">
@@ -147,7 +185,6 @@ export default function AdminDashboard() {
                         </div>
                     </div>
 
-                    {/* === KARTICA ZA RECENZIJE === */}
                     <div className="dashboard-card">
                         <div className="dashboard-card-header">Review Management</div>
                         <div className="dashboard-card-body">
@@ -169,7 +206,7 @@ export default function AdminDashboard() {
                                             <td>{'★'.repeat(review.ocjena).padEnd(5, '☆')}</td>
                                             <td>{review.komentar}</td>
                                             <td>
-                                                <button className="btn btn-sm btn-warning me-2" disabled>Edit</button>
+                                                <button className="btn btn-sm btn-warning me-2" onClick={() => openEditReviewModal(review)}>Edit</button>
                                                 <button className="btn btn-sm btn-danger" onClick={() => handleDeleteReview(review.id)}>Delete</button>
                                             </td>
                                         </tr>
@@ -182,7 +219,6 @@ export default function AdminDashboard() {
                 </div>
             </div>
 
-            {/* Modal za odbijanje prijave (ostaje isti) */}
             {isRejectModalOpen && (
                 <div className="modal-backdrop">
                     <div className="modal">
@@ -191,6 +227,24 @@ export default function AdminDashboard() {
                         <div className="modal-buttons">
                             <button onClick={handleRejectSubmit}>Confirm Rejection</button>
                             <button onClick={() => setIsRejectModalOpen(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {isEditReviewModalOpen && (
+                <div className="modal-backdrop">
+                    <div className="modal">
+                        <h3>Edit Review Comment</h3>
+                        <p><strong>Rating:</strong> {'★'.repeat(selectedReviewForEdit.ocjena).padEnd(5, '☆')} (cannot be changed)</p>
+                        <textarea 
+                            value={newCommentText} 
+                            onChange={(e) => setNewCommentText(e.target.value)}
+                            rows="5"
+                        />
+                        <div className="modal-buttons">
+                            <button onClick={handleEditReviewSubmit}>Save Changes</button>
+                            <button onClick={closeEditReviewModal}>Cancel</button>
                         </div>
                     </div>
                 </div>

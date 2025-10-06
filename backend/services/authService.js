@@ -33,12 +33,16 @@ export const login = async (loginData) => {
 
   const user = userRepository.findByUsername(korisnickoIme);
   if (!user) {
-    throw new Error('Pogrešno korisničko ime ili lozinka.');
+    throw new Error('Incorrect username or password.');
+  }
+
+  if (user.blokiran === true) {
+    throw new Error('Your account has been suspended by an administrator.');
   }
 
   const isMatch = await bcrypt.compare(lozinka, user.lozinka);
   if (!isMatch) {
-    throw new Error('Pogrešno korisničko ime ili lozinka.');
+    throw new Error('Incorrect username or password.');
   }
 
   const payload = {

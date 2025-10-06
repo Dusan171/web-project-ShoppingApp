@@ -120,10 +120,13 @@ export const getPublicProfile = (userId) => {
             String(p.prodavacId) === String(userId) && p.status === 'Active'
         );
     } else if (user.uloga === 'Kupac') {
-
-        userProfile.kupljeniProizvodi = allProducts.filter(p =>
-            user.kupljeniProizvodi && user.kupljeniProizvodi.includes(p.id) && p.status === 'Sold'
-        );
+        if (user.kupljeniProizvodi && Array.isArray(user.kupljeniProizvodi)) {
+            userProfile.kupljeniProizvodi = allProducts.filter(p =>
+                user.kupljeniProizvodi.includes(p.id) && p.status === 'Sold'
+            );
+        } else {
+            userProfile.kupljeniProizvodi = [];
+        }
     }
     userProfile.recenzije = [];
     userProfile.prosjecnaOcjena = 0;
@@ -134,7 +137,7 @@ export const getPublicProfile = (userId) => {
         const author = userRepository.findById(review.authorId);
         return {
             ...review,
-            authorUsername: author ? author.korisničkoIme : 'Unknown'
+            authorUsername: author ? author.korisnickoIme : 'Unknown'
         };
     });
     userProfile.recenzije = populatedReviews;

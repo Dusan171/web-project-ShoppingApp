@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import '../css/ProfilePage.css'; 
 
 async function fetchProfile(token) {
@@ -35,7 +37,9 @@ async function updateSensitiveInfo(data, token) {
     return res.json();
 }
 
+// --- Glavna Komponenta ---
 export default function ProfilePage() {
+    const { user } = useAuth();
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -52,11 +56,13 @@ export default function ProfilePage() {
         const token = localStorage.getItem('token');
         if (!token) {
             setLoading(false);
-            setError("Niste prijavljeni.");
+            setError("You are not logged in.");
             return;
         }
         try {
             setLoading(true);
+            setError('');
+            setSuccess('');
             const data = await fetchProfile(token);
             setProfile(data);
             setBasicInfo({
@@ -97,10 +103,6 @@ export default function ProfilePage() {
     
     const handleSensitiveSubmit = async (e) => {
         e.preventDefault();
-        if (!sensitiveInfo.currentPassword) {
-            setError("You must enter your current password to modify sensitive data.");
-            return;
-        }
         setError(''); setSuccess('');
         const token = localStorage.getItem('token');
         try {
@@ -111,17 +113,26 @@ export default function ProfilePage() {
         }
     };
 
-    if (loading) return <div className="profile-page"><div>Učitavanje profila...</div></div>;
-    if (!profile) return <div className="profile-page"><div className="profile-card">{error || "Profil nije pronađen."}</div></div>;
+    if (loading) return <div className="profile-page"><div className="profile-card"><h2>Loading Profile...</h2></div></div>;
+    if (!profile) return <div className="profile-page"><div className="profile-card"><h2>{error || "Profile not found."}</h2></div></div>;
 
     return (
-         <div className="profile-page">
+        <div className="profile-page">
             <div className="container">
+
+                <div className="text-center mb-4">
+                    {user && (
+                        <Link to={`/profile/${user.id}`} className="btn btn-outline-secondary">
+                            View My Public Profile
+                        </Link>
+                    )}
+                </div>
+
                 {error && <div className="alert alert-danger" role="alert">{error}</div>}
                 {success && <div className="alert alert-success" role="alert">{success}</div>}
 
                 <div className="row">
-                    {/* --- KARTICA ZA OSNOVNE PODATKE --- */}
+                    {/* Kartica za osnovne podatke */}
                     <div className="col-lg-6 mb-4">
                         <div className="profile-card h-100">
                             <h2>Basic Information</h2>
@@ -155,7 +166,7 @@ export default function ProfilePage() {
                         </div>
                     </div>
 
-                    {/* --- KARTICA ZA OSJETLJIVE PODATKE --- */}
+                    {/* Kartica za osjetljive podatke */}
                     <div className="col-lg-6 mb-4">
                         <div className="profile-card h-100">
                             <h2>Sensitive Data</h2>

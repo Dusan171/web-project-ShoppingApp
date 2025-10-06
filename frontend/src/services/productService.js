@@ -99,3 +99,21 @@ export async function endAuction(productId, token = getToken()) {
   }
   return data;
 }
+export async function getMyPurchases(token = getToken()) {
+  const res = await fetch(`${API_URL}/my-purchases`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch purchase history");
+  return res.json();
+}
+export async function getProductsForApproval(token = getToken()) {
+  const res = await fetch(`${API_URL}/for-approval`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch products for approval");
+  return res.json();
+}

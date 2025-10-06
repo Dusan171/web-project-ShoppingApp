@@ -7,8 +7,26 @@ const cartItemService = new CartItemService();
 const cartService = new CartService();
 
 export default {
-  getAll: () => {
+  _internalGetAll: () => {
     return productRepository.getAllProducts();
+  },
+
+  getAll: () => {
+    const allProducts = productRepository.getAllProducts();
+    const allUsers = userRepository.findAll(); 
+
+    const blockedUserIds = new Set(
+      allUsers.filter(u => u.blokiran === true).map(u => u.id)
+    );
+    
+    const visibleProducts = allProducts.filter(product => {
+      const isHiddenStatus = product.status === 'Sold' || product.status === 'DeletedByAdmin' || product.status === 'Processing';
+      const isSellerBlocked = blockedUserIds.has(String(product.prodavacId));
+      
+      return !isHiddenStatus && !isSellerBlocked;
+    });
+
+    return visibleProducts;
   },
 
   getOne: (id) => {
@@ -62,7 +80,7 @@ export default {
  endAuction: (productId, sellerId) => {
     console.log({ productId, sellerId });
     const product = productRepository.getProductById(productId);
-    // ... validacije za proizvod, vlasnika i ponude...
+  
     if (!product) {
       throw new Error("Product not found.");
     }

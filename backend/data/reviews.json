@@ -7,5 +7,32 @@
     "authorId": "1758282466938",
     "receiverId": "1759415125298",
     "datum": "2025-10-04T18:32:46.630Z"
+  },
+  {
+    "id": "review-from-seller-001",
+    "ocjena": 5,
+    "komentar": "An exemplary buyer! The transaction was smooth and payment was prompt. Looking forward to future dealings.",
+    "productId": "1759534077086",
+    "authorId": "1758225075304",
+    "receiverId": "1758282466938",
+    "datum": "2025-10-07T10:00:00.000Z"
+  },
+  {
+    "id": "04bc61f2-8d22-44f8-8e60-4fbfaa42619e",
+    "ocjena": 4,
+    "komentar": "solidno",
+    "productId": "1759774719270",
+    "authorId": "1758282466938",
+    "receiverId": "1758225075304",
+    "datum": "2025-10-06T18:34:17.349Z"
+  },
+  {
+    "id": "21c3c333-4b81-484a-967b-d386e3545bd4",
+    "ocjena": 2,
+    "komentar": "onako, nije lose",
+    "productId": "1759774739797",
+    "authorId": "1759754539826",
+    "receiverId": "1758225075304",
+    "datum": "2025-10-06T18:34:41.885Z"
   }
 ]

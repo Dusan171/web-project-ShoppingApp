@@ -7,6 +7,22 @@ export default {
   getAll: (req, res) => {
     res.json(productService.getAll());
   },
+    getMyPurchases: (req, res) => {
+      console.log(`--- Primljen zahtjev za 'getMyPurchases' od korisnika ID: ${req.user.id}`);
+    try {
+        const allProducts = productService._internalGetAll(); 
+        const userId = req.user.id;
+
+        const myPurchases = allProducts.filter(p => 
+            (p.status === 'Sold' || p.status === 'Processing') && String(p.kupacId) === String(userId)
+        );
+        console.log(`✅ Pronađeno ${myPurchases.length} kupljenih proizvoda. Šaljem odgovor.`);
+        res.json(myPurchases);
+    } catch (error) {
+       console.error(`!!! Greška u 'getMyPurchases': ${error.message}`);
+        res.status(500).json({ message: "Error fetching purchase history." });
+    }
+  },
 
   getOne: (req, res) => {
     try {
@@ -116,6 +132,19 @@ getMine: (req, res) => {
     res.status(500).json({ message: "Failed to load your products" });
   }
 },
+ getForSellerApproval: (req, res) => {
+    try {
+        const allProducts = productService._internalGetAll(); // Koristimo internu, nefiltriranu listu
+        const sellerId = req.user.id;
+
+        const forApproval = allProducts.filter(p => 
+            p.status === 'Processing' && String(p.prodavacId) === String(sellerId)
+        );
+        res.json(forApproval);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching products for approval." });
+    }
+  },
 
 
 

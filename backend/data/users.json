@@ -69,7 +69,7 @@
     "prezime": "Topalovic",
     "korisnickoIme": "Dt",
     "email": "dare@yahoo.com",
-    "telefon": "06574381921",
+    "telefon": "555555555",
     "lozinka": "$2b$10$MZ/KwK2fiHuwWumeu1aX3uTNxdFX4UK1LAE2QlfyW4M3Q5cNO6o.e",
     "uloga": "Kupac",
     "proizvodiNaProdaju": [],
@@ -78,11 +78,12 @@
       "1759528791797",
       "1759531337595",
       "fe55ae12-d0cd-4bec-8c55-eb1842bee9f4",
-      "1759534077086"
+      "1759534077086",
+      "1759774719270"
     ],
     "datumRodjenja": "1978-02-22",
     "opis": "Iskren i ozbiljan kupac.",
-    "profilnaSlika": ""
+    "profilnaSlika": "https://images.bstatic.de/DMwUUtaxRUv8je30PawRRkOFvoE=/956x540/filters:focal(991x694:1011x714)/images/ffe0965f/4ea8/4c0c/95ca/9f8bf16a9e46.jpg"
   },
   {
     "id": "1759218499184",
@@ -190,5 +191,36 @@
     "lozinka": "$2b$10$MiwS2EcWZGMuQJuRfsU50uKSyNzMIVDo1TA8xc/bsYSIOQWZJWQaq",
     "uloga": "Administrator",
     "blokiran": false
+  },
+  {
+    "id": "1759754539826",
+    "ime": "Dusanov2",
+    "prezime": "PROBNO",
+    "korisnickoIme": "dule2",
+    "email": "dulence@uns.ac.rs",
+    "telefon": "334552111",
+    "lozinka": "$2b$10$IA5tz.MaItws.6d4QIcoSe/d/UJvN980w1aXEpw6eEv5JGqbxLaJa",
+    "uloga": "Kupac",
+    "proizvodiNaProdaju": [],
+    "kupljeniProizvodi": [
+      "1759754767401",
+      "1759774739797"
+    ],
+    "datumRodjenja": "2024-03-13",
+    "opis": "Dobar covjek i posten.",
+    "profilnaSlika": ""
+  },
+  {
+    "id": "1759768583596",
+    "ime": "prodavac50",
+    "prezime": "prodavac50",
+    "korisnickoIme": "ProdavacZaBlok",
+    "email": "aaa@adfa.casd",
+    "telefon": "22222222",
+    "lozinka": "$2b$10$iz/eXxZ6HMrooaXuFOCkKe.2EHOXmjPYYErFYfv46RrluKcuAuNqq",
+    "uloga": "Prodavac",
+    "proizvodiNaProdaju": [],
+    "kupljeniProizvodi": [],
+    "blokiran": true
   }
 ]

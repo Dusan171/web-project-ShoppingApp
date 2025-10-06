@@ -9,20 +9,32 @@ const reviewsFilePath = path.join(__dirname, '..', 'data', 'reviews.json');
 const readReviews = () => {
     try {
         const data = fs.readFileSync(reviewsFilePath, 'utf8');
-        return JSON.parse(data);
-    } catch (error) { return []; }
+        return data ? JSON.parse(data) : [];
+    } catch (error) { 
+        console.error("Error reading reviews.json:", error);
+        return []; }
 };
 
 const writeReviews = (reviews) => {
-    fs.writeFileSync(reviewsFilePath, JSON.stringify(reviews, null, 2), 'utf8');
+      try {
+        fs.writeFileSync(reviewsFilePath, JSON.stringify(reviews, null, 2), 'utf8');
+    } catch (error) {
+        console.error("Error writing to reviews.json:", error);
+    }
 };
-export const findAll = () => readReviews();
+export const findById = (id) => {
+    const reviews = readReviews();
+    return reviews.find(review => review.id === id);
+};
+export const findAll = () => {
+    return readReviews();
+};
 
 export const findByProductIdAndAuthorId = (productId, authorId) => {
     return readReviews().find(r => r.productId === productId && r.authorId === authorId);
 };
 
-export const save = (review) => {
+export const save = (reviewToSave) => {
      const reviews = readReviews();
     const reviewIndex = reviews.findIndex(r => r.id === reviewToSave.id);
 
@@ -31,6 +43,18 @@ export const save = (review) => {
     } else {
         reviews.push(reviewToSave); 
     }
+
     writeReviews(reviews);
     return reviewToSave;
+};
+export const deleteById = (id) => {
+    let reviews = readReviews();
+    const initialLength = reviews.length;
+    reviews = reviews.filter(r => r.id !== id);
+
+    if (reviews.length < initialLength) {
+        writeReviews(reviews);
+        return true; 
+    }
+    return false; 
 };

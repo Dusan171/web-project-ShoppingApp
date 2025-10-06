@@ -1,34 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getAllProducts } from '../services/productService'; 
+import { getMyPurchases } from '../services/productService'; 
 import '../css/ReviewModal.css'; 
+import '../css/MyPurchases.css';
 
 async function postReviewAPI(reviewData, token) {
-    const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(reviewData)
-    });
-    if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.message || "Failed to post review.");
-    }
+    const res = await fetch('/api/reviews', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify(reviewData) });
+    if (!res.ok) { const errData = await res.json(); throw new Error(errData.message || "Failed to post review."); }
     return res.json();
 }
 
 async function postReportAPI(reportData, token) {
-    const res = await fetch('/api/reports', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify(reportData)
-    });
-    if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.message || "Failed to post report.");
-    }
+    const res = await fetch('/api/reports', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify(reportData) });
+    if (!res.ok) { const errData = await res.json(); throw new Error(errData.message || "Failed to post report."); }
     return res.json();
 }
 
@@ -50,169 +34,145 @@ export default function MyPurchases() {
     const loadPurchases = useCallback(async () => {
         if (!user) return;
         setLoading(true);
+        setError(''); // Resetiraj grešku na početku
         try {
-            const allProducts = await getAllProducts();
-            const mySoldProducts = allProducts.filter(p => 
-                p.status === 'Sold' && String(p.kupacId) === String(user.id)
-            );
+            const mySoldProducts = await getMyPurchases();  
             setPurchases(mySoldProducts);
-        } catch (error) {
-            console.error("Failed to load purchases:", error);
-            setError("Greška pri učitavanju kupovina.");
-        } finally {
-            setLoading(false);
+        } catch (error) { 
+            console.error("DETALJNA GREŠKA PRI UČITAVANJU KUPOVINA:", error); // Detaljniji log
+        setError(error.message); // Postavi točnu poruku o grešci
+        } finally { 
+            setLoading(false); 
         }
     }, [user]);
 
-    useEffect(() => {
-        loadPurchases();
+    useEffect(() => { 
+        loadPurchases(); 
     }, [loadPurchases]);
 
-    const openReviewModal = (product) => {
-        setSelectedProductForReview(product);
-        setRating(0);
-        setComment('');
-        setIsReviewModalOpen(true);
+    const openReviewModal = (product) => { 
+        setSelectedProductForReview(product); 
+        setRating(0); 
+        setComment(''); 
+        setIsReviewModalOpen(true); 
     };
-
-    const closeReviewModal = () => {
-        setIsReviewModalOpen(false);
-        setSelectedProductForReview(null);
+    const closeReviewModal = () => { 
+        setIsReviewModalOpen(false); 
+        setSelectedProductForReview(null); 
     };
-
     const handleReviewSubmit = async () => {
-        if (rating === 0) {
-            alert("Molimo odaberite ocjenu (1-5).");
-            return;
+        if (rating === 0) { 
+            alert("Please select a rating (1-5)."); 
+            return; 
         }
         const token = localStorage.getItem('token');
-        const reviewData = {
-            ocjena: rating,
-            komentar: comment,
-            productId: selectedProductForReview.id,
-            receiverId: selectedProductForReview.prodavacId
+        const reviewData = { 
+            ocjena: rating, 
+            komentar: comment, 
+            productId: selectedProductForReview.id, 
+            receiverId: selectedProductForReview.prodavacId 
         };
         try {
             await postReviewAPI(reviewData, token);
-            alert("Recenzija uspješno poslana!");
+            alert("Review submitted successfully!");
             closeReviewModal();
             loadPurchases(); 
-        } catch (err) {
-            alert(`Greška: ${err.message}`);
+        } catch (err) { 
+            alert(`Error: ${err.message}`); 
         }
     };
 
-    const openReportModal = (product) => {
-        setSelectedProductForReport(product);
-        setReportReason('');
-        setIsReportModalOpen(true);
+    const openReportModal = (product) => { 
+        setSelectedProductForReport(product); 
+        setReportReason(''); 
+        setIsReportModalOpen(true); 
     };
-
-    const closeReportModal = () => {
-        setIsReportModalOpen(false);
-        setSelectedProductForReport(null);
+    const closeReportModal = () => { 
+        setIsReportModalOpen(false); 
+        setSelectedProductForReport(null); 
     };
-
     const handleReportSubmit = async () => {
-        if (reportReason.trim() === '') {
-            alert("Molimo unesite razlog prijave.");
-            return;
+        if (reportReason.trim() === '') { 
+            alert("Please enter a reason for the report."); 
+            return; 
         }
         const token = localStorage.getItem('token');
-        const reportData = {
-            razlog: reportReason,
-            productId: selectedProductForReport.id,
+        const reportData = { 
+            razlog: reportReason, 
+            productId: selectedProductForReport.id 
         };
         try {
             await postReportAPI(reportData, token);
-            alert("Prijava uspješno poslana administratoru na pregled.");
+            alert("Report sent to administrator for review.");
             closeReportModal();
-        } catch (err) {
-            alert(`Greška: ${err.message}`);
+        } catch (err) { 
+            alert(`Error: ${err.message}`); 
         }
     };
 
-    if (loading) return <h2>Učitavanje...</h2>;
+    if (loading) return <h2>Loading...</h2>;
 
     return (
-        <div className="container" style={{ paddingTop: '100px' }}>
-            <h2>Moje Kupovine</h2>
-            {error && <p className="alert alert-danger">{error}</p>}
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Proizvod</th>
-                        <th>Status</th>
-                        <th style={{width: '220px'}}>Akcije</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {purchases.map(product => (
-                        <tr key={product.id}>
-                            <td>{product.name}</td>
-                            <td><span className="badge bg-success">{product.status}</span></td>
-                            <td>
-                                <button 
-                                    className="btn btn-sm btn-primary me-2" 
-                                    onClick={() => openReviewModal(product)}
-                                >
-                                    Ocijeni
-                                </button>
-                                <button 
-                                    className="btn btn-sm btn-danger" 
-                                    onClick={() => openReportModal(product)}
-                                >
-                                    Prijavi Prodavca
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            {purchases.length === 0 && !loading && <p>Nemate završenih kupovina.</p>}
+        <div className="purchases-page">
+            <div className="container">
+                <h2>My Purchases</h2>
+                {error && <p className="alert alert-danger">{error}</p>}
+                
+                {purchases.length > 0 ? (
+                    purchases.map(product => (
+                        <div key={product.id} className="purchase-card">
+                            <img src={product.image || '/placeholder.png'} alt={product.name} className="purchase-image" />
+                            <div className="purchase-details">
+                                <h3>{product.name}</h3>
+                                <div className="purchase-info">
+                                    <span>Status: <strong className="text-success">{product.status}</strong></span>
+                                    <span className="mx-3">|</span>
+                                    <span>Final Price: <strong>${product.finalnaCena || product.price}</strong></span>
+                                </div>
+                                <div className="purchase-actions">
+                                    <button 
+                                        className="btn btn-primary" 
+                                        onClick={() => openReviewModal(product)}
+                                    >
+                                        Rate Seller
+                                    </button>
+                                    <button 
+                                        className="btn btn-outline-danger" 
+                                        onClick={() => openReportModal(product)}
+                                    >
+                                        Report Seller
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p className="text-center">You have no completed purchases yet.</p>
+                )}
+            </div>
 
-            {/* MODAL ZA RECENZIJE */}
+            {/* Modali */}
             {isReviewModalOpen && (
                 <div className="modal-backdrop">
                     <div className="modal">
-                        <h3>Ocijenite kupovinu za "{selectedProductForReview.name}"</h3>
-                        <div className="rating-stars">
-                            {[1, 2, 3, 4, 5].map(star => (
-                                <span 
-                                    key={star}
-                                    className={star <= rating ? 'star-filled' : 'star-empty'}
-                                    onClick={() => setRating(star)}
-                                >
-                                    ★
-                                </span>
-                            ))}
-                        </div>
-                        <textarea 
-                            value={comment} 
-                            onChange={(e) => setComment(e.target.value)} 
-                            placeholder="Vaš komentar (opcionalno)..."
-                        />
+                        <h3>Rate your purchase for "{selectedProductForReview.name}"</h3>
+                        <div className="rating-stars">{[1, 2, 3, 4, 5].map(star => (<span key={star} className={star <= rating ? 'star-filled' : 'star-empty'} onClick={() => setRating(star)}>★</span>))}</div>
+                        <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Your comment (optional)..." />
                         <div className="modal-buttons">
-                            <button onClick={handleReviewSubmit}>Pošalji recenziju</button>
-                            <button onClick={closeReviewModal}>Otkaži</button>
+                            <button onClick={handleReviewSubmit}>Submit Review</button>
+                            <button onClick={closeReviewModal}>Cancel</button>
                         </div>
                     </div>
                 </div>
             )}
-
-            {/* MODAL ZA PRIJAVU */}
             {isReportModalOpen && (
                 <div className="modal-backdrop">
                     <div className="modal">
-                        <h3>Prijavi prodavca za "{selectedProductForReport.name}"</h3>
-                        <textarea 
-                            value={reportReason} 
-                            onChange={(e) => setReportReason(e.target.value)} 
-                            placeholder="Unesite razlog prijave (npr. niste dobili proizvod, oštećen je...)"
-                        />
+                        <h3>Report seller for "{selectedProductForReport.name}"</h3>
+                        <textarea value={reportReason} onChange={(e) => setReportReason(e.target.value)} placeholder="Enter the reason for the report (e.g., product not received, item damaged...)" />
                         <div className="modal-buttons">
-                            <button onClick={handleReportSubmit}>Pošalji prijavu</button>
-                            <button onClick={closeReportModal}>Otkaži</button>
+                            <button onClick={handleReportSubmit}>Send Report</button>
+                            <button onClick={closeReportModal}>Cancel</button>
                         </div>
                     </div>
                 </div>

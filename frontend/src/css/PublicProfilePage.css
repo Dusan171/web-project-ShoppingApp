@@ -1,0 +1,92 @@
+.public-profile-page {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-color: #f8f9fa;
+}
+
+.profile-header-card {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.profile-header-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.profile-header-info h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.profile-header-info .role-badge {
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.profile-header-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.stat-item {
+    font-size: 1.1rem;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Stilovi za kartice recenzija */
+.review-card {
+    background: white;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    transition: transform 0.2s ease-in-out;
+}
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.review-card .card-body {
+    padding: 25px;
+}
+
+.review-card .card-title {
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+.review-card .card-text {
+    font-style: italic;
+    color: #555;
+    font-size: 1.1rem;
+}
+
+.review-card .blockquote-footer {
+    text-align: right;
+    margin-top: 15px;
+}

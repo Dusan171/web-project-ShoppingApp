@@ -649,5 +649,207 @@
     "id": "1759534077086",
     "kupacId": "1758282466938",
     "finalnaCena": 230
+  },
+  {
+    "name": "DUSANAukcija1",
+    "description": "dfsdfsfsd",
+    "price": "150",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "3",
+    "location": {
+      "street": "tttt",
+      "number": "222",
+      "city": "ffff",
+      "postalCode": "22222222222",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 200,
+        "kupacId": "1759754539826",
+        "datum": "2025-10-06T12:48:52.054Z"
+      },
+      {
+        "cena": 170,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-06T12:48:08.337Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-06T12:46:07.391Z",
+    "prodavacId": "1758225075304",
+    "id": "1759754767401",
+    "kupacId": "1759754539826",
+    "finalnaCena": 200
+  },
+  {
+    "name": "FiksnaDusan",
+    "description": "dfdfsfs",
+    "price": "250",
+    "image": "",
+    "salesType": "fixedPrice",
+    "categoryId": "2",
+    "location": {
+      "street": "ddddd",
+      "number": "2222",
+      "city": "sssss",
+      "postalCode": "22222",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Active",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-06T12:46:45.606Z",
+    "prodavacId": "1758225075304",
+    "id": "1759754805614"
+  },
+  {
+    "name": "JEDAN",
+    "description": "JEDAN",
+    "price": "5",
+    "image": "",
+    "salesType": "fixedPrice",
+    "categoryId": "2",
+    "location": {
+      "street": "FDFSF",
+      "number": "222",
+      "city": "DSFSDF",
+      "postalCode": "33333",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-06T16:37:36.531Z",
+    "prodavacId": "1759768583596",
+    "id": "1759768656539",
+    "kupacId": "1759754539826"
+  },
+  {
+    "name": "davidims",
+    "description": "dsfsdf",
+    "price": "333",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "2",
+    "location": {
+      "street": "dfdfsdf",
+      "number": "3333",
+      "city": "dffsfsd",
+      "postalCode": "3333",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "DeletedByAdmin",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-06T16:42:00.186Z",
+    "prodavacId": "1759768583596",
+    "id": "1759768920194"
+  },
+  {
+    "name": "kralj1",
+    "description": "sdfsdfs",
+    "price": "24",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "2",
+    "location": {
+      "street": "3sdfsfsdf",
+      "number": "333",
+      "city": "dsfsdf",
+      "postalCode": "2222",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 100,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-06T18:19:58.315Z"
+      },
+      {
+        "cena": 50,
+        "kupacId": "1759754539826",
+        "datum": "2025-10-06T18:19:40.988Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-06T18:18:39.261Z",
+    "prodavacId": "1758225075304",
+    "id": "1759774719270",
+    "kupacId": "1758282466938",
+    "finalnaCena": 100
+  },
+  {
+    "name": "kralj2",
+    "description": "dsfdsfs",
+    "price": "250",
+    "image": "",
+    "salesType": "auction",
+    "categoryId": "2",
+    "location": {
+      "street": "efsdfsdf",
+      "number": "3333",
+      "city": "dfsdfsfs",
+      "postalCode": "31242341",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [
+      {
+        "cena": 270,
+        "kupacId": "1759754539826",
+        "datum": "2025-10-06T18:20:29.691Z"
+      },
+      {
+        "cena": 260,
+        "kupacId": "1758282466938",
+        "datum": "2025-10-06T18:20:06.378Z"
+      }
+    ],
+    "dateOfCreation": "2025-10-06T18:18:59.789Z",
+    "prodavacId": "1758225075304",
+    "id": "1759774739797",
+    "kupacId": "1759754539826",
+    "finalnaCena": 270
+  },
+  {
+    "name": "kralj3",
+    "description": "fiksa",
+    "price": "45",
+    "image": "",
+    "salesType": "fixedPrice",
+    "categoryId": "3",
+    "location": {
+      "street": "dfsfdsfsd",
+      "number": "34242",
+      "city": "dsfsfdsd",
+      "postalCode": "3333",
+      "latitude": "",
+      "longitude": ""
+    },
+    "status": "Sold",
+    "reviewByBuyer": false,
+    "reviewBySeller": false,
+    "ponude": [],
+    "dateOfCreation": "2025-10-06T18:37:17.999Z",
+    "prodavacId": "1758225075304",
+    "id": "1759775838008",
+    "kupacId": "1759754539826"
   }
 ]

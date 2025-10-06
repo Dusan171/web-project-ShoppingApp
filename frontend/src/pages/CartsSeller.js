@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getCartItems, updateCartItem } from "../services/cartItemService";
-import { getAllProducts } from "../services/productService";
+import { getCartItems } from "../services/cartItemService";
+import { getProductsForApproval } from "../services/productService";
 import "../css/cartSeller.css";
 import { useAuth } from "../context/AuthContext";
 
@@ -12,19 +12,16 @@ const CartSeller = () => {
   const [rejectionReason, setRejectionReason] = useState("");
 
  useEffect(() => {
-  const loadItems = async () => {
+   const loadItems = async () => {
     if (!user || user.uloga !== "Prodavac") return;
 
     try {
-      const products = await getAllProducts();
+ 
+      const myProcessingProducts = await getProductsForApproval();
 
-      const myProcessingProducts = products.filter(
-        p => String(p.prodavacId) === String(user.id) && p.status === "Processing"
-      );
+      const allCartItems = await getCartItems();
 
-      const items = await getCartItems();
-
-      const mergedItems = items
+      const mergedItems = allCartItems
         .filter(item => myProcessingProducts.some(p => p.id === item.productId))
         .map(item => {
           const product = myProcessingProducts.find(p => p.id === item.productId);
